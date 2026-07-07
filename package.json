@@ -30,6 +30,7 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts src/react.tsx src/cli.ts --format esm,cjs --dts --clean --splitting false",
+    "build:playground": "vite build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "dev": "vite --host 0.0.0.0",
