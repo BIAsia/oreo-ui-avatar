@@ -9,7 +9,7 @@
 <style>
   :root {
     --bg: #ffffff; --bg-weak: #f5f5f3; --surface: #ffffff;
-    --fg: #1c1c1e; --muted: #57575c; --muted-soft: #85858d; --faint: #b6b6bb;
+    --fg: #1c1c1e; --muted: #57575c; --muted-soft: #6f6f77; --faint: #74747c;
     --border: rgba(0,0,0,.1); --border-strong: rgba(0,0,0,.16);
     --ring: #1c1c1e; --shadow: 0 1px 2px rgba(0,0,0,.05);
     --kw: #8a6fe0; --str: #3f8f5e;
@@ -18,7 +18,7 @@
   }
   :root[data-theme="dark"] {
     --bg: #0b0b0d; --bg-weak: #161619; --surface: #131316;
-    --fg: #f1f1f4; --muted: #9f9fa6; --muted-soft: #8a8a90; --faint: #5a5a61;
+    --fg: #f1f1f4; --muted: #a8a8af; --muted-soft: #98989f; --faint: #85858d;
     --border: rgba(255,255,255,.12); --border-strong: rgba(255,255,255,.2);
     --ring: #f1f1f4; --shadow: 0 1px 2px rgba(0,0,0,.4);
     --kw: #b6a4f0; --str: #6cc695;
@@ -36,6 +36,9 @@
   ::selection { background: rgba(138,111,224,.22); }
   .mono { font-family: var(--mono); }
   button { font-family: inherit; }
+  button:focus-visible, a:focus-visible, summary:focus-visible, input:focus-visible {
+    outline: 2px solid var(--ring); outline-offset: 2px;
+  }
 
   .app { display: grid; grid-template-columns: 384px minmax(0,1fr); height: 100%; }
 
@@ -95,9 +98,16 @@
   .preview .pname { font-size: 15px; font-weight: 560; letter-spacing: -0.01em; }
   .preview .psub { font-size: 12.5px; color: var(--muted); margin-top: 1px; }
   .preview .pid { font-family: var(--mono); font-size: 10.5px; color: var(--faint); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
-  .reroll { cursor: pointer; color: var(--muted-soft); display: inline-flex; }
+  .reroll { cursor: pointer; color: var(--muted-soft); display: inline-flex; padding: 0; border: 0; background: none; }
   .reroll:hover { color: var(--fg); }
   .reroll svg { width: 12px; height: 12px; }
+  .surprise {
+    display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; padding: 5px 8px;
+    border: .5px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--muted);
+    font-size: 10.5px; font-weight: 550; cursor: pointer; transition: .15s;
+  }
+  .surprise:hover { color: var(--fg); border-color: var(--border-strong); }
+  .surprise svg { width: 11px; height: 11px; }
 
   /* shape grid */
   .shapes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -115,6 +125,22 @@
   .pal-cur { display: flex; align-items: center; gap: 11px; }
   .strip { display: grid; grid-template-columns: repeat(9, 1fr); gap: 3px; flex: 1; }
   .strip i { height: 16px; border-radius: 4px; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.08); }
+
+  /* progressive panels */
+  .panel { border: .5px solid var(--border); border-radius: 12px; background: var(--surface); overflow: clip; }
+  .panel summary {
+    display: flex; align-items: center; gap: 10px; min-height: 42px; padding: 0 12px;
+    color: var(--fg); font-size: 11.5px; font-weight: 600; cursor: pointer; list-style: none;
+  }
+  .panel summary::-webkit-details-marker { display: none; }
+  .panel summary::after {
+    content: ""; width: 6px; height: 6px; margin-left: auto; border-right: 1px solid var(--muted-soft);
+    border-bottom: 1px solid var(--muted-soft); transform: rotate(45deg); transition: transform .18s ease;
+  }
+  .panel[open] summary::after { transform: rotate(225deg); }
+  .panel summary .summary-meta { color: var(--muted-soft); font-size: 10.5px; font-weight: 450; }
+  .panel-body { display: flex; flex-direction: column; gap: 20px; padding: 4px 12px 14px; border-top: .5px solid var(--border); }
+  .output-panel .panel-body { gap: 0; padding-top: 12px; }
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 7px;
     font-size: 12.5px; font-weight: 500; cursor: pointer;
@@ -168,34 +194,45 @@
   .main::-webkit-scrollbar { width: 11px; }
   .main::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 11px; border: 3px solid var(--bg); }
   .toolbar {
-    position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 10px; flex-wrap: nowrap;
     padding: 13px 28px; background: color-mix(in srgb, var(--bg) 86%, transparent);
     backdrop-filter: blur(10px); border-bottom: .5px solid var(--border);
   }
-  .chips { display: flex; gap: 4px; flex-wrap: wrap; }
+  .chips { display: flex; gap: 4px; flex-wrap: nowrap; min-width: 0; }
   .chip {
     font-size: 12.5px; font-weight: 500; color: var(--muted); cursor: pointer;
     border: .5px solid var(--border); background: var(--surface); padding: 6px 13px; border-radius: 999px; transition: .14s;
   }
   .chip:hover { color: var(--fg); border-color: var(--border-strong); }
   .chip.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-  .count { margin-left: auto; font-size: 12px; color: var(--muted-soft); font-variant-numeric: tabular-nums; }
+  .shuffle-grid {
+    display: inline-flex; align-items: center; gap: 6px; margin-left: auto; flex: none; padding: 6px 9px;
+    border: .5px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--muted);
+    font-size: 11.5px; font-weight: 550; cursor: pointer; transition: .14s;
+  }
+  .shuffle-grid:hover { color: var(--fg); border-color: var(--border-strong); }
+  .shuffle-grid svg { width: 12px; height: 12px; }
+  .shuffle-grid[hidden] { display: none; }
+  .count { flex: none; font-size: 12px; color: var(--muted-soft); font-variant-numeric: tabular-nums; }
 
   .grid-scroll { padding: 24px 28px 60px; }
   .group + .group { margin-top: 30px; }
   .group-head { display: flex; align-items: baseline; gap: 10px; margin: 0 0 14px; }
   .group-head h3 { margin: 0; font-size: 14px; font-weight: 560; letter-spacing: -0.01em; }
   .group-head p { margin: 0; font-size: 12px; color: var(--muted-soft); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
   .cell {
     display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer;
     padding: 14px 8px 10px; border: .5px solid transparent; border-radius: 13px; background: transparent; transition: .14s;
   }
   .cell:hover { background: var(--bg-weak); border-color: var(--border); }
   .cell.sel { border-color: var(--ring); box-shadow: inset 0 0 0 1px var(--ring); background: var(--bg-weak); }
-  .cell .av { width: 56px; height: 56px; transition: transform .3s cubic-bezier(.34,1.3,.5,1); }
+  .cell .av { width: 60px; height: 60px; transition: transform .3s cubic-bezier(.34,1.3,.5,1); }
   .cell:hover .av { transform: scale(1.07); }
   .cell .cap { font-size: 10.5px; color: var(--muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cell .cap.mixed { display: grid; gap: 1px; width: 100%; text-align: center; line-height: 1.35; white-space: normal; }
+  .cell .cap.mixed .shape-name { color: var(--fg); font-weight: 580; }
+  .cell .cap.mixed .palette-name { color: var(--muted-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .av img { width: 100%; height: 100%; display: block; }
 
   @media (max-width: 860px) {
@@ -203,7 +240,27 @@
     .app { grid-template-columns: 1fr; height: auto; }
     .sidebar { border-right: 0; border-bottom: .5px solid var(--border); }
     .sb-head { position: static; }
-    .toolbar { top: 0; }
+    .sb-body { padding: 16px; gap: 16px; }
+    .shape-field, .sb-foot { display: none; }
+    .preview { padding: 13px; }
+    .preview .av { width: 64px; height: 64px; }
+    .toolbar { top: 0; padding: 9px 16px; gap: 8px; }
+    .chips { flex: 1; overflow-x: auto; padding: 2px; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { flex: none; padding: 6px 11px; }
+    .shuffle-grid span { display: none; }
+    .count { font-size: 11px; }
+    .grid-scroll { padding: 16px 16px 48px; }
+    .group + .group { margin-top: 24px; }
+    .group-head { align-items: flex-start; flex-direction: column; gap: 2px; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+    .cell { padding: 12px 6px 9px; }
+    .cell .av { width: 56px; height: 56px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    .cell:hover .av { transform: none; }
   }
 </style>
 </head>
@@ -217,7 +274,7 @@
       <a class="icon-btn" href="https://github.com/BIAsia/oreo-ui-avatar" target="_blank" rel="noopener" aria-label="GitHub">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.34c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.52.56.83 1.28.83 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg>
       </a>
-      <button class="icon-btn theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <svg class="sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="3.2"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9 13 13M13 3l-1.1 1.1M4.1 11.9 3 13"/></svg>
         <svg class="moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M13.5 9.3A5.6 5.6 0 0 1 6.7 2.5 5.6 5.6 0 1 0 13.5 9.3Z"/></svg>
       </button>
@@ -235,62 +292,70 @@
         <div class="meta">
           <div class="pname" id="preview-shape">Bloom</div>
           <div class="psub" id="preview-pal">Rose Milk</div>
-          <div class="pid"><span id="preview-id">variant a1f3</span><span class="reroll" id="reroll" title="New variant"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h2.6l6.8 8H14M2 12h2.6l2.2-2.6M11.4 4H14M12.6 2.6 14 4l-1.4 1.4M12.6 10.6 14 12l-1.4 1.4"/></svg></span></div>
+          <div class="pid"><span id="preview-id">variant a1f3</span><button class="reroll" id="reroll" type="button" title="New variant" aria-label="Generate a new variant"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h2.6l6.8 8H14M2 12h2.6l2.2-2.6M11.4 4H14M12.6 2.6 14 4l-1.4 1.4M12.6 10.6 14 12l-1.4 1.4"/></svg></button></div>
+          <button class="surprise" id="randomize" type="button"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h2.6l6.8 8H14M2 12h2.6l2.2-2.6M11.4 4H14M12.6 2.6 14 4l-1.4 1.4M12.6 10.6 14 12l-1.4 1.4"/></svg>Surprise me</button>
         </div>
       </div>
 
-      <div class="field">
+      <div class="field shape-field">
         <div class="label">Shape</div>
         <div class="shapes" id="shapes"></div>
       </div>
 
       <div class="field">
-        <div class="label"><span>Palette</span><a id="randomize">Randomize</a></div>
+        <div class="label"><span>Palette</span><span class="v">9 color tokens</span></div>
         <div class="pal-cur">
           <span class="strip" id="strip"></span>
         </div>
       </div>
 
-      <div class="field">
-        <div class="label"><span>Tone</span><a id="reset-tone">Reset</a></div>
-        <div class="tone">
-          <div>
-            <div class="label" style="font-weight:500;color:var(--muted-soft)"><span>Hue</span><span class="v" id="hue-v">0°</span></div>
-            <input type="range" id="hue" min="0" max="360" step="1" value="0" />
+      <details class="panel tune-panel">
+        <summary><span>Fine tune</span><span class="summary-meta">Tone, drift &amp; variant</span></summary>
+        <div class="panel-body">
+          <div class="field">
+            <div class="label"><span>Tone</span><button class="reroll" id="reset-tone" type="button">Reset</button></div>
+            <div class="tone">
+              <div>
+                <label class="label" for="hue" style="font-weight:500;color:var(--muted-soft)"><span>Hue</span><span class="v" id="hue-v">0°</span></label>
+                <input type="range" id="hue" min="0" max="360" step="1" value="0" />
+              </div>
+              <div>
+                <label class="label" for="chroma" style="font-weight:500;color:var(--muted-soft)"><span>Chroma</span><span class="v" id="chroma-v">100%</span></label>
+                <input type="range" id="chroma" min="0.45" max="1.55" step="0.01" value="1" />
+              </div>
+              <div>
+                <label class="label" for="light" style="font-weight:500;color:var(--muted-soft)"><span>Lightness</span><span class="v" id="light-v">0.00</span></label>
+                <input type="range" id="light" min="-0.18" max="0.18" step="0.01" value="0" />
+              </div>
+            </div>
           </div>
-          <div>
-            <div class="label" style="font-weight:500;color:var(--muted-soft)"><span>Chroma</span><span class="v" id="chroma-v">100%</span></div>
-            <input type="range" id="chroma" min="0.45" max="1.55" step="0.01" value="1" />
-          </div>
-          <div>
-            <div class="label" style="font-weight:500;color:var(--muted-soft)"><span>Lightness</span><span class="v" id="light-v">0.00</span></div>
-            <input type="range" id="light" min="-0.18" max="0.18" step="0.01" value="0" />
-          </div>
-        </div>
-      </div>
 
-      <div class="field">
-        <div class="label"><span>Drift</span><span class="v" id="drift-v">8</span></div>
-        <input type="range" id="drift" min="0" max="24" step="1" value="8" />
-        <input class="text-in" id="variant" value="a1f3" spellcheck="false" aria-label="Variant ID" />
-      </div>
+          <div class="field">
+            <label class="label" for="drift"><span>Drift</span><span class="v" id="drift-v">8</span></label>
+            <input type="range" id="drift" min="0" max="24" step="1" value="8" />
+            <input class="text-in" id="variant" value="a1f3" spellcheck="false" aria-label="Variant ID" />
+          </div>
+        </div>
+      </details>
 
-      <div class="field">
-        <div class="label">Output</div>
-        <div class="seg" id="tab-seg">
-          <div class="seg-ind" id="tab-ind"></div>
-          <button class="seg-btn active" data-tab="react">React</button>
-          <button class="seg-btn" data-tab="core">createAvatar</button>
-          <button class="seg-btn" data-tab="svg">SVG</button>
+      <details class="panel output-panel" id="output-panel" open>
+        <summary><span>Output</span><span class="summary-meta">Copy or download</span></summary>
+        <div class="panel-body">
+          <div class="seg" id="tab-seg">
+            <div class="seg-ind" id="tab-ind"></div>
+            <button class="seg-btn active" type="button" data-tab="react" aria-pressed="true">React</button>
+            <button class="seg-btn" type="button" data-tab="core" aria-pressed="false">createAvatar</button>
+            <button class="seg-btn" type="button" data-tab="svg" aria-pressed="false">SVG</button>
+          </div>
+          <div class="code-body">
+            <button class="copy-btn" id="code-copy" type="button"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M3.5 10.5h-1a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v1"/></svg>Copy</button>
+            <pre id="code-out"></pre>
+          </div>
+          <div class="out-actions">
+            <button class="btn dark full" id="download" type="button"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>Download SVG</button>
+          </div>
         </div>
-        <div class="code-body">
-          <button class="copy-btn" id="code-copy"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M3.5 10.5h-1a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v1"/></svg>Copy</button>
-          <pre id="code-out"></pre>
-        </div>
-        <div class="out-actions">
-          <button class="btn dark full" id="download"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>Download SVG</button>
-        </div>
-      </div>
+      </details>
     </div>
 
     <div class="sb-foot">
@@ -303,7 +368,8 @@
   <main class="main">
     <div class="toolbar">
       <div class="chips" id="chips"></div>
-      <span class="count" id="count"></span>
+      <button class="shuffle-grid" id="shuffle-grid" type="button" aria-label="Shuffle all avatars"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h2.6l6.8 8H14M2 12h2.6l2.2-2.6M11.4 4H14M12.6 2.6 14 4l-1.4 1.4M12.6 10.6 14 12l-1.4 1.4"/></svg><span>Shuffle</span></button>
+      <span class="count" id="count" aria-live="polite"></span>
     </div>
     <div class="grid-scroll" id="grid-scroll"></div>
   </main>
@@ -518,49 +584,78 @@ function imgFor(opts){return `<img src="${createAvatar({...opts,background:null}
 const savedTheme=localStorage.getItem("oa-theme");
 if(savedTheme)root.setAttribute("data-theme",savedTheme);
 else if(matchMedia("(prefers-color-scheme: dark)").matches)root.setAttribute("data-theme","dark");
-$("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);});
+function syncThemeToggle(){const isDark=root.getAttribute("data-theme")==="dark";$("theme-toggle").setAttribute("aria-pressed",String(isDark));$("theme-toggle").setAttribute("aria-label",isDark?"Switch to light theme":"Switch to dark theme");}
+syncThemeToggle();
+$("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);syncThemeToggle();});
 
 /* state */
 const state={shape:"bloom",palette:"rose-milk",hue:getPaletteMainHue(getPalette("rose-milk").colors),chroma:1,lightness:0,drift:8,variantId:"a1f3"};
 function curTone(){const main=getPaletteMainHue(getPalette(state.palette).colors);const t={};if(Math.round(state.hue)!==main)t.hue=state.hue;if(state.chroma!==1)t.chroma=state.chroma;if(state.lightness!==0)t.lightness=state.lightness;return t;}
 function fullTone(){return{hue:state.hue,chroma:state.chroma,lightness:state.lightness};}
 
-/* ---- build static grid (presets, default tone) ---- */
+/* ---- build gallery grid (presets, default tone) ---- */
 const chipDefs=[{id:"all",name:"All"},...shapes.map(s=>({id:s.id,name:s.name}))];
 let filter="all";
 const chipsEl=$("chips");
-chipDefs.forEach(c=>{const b=document.createElement("button");b.className="chip"+(c.id==="all"?" active":"");b.textContent=c.name;b.dataset.f=c.id;b.addEventListener("click",()=>{filter=c.id;[...chipsEl.children].forEach(x=>x.classList.toggle("active",x.dataset.f===c.id));renderGrid();});chipsEl.appendChild(b);});
-
 const gridScroll=$("grid-scroll");
+const mainEl=document.querySelector(".main");
+function newGridSeed(){const values=new Uint32Array(2);crypto.getRandomValues(values);return `${values[0]}-${values[1]}`;}
+function shuffled(list,seed){return list.map((item,index)=>({item,index,rank:randomFromString(`${seed}:${index}`)})).sort((a,b)=>a.rank-b.rank||a.index-b.index).map(entry=>entry.item);}
+function buildAllCombos(seed){
+  const paletteQueues=new Map(shapes.map(shape=>[shape.id,shuffled(palettes,`${seed}:palette:${shape.id}`)]));
+  const combos=[];
+  for(let round=0;round<palettes.length;round++){
+    shuffled(shapes,`${seed}:shape:${round}`).forEach(shape=>combos.push({shape,pal:paletteQueues.get(shape.id)[round]}));
+  }
+  return combos;
+}
+let allOrderSeed=newGridSeed();
+let allCombos=buildAllCombos(allOrderSeed);
+function syncFilterControls(){
+  [...chipsEl.children].forEach(button=>{const active=button.dataset.f===filter;button.classList.toggle("active",active);button.setAttribute("aria-pressed",String(active));});
+  $("shuffle-grid").hidden=filter!=="all";
+}
+chipDefs.forEach(c=>{
+  const b=document.createElement("button");b.type="button";b.className="chip"+(c.id==="all"?" active":"");b.textContent=c.name;b.dataset.f=c.id;b.setAttribute("aria-pressed",String(c.id==="all"));
+  b.addEventListener("click",()=>{if(filter===c.id)return;filter=c.id;renderGrid();mainEl.scrollTop=0;});
+  chipsEl.appendChild(b);
+});
+$("shuffle-grid").addEventListener("click",()=>{allOrderSeed=newGridSeed();allCombos=buildAllCombos(allOrderSeed);renderGrid();});
+
+function createGridCell(shape,pal,mixed){
+  const cell=document.createElement("button");
+  cell.type="button";cell.className="cell";cell.dataset.shape=shape.id;cell.dataset.pal=pal.id;cell.setAttribute("aria-label",`${shape.name}, ${pal.name}`);
+  const caption=mixed?`<span class="cap mixed"><span class="shape-name">${shape.name}</span><span class="palette-name">${pal.name}</span></span>`:`<span class="cap">${pal.name}</span>`;
+  cell.innerHTML=`<span class="av">${imgFor({shape:shape.id,palette:pal.id,size:64})}</span>${caption}`;
+  cell.addEventListener("click",()=>selectCombo(shape.id,pal.id));
+  return cell;
+}
 function renderGrid(){
   gridScroll.innerHTML="";
-  const list=filter==="all"?shapes:shapes.filter(s=>s.id===filter);
   let count=0;
-  list.forEach(shape=>{
+  if(filter==="all"){
+    const group=document.createElement("div");group.className="group group-all";
+    const g=document.createElement("div");g.className="grid";
+    allCombos.forEach(({shape,pal})=>{count++;g.appendChild(createGridCell(shape,pal,true));});
+    group.appendChild(g);gridScroll.appendChild(group);
+  }else{
+    const shape=getShape(filter);
     const group=document.createElement("div");group.className="group";
     group.innerHTML=`<div class="group-head"><h3>${shape.name}</h3><p>${shape.description}</p></div>`;
     const g=document.createElement("div");g.className="grid";
-    palettes.forEach(pal=>{
-      count++;
-      const cell=document.createElement("button");
-      cell.className="cell"+(shape.id===state.shape&&pal.id===state.palette?" sel":"");
-      cell.dataset.shape=shape.id;cell.dataset.pal=pal.id;
-      cell.innerHTML=`<span class="av">${imgFor({shape:shape.id,palette:pal.id,size:64})}</span><span class="cap">${pal.name}</span>`;
-      cell.addEventListener("click",()=>selectCombo(shape.id,pal.id));
-      g.appendChild(cell);
-    });
+    palettes.forEach(pal=>{count++;g.appendChild(createGridCell(shape,pal,false));});
     group.appendChild(g);gridScroll.appendChild(group);
-  });
+  }
   $("count").textContent=`${count} avatar${count>1?"s":""}`;
-  markGrid();
+  syncFilterControls();markGrid();
 }
-function markGrid(){[...gridScroll.querySelectorAll(".cell")].forEach(c=>c.classList.toggle("sel",c.dataset.shape===state.shape&&c.dataset.pal===state.palette));}
+function markGrid(){[...gridScroll.querySelectorAll(".cell")].forEach(c=>{const selected=c.dataset.shape===state.shape&&c.dataset.pal===state.palette;c.classList.toggle("sel",selected);c.setAttribute("aria-pressed",String(selected));});}
 
 /* ---- shape buttons ---- */
 const shapesEl=$("shapes");
-shapes.forEach(s=>{const b=document.createElement("button");b.className="shape-btn";b.dataset.shape=s.id;b.innerHTML=`<span class="av"></span><span>${s.name}</span>`;b.addEventListener("click",()=>{state.shape=s.id;markShapes();markGrid();render();});shapesEl.appendChild(b);});
+shapes.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="shape-btn";b.dataset.shape=s.id;b.setAttribute("aria-pressed","false");b.innerHTML=`<span class="av"></span><span>${s.name}</span>`;b.addEventListener("click",()=>{state.shape=s.id;markShapes();markGrid();render();});shapesEl.appendChild(b);});
 function refreshShapeButtons(){[...shapesEl.children].forEach(b=>{b.querySelector(".av").innerHTML=imgFor({shape:b.dataset.shape,palette:state.palette,size:64});});}
-function markShapes(){[...shapesEl.children].forEach(b=>b.classList.toggle("active",b.dataset.shape===state.shape));}
+function markShapes(){[...shapesEl.children].forEach(b=>{const active=b.dataset.shape===state.shape;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active));});}
 
 /* ---- selection ---- */
 function selectCombo(shape,pal){
@@ -588,9 +683,24 @@ $("drift").addEventListener("input",e=>{state.drift=+e.target.value;$("drift-v")
 $("variant").addEventListener("input",e=>{state.variantId=e.target.value||"default";render();});
 $("reroll").addEventListener("click",()=>{state.variantId=Math.random().toString(36).slice(2,6);$("variant").value=state.variantId;render();});
 
+/* ---- responsive panels ---- */
+const compactLayout=matchMedia("(max-width: 860px)");
+const outputPanel=$("output-panel");
+function syncOutputPanel(query){outputPanel.open=!query.matches;}
+syncOutputPanel(compactLayout);
+compactLayout.addEventListener("change",event=>syncOutputPanel(event));
+
 /* ---- code tabs ---- */
 let tab="react";
-(function wireSeg(){const seg=$("tab-seg"),ind=$("tab-ind");function move(btn){const r=btn.getBoundingClientRect(),pr=seg.getBoundingClientRect();ind.style.width=r.width+"px";ind.style.transform=`translateX(${r.left-pr.left-3}px)`;}requestAnimationFrame(()=>move(seg.querySelector(".seg-btn.active")));seg.addEventListener("click",e=>{const b=e.target.closest(".seg-btn");if(!b)return;seg.querySelectorAll(".seg-btn").forEach(x=>x.classList.toggle("active",x===b));move(b);tab=b.dataset.tab;render();});window.addEventListener("resize",()=>move(seg.querySelector(".seg-btn.active")));})();
+(function wireSeg(){
+  const seg=$("tab-seg"),ind=$("tab-ind");
+  function move(btn){if(!outputPanel.open)return;const r=btn.getBoundingClientRect(),pr=seg.getBoundingClientRect();ind.style.width=r.width+"px";ind.style.transform=`translateX(${r.left-pr.left-3}px)`;}
+  function syncTabs(active){seg.querySelectorAll(".seg-btn").forEach(button=>{const selected=button===active;button.classList.toggle("active",selected);button.setAttribute("aria-pressed",String(selected));});}
+  requestAnimationFrame(()=>move(seg.querySelector(".seg-btn.active")));
+  seg.addEventListener("click",e=>{const b=e.target.closest(".seg-btn");if(!b)return;syncTabs(b);move(b);tab=b.dataset.tab;render();});
+  outputPanel.addEventListener("toggle",()=>{if(outputPanel.open)requestAnimationFrame(()=>move(seg.querySelector(".seg-btn.active")));});
+  window.addEventListener("resize",()=>move(seg.querySelector(".seg-btn.active")));
+})();
 
 const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 function codeFor(t){
