@@ -89,17 +89,17 @@ Dark mode uses a separate Figma-authored color grammar and light reference for e
 | Flare | Peach Cream |
 | Nova | Aurora Pink |
 | Void | Rose Milk |
-| Jade | Mint Milk |
+| Jade | Jade Cream |
 
 Those reference pairs reproduce the Figma dark color anchors exactly. Other presets preserve the same per-layer relationships by transferring each token's OKLCH deltas from the corresponding light reference.
 
-Chroma transfer is relative to the available sRGB gamut, not an absolute OKLCH `C` ratio. For each color, `Cr = C / Cmax(L, H)`. Dark derivation transfers the selected light token's full OKLCH difference onto its matching Figma dark anchor: `Ld = Lanchor + (Ltarget - Lreference)` and `Crd = Cranchor + (Crtarget - Crreference)`. The result is resolved back to an in-gamut `C` at the target token hue, preserving light-palette contrast instead of compressing it.
+Chroma transfer is relative to the available sRGB gamut, not an absolute OKLCH `C` ratio. For each color, `Cr = C / Cmax(L, H)`. Dark derivation transfers 86% of the selected light token's OKLCH difference onto its matching dark anchor: `Ld = Lanchor + 0.86 × (Ltarget - Lreference)` and `Crd = Cranchor + 0.86 × (Crtarget - Crreference)`. The result is resolved back to an in-gamut `C` at the target token hue, preserving light-palette contrast without copying absolute chroma.
 
-Derived colors also have role-based `Cr` floors: `0.42` for dark endpoints, `0.58` for base, `0.68` for pale, and `0.72–0.82` for the chromatic middle roles (`lobe`, `accent`, `warm`, `cool`, and `beam`). The tone chroma scale applies to these floors too, so every painted dark color responds down to `0`. Figma reference palettes bypass these floors and remain exact.
+Every derived chromatic role currently uses a `Cr` floor of `1`. The tone chroma scale applies to these floors too, so every painted dark color still responds continuously down to `0`. Reference palettes bypass derivative adjustments and remain exact.
 
 Each dark layer transfers the semantic palette direction of the matching light Figma layer. Flare maps its four gradient stops through `pale`, `light`, `warm`, and `accent` in structural order, while its solid base follows `lobe` and its dark endpoint follows `dark`.
 
-Dark derivatives take hue directly from the selected palette token, so one palette keeps the same color identity across all shapes; the Figma anchors provide layer lightness, relative chroma, and effect structure. Dark Flare keeps only its shape-level `lightness: -0.18` adjustment and preserves the selected palette's full relative chroma by default. Figma reference palettes bypass derivative adjustments and remain exact. The preview's lightness control spans `-0.35` to `0.35`.
+Dark derivatives take hue directly from the selected palette token, so one palette keeps the same color identity across all shapes; the dark anchors provide layer lightness, relative chroma, and effect structure. Flare adds a shape-level `lightness: -0.04` adjustment and Bloom adds `lightness: -0.10`; both preserve full relative chroma by default. Reference palettes bypass derivative adjustments and remain exact. The preview's lightness control spans `-0.35` to `0.35`.
 
 ```ts
 const avatar = createAvatar({

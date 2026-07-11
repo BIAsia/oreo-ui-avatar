@@ -79,7 +79,7 @@ describe("@oreo-ui/avatar", () => {
     expect(deriveAppearancePalette(palettes[0], "dark")).toEqual(darkReferencePalette);
   });
 
-  it("renders the exact Figma dark anchors for the reference palette", () => {
+  it("renders the configured dark anchors for the reference palette", () => {
     const references: Record<string, string> = {
       bloom: "rose-milk",
       silk: "rose-milk",
@@ -91,7 +91,7 @@ describe("@oreo-ui/avatar", () => {
     const expected: Record<string, string[]> = {
       bloom: ["#ff7a7c", "#df1c77", "#421d11", "#e22775", "#ff25a1", "#ffb58e"],
       silk: ["#0047c3", "#b4a3ff", "#9086ff", "#1400ae", "#6d56ff", "#4430ff"],
-      flare: ["#000000", "#ff9a44", "#f62b0a", "#170312", "#ff8c79"],
+      flare: ["#000000", "#ff7700", "#ff9d47", "#ffa200", "#f12809", "#170312", "#ff8c79"],
       nova: ["#6550b9", "#ffffff", "#ff0084", "#6aa7ff"],
       void: ["#031a05", "#4229ff", "#57b565", "#000000"],
       jade: ["#031a05", "#08b98d", "#0f9a73", "#5fec83", "#ffffff"],
@@ -110,8 +110,10 @@ describe("@oreo-ui/avatar", () => {
     expect(vivid).toBeGreaterThan(muted);
 
     const reference = createAvatar({ shape: "flare", palette: "peach-cream", appearance: "dark", background: null }).svg;
-    expect(reference).toContain("#ff9a44");
-    expect(reference).toContain("#f62b0a");
+    expect(reference).toContain("#ff7700");
+    expect(reference).toContain("#ff9d47");
+    expect(reference).toContain("#ffa200");
+    expect(reference).toContain("#f12809");
   });
 
   it("preserves every shape layer geometry between light and dark appearances", () => {
@@ -140,7 +142,7 @@ describe("@oreo-ui/avatar", () => {
     expect(bloom).toContain('stop-opacity="0"');
     expect(bloom).not.toContain('shape-rendering="geometricPrecision"');
     expect(flare).toContain('flood-color="#ff8c79" flood-opacity="0.72"');
-    expect(flare).toContain('flood-color="#ff8774" flood-opacity="0.58"');
+    expect(flare).toContain('flood-color="#c4321c" flood-opacity="0.58"');
     expect(flare).toContain('flood-color="#ffffff" flood-opacity="0.32"');
     expect(flare).toContain('stdDeviation="5.614035"');
     expect(flare).toContain('stdDeviation="2.245614"');
@@ -163,9 +165,9 @@ describe("@oreo-ui/avatar", () => {
   it("keeps derived middle colors above their relative-chroma floors", () => {
     const cherryCola = palettes.find(palette => palette.id === "cherry-cola")!;
     const derived = deriveAppearancePalette(cherryCola, "dark");
-    expect(relativeSrgbChroma(hexToOklch(derived.lobe))).toBeGreaterThanOrEqual(0.739);
-    expect(relativeSrgbChroma(hexToOklch(derived.accent))).toBeGreaterThanOrEqual(0.819);
-    expect(relativeSrgbChroma(hexToOklch(derived.beam))).toBeGreaterThanOrEqual(0.779);
+    expect(relativeSrgbChroma(hexToOklch(derived.lobe))).toBeGreaterThanOrEqual(0.98);
+    expect(relativeSrgbChroma(hexToOklch(derived.accent))).toBeGreaterThanOrEqual(0.98);
+    expect(relativeSrgbChroma(hexToOklch(derived.beam))).toBeGreaterThanOrEqual(0.98);
   });
 
   it("keeps Flare derivative layers semantically separated", () => {
@@ -225,10 +227,22 @@ describe("@oreo-ui/avatar", () => {
       shape: "flare",
       palette: "lavender-lime",
       appearance: "dark",
-      tone: { chroma: 1, lightness: -0.18 },
+      tone: { chroma: 1, lightness: -0.04 },
       background: null,
     });
     expect(defaultFlare.usedColors).toEqual(tunedFlare.usedColors);
+  });
+
+  it("uses the tuned dark Bloom derivative as its default", () => {
+    const defaultBloom = createAvatar({ shape: "bloom", palette: "lavender-lime", appearance: "dark", background: null });
+    const tunedBloom = createAvatar({
+      shape: "bloom",
+      palette: "lavender-lime",
+      appearance: "dark",
+      tone: { chroma: 1, lightness: -0.1 },
+      background: null,
+    });
+    expect(defaultBloom.usedColors).toEqual(tunedBloom.usedColors);
   });
 
   it("uses a dark default canvas while preserving explicit transparency", () => {

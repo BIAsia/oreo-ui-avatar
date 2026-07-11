@@ -77,14 +77,14 @@ export const darkShapeAnchors: Record<ShapeId, DarkShapeAnchors> = {
     lightReference: "peach-cream",
     layers: {
       dark: a("#000000", "dark"),
-      base: a("#ff9a44", "lobe"),
-      cream1: a("#ff9a44", "pale"),
-      cream2: a("#f62b0a", "light"),
-      hot1: a("#f62b0a", "warm"),
+      base: a("#ff7700", "lobe"),
+      cream1: a("#ff9d47", "pale"),
+      cream2: a("#ffa200", "light"),
+      hot1: a("#f12809", "warm"),
       hot2: a("#170312", "accent"),
     },
-    frameGlow: glow(a("#ffffff", "light"), a("#ff8774", "pale"), a("#ff8c79", "beam")),
-    innerGlow: glow(a("#ff9de7", "accent"), a("#ed66cb", "accent"), a("#ed66cb", "accent")),
+    frameGlow: glow(a("#ffffff", "light"), a("#c4321c", "pale"), a("#ff8c79", "beam")),
+    innerGlow: glow(a("#f5f5f5", "accent"), a("#eeb463", "accent"), a("#ee6363", "accent")),
   },
 };
 

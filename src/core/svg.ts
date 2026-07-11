@@ -34,7 +34,8 @@ interface GlowPalette {
 }
 
 const darkShapeToneDefaults: Partial<Record<ShapeId, ToneOptions>> = {
-  flare: { lightness: -0.18 },
+  flare: { lightness: -0.04 },
+  bloom: { lightness: -0.1 },
 };
 
 interface RectOptions {
