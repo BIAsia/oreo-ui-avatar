@@ -146,6 +146,11 @@ describe("@oreo-ui/avatar", () => {
     expect(relativeSrgbChroma(hexToOklch(derived.beam))).toBeGreaterThanOrEqual(0.779);
   });
 
+  it("keeps Flare derivative layers semantically separated", () => {
+    const flare = createAvatar({ shape: "flare", palette: "lavender-lime", appearance: "dark", background: null });
+    expect(new Set(flare.usedColors.slice(0, 6)).size).toBeGreaterThanOrEqual(5);
+  });
+
   it("uses a dark default canvas while preserving explicit transparency", () => {
     const opaque = createAvatar({ appearance: "dark" }).svg;
     const transparent = createAvatar({ appearance: "dark", background: null }).svg;

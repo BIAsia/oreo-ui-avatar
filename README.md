@@ -97,6 +97,8 @@ Chroma transfer is relative to the available sRGB gamut, not an absolute OKLCH `
 
 Derived colors also have role-based `Cr` floors: `0.42` for dark endpoints, `0.58` for base, `0.68` for pale, and `0.72–0.82` for the chromatic middle roles (`lobe`, `accent`, `warm`, `cool`, and `beam`). Figma reference palettes bypass these floors and remain exact.
 
+Each dark layer transfers deltas from the same semantic token used by its light counterpart. Layers that share a Figma reference color can therefore separate when another palette supplies different `pale`, `light`, `warm`, or `accent` directions.
+
 ```ts
 const avatar = createAvatar({
   shape: "flare",

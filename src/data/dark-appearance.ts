@@ -67,7 +67,7 @@ export const darkShapeAnchors: Record<ShapeId, DarkShapeAnchors> = {
       dark: a("#0047c3", "dark"),
       base: a("#b4a3ff", "base"),
       warm: a("#9086ff", "warm"),
-      cream1: a("#1400ae", "dark"),
+      cream1: a("#1400ae", "light"),
       cream2: a("#6d56ff", "cool"),
     },
     frameGlow: glow(a("#b58aff", "accent"), a("#1a00df", "cool"), a("#4430ff", "cool")),
@@ -78,13 +78,13 @@ export const darkShapeAnchors: Record<ShapeId, DarkShapeAnchors> = {
     layers: {
       dark: a("#000000", "dark"),
       base: a("#ff9a44", "lobe"),
-      cream1: a("#ff9a44", "lobe"),
-      cream2: a("#f62b0a", "accent"),
-      hot1: a("#f62b0a", "accent"),
-      hot2: a("#170312", "dark"),
+      cream1: a("#ff9a44", "pale"),
+      cream2: a("#f62b0a", "light"),
+      hot1: a("#f62b0a", "warm"),
+      hot2: a("#170312", "accent"),
     },
-    frameGlow: glow(a("#ffffff", "light"), a("#ff8774", "warm"), a("#ff8c79", "warm")),
-    innerGlow: glow(a("#ff9de7", "accent"), a("#ed66cb", "accent"), a("#ed66cb", "accent")),
+    frameGlow: glow(a("#ffffff", "light"), a("#ff8774", "pale"), a("#ff8c79", "beam")),
+    innerGlow: glow(a("#ff9de7", "light"), a("#ed66cb", "pale"), a("#ed66cb", "beam")),
   },
 };
 
