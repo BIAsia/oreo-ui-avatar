@@ -214,7 +214,7 @@ describe("@oreo-ui/avatar", () => {
       shape: "flare",
       palette: "lavender-lime",
       appearance: "dark",
-      tone: { chroma: 0.45, lightness: -0.18 },
+      tone: { chroma: 1, lightness: -0.18 },
       background: null,
     });
     expect(defaultFlare.usedColors).toEqual(tunedFlare.usedColors);

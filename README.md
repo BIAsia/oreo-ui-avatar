@@ -99,7 +99,7 @@ Derived colors also have role-based `Cr` floors: `0.42` for dark endpoints, `0.5
 
 Each dark layer transfers the semantic palette direction of the matching light Figma layer. Flare maps its four gradient stops through `pale`, `light`, `warm`, and `accent` in structural order, while its solid base follows `lobe` and its dark endpoint follows `dark`.
 
-Dark derivatives take hue directly from the selected palette token, so one palette keeps the same color identity across all shapes; the Figma anchors provide layer lightness, relative chroma, and effect structure. Dark Flare keeps its softer shape-level input tone (`chroma: 0.45`, `lightness: -0.18`) without rotating hue. Figma reference palettes bypass derivative adjustments and remain exact. The preview's lightness control spans `-0.35` to `0.35`.
+Dark derivatives take hue directly from the selected palette token, so one palette keeps the same color identity across all shapes; the Figma anchors provide layer lightness, relative chroma, and effect structure. Dark Flare keeps only its shape-level `lightness: -0.18` adjustment and preserves the selected palette's full relative chroma by default. Figma reference palettes bypass derivative adjustments and remain exact. The preview's lightness control spans `-0.35` to `0.35`.
 
 ```ts
 const avatar = createAvatar({
