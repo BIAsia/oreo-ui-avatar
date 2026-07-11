@@ -151,6 +151,18 @@ describe("@oreo-ui/avatar", () => {
     expect(new Set(flare.usedColors.slice(0, 6)).size).toBeGreaterThanOrEqual(5);
   });
 
+  it("uses the tuned dark Flare derivative as its default", () => {
+    const defaultFlare = createAvatar({ shape: "flare", palette: "lavender-lime", appearance: "dark", background: null });
+    const tunedFlare = createAvatar({
+      shape: "flare",
+      palette: "lavender-lime",
+      appearance: "dark",
+      tone: { hue: 227, chroma: 0.45, lightness: -0.18 },
+      background: null,
+    });
+    expect(defaultFlare.usedColors).toEqual(tunedFlare.usedColors);
+  });
+
   it("uses a dark default canvas while preserving explicit transparency", () => {
     const opaque = createAvatar({ appearance: "dark" }).svg;
     const transparent = createAvatar({ appearance: "dark", background: null }).svg;

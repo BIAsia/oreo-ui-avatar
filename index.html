@@ -331,7 +331,7 @@
               </div>
               <div>
                 <label class="label" for="light" style="font-weight:500;color:var(--muted-soft)"><span>Lightness</span><span class="v" id="light-v">0.00</span></label>
-                <input type="range" id="light" min="-0.18" max="0.18" step="0.01" value="0" />
+                <input type="range" id="light" min="-0.35" max="0.35" step="0.01" value="0" />
               </div>
             </div>
           </div>
@@ -415,19 +415,20 @@ function isInSrgb(o){return Object.values(oklchToLinearRgb(o)).every(v=>v>=-0.00
 function maxSrgbChroma(lightness,hue){const l=clamp(lightness,0,1);if(l<=.000001||l>=.999999)return 0;let low=0,high=.4;while(high<1&&isInSrgb({l,c:high,h:hue}))high*=2;for(let pass=0;pass<24;pass++){const c=(low+high)/2;if(isInSrgb({l,c,h:hue}))low=c;else high=c;}return low;}
 function relativeSrgbChroma(o){if(o.c<.0001)return 0;const maximum=maxSrgbChroma(o.l,o.h);return maximum<.0001?0:clamp(o.c/maximum,0,1);}
 function oklchToHexInGamut(o){if(isInSrgb(o))return oklchToHex(o);let low=0,high=Math.max(0,o.c);for(let pass=0;pass<24;pass++){const c=(low+high)/2;if(isInSrgb({...o,c}))low=c;else high=c;}return oklchToHex({...o,c:low});}
-const A=(color,token)=>({color,token}),G=(narrow,medium,wide)=>({narrow,medium,wide});
+const A=(color,token,lightnessOffset)=>({color,token,lightnessOffset}),G=(narrow,medium,wide)=>({narrow,medium,wide});
 const darkShapeAnchors={
   nova:{lightReference:"aurora-pink",layers:{base:A("#6550b9","cool"),light:A("#ffffff","light"),hot:A("#ff0084","accent")},frameGlow:G(A("#ffffff","light"),A("#0958ca","cool"),A("#6aa7ff","cool"))},
   void:{lightReference:"rose-milk",layers:{base:A("#031a05","dark"),core:A("#4229ff","cool"),beam:A("#57b565","beam")},frameGlow:G(A("#000000","dark"),A("#71abff","cool"),A("#71abff","cool"))},
   jade:{lightReference:"mint-milk",layers:{base1:A("#031a05","dark"),base2:A("#08b98d","lobe"),milk:A("#0f9a73","pale"),glow1:A("#5fec83","beam"),glow2:A("#ffffff","light")},frameGlow:G(A("#ffffff","light"),A("#00c48c","beam"),A("#5fec83","beam"))},
   bloom:{lightReference:"rose-milk",layers:{base:A("#a6a1f5","base"),blob:A("#8c88f7","lobe"),hot:A("#b51b87","accent")},frameGlow:G(A("#000000","light"),A("#5900f1","pale"),A("#bc8cff","pale"))},
   silk:{lightReference:"rose-milk",layers:{dark:A("#0047c3","dark"),base:A("#b4a3ff","base"),warm:A("#9086ff","warm"),cream1:A("#1400ae","light"),cream2:A("#6d56ff","cool")},frameGlow:G(A("#b58aff","accent"),A("#1a00df","cool"),A("#4430ff","cool")),innerGlow:G(A("#ff9de7","accent"),A("#0047c3","dark"),A("#0047c3","dark"))},
-  flare:{lightReference:"peach-cream",layers:{dark:A("#000000","dark"),base:A("#ff9a44","lobe"),cream1:A("#ff9a44","pale"),cream2:A("#f62b0a","light"),hot1:A("#f62b0a","warm"),hot2:A("#170312","accent")},frameGlow:G(A("#ffffff","light"),A("#ff8774","pale"),A("#ff8c79","beam")),innerGlow:G(A("#ff9de7","light"),A("#ed66cb","pale"),A("#ed66cb","beam"))},
+  flare:{lightReference:"peach-cream",layers:{dark:A("#000000","dark"),base:A("#ff9a44","lobe"),cream1:A("#ff9a44","lobe",.035),cream2:A("#f62b0a","accent",.025),hot1:A("#f62b0a","accent",-.035),hot2:A("#170312","dark")},frameGlow:G(A("#ffffff","light"),A("#ff8774","warm"),A("#ff8c79","warm",.025)),innerGlow:G(A("#ff9de7","accent"),A("#ed66cb","accent"),A("#ed66cb","accent",.025))},
 };
 const darkReferencePalette={base:"#b1e7ff",lobe:"#58e0ff",accent:"#ff5ad5",pale:"#0e82a3",light:"#ffffff",warm:"#1e0af6",cool:"#6aa7ff",dark:"#031a05",beam:"#57b565"};
 const darkRelativeChromaFloor={base:.58,lobe:.74,accent:.82,pale:.68,light:0,warm:.76,cool:.72,dark:.42,beam:.78};
+const darkShapeToneDefaults={flare:{hueOffset:-67,chroma:.45,lightness:-.18}};
 function hueDelta(target,source){const d=normalizeHue(target-source);return d>180?d-360:d;}
-function deriveDarkAnchorColor(anchor,colors,referenceColors=palettes[0].colors){const base=hexToOklch(anchor.color),reference=hexToOklch(referenceColors[anchor.token]),target=hexToOklch(colors[anchor.token]),referenceAccent=hexToOklch(referenceColors.accent),targetAccent=hexToOklch(colors.accent);const shift=reference.c>=.006&&target.c>=.006?hueDelta(target.h,reference.h):hueDelta(targetAccent.h,referenceAccent.h),referenceRelative=relativeSrgbChroma(reference),targetRelative=relativeSrgbChroma(target),baseRelative=relativeSrgbChroma(base),isReference=paletteTokenOrder.every(token=>colors[token].toLowerCase()===referenceColors[token].toLowerCase()),chromaScale=referenceRelative>=.006?clamp(targetRelative/referenceRelative,.55,1.45):1,lightnessShift=clamp((target.l-reference.l)*.35,-.12,.12),lightness=clamp(base.l+lightnessShift*(base.c<.006?.5:1),.03,.999999),hue=base.h+shift,relative=base.c<.006?0:clamp(Math.max(baseRelative*chromaScale,isReference?0:darkRelativeChromaFloor[anchor.token]),0,1);return oklchToHexInGamut({l:lightness,c:relative*maxSrgbChroma(lightness,hue),h:hue});}
+function deriveDarkAnchorColor(anchor,colors,referenceColors=palettes[0].colors){const base=hexToOklch(anchor.color),reference=hexToOklch(referenceColors[anchor.token]),target=hexToOklch(colors[anchor.token]),referenceAccent=hexToOklch(referenceColors.accent),targetAccent=hexToOklch(colors.accent);const shift=reference.c>=.006&&target.c>=.006?hueDelta(target.h,reference.h):hueDelta(targetAccent.h,referenceAccent.h),referenceRelative=relativeSrgbChroma(reference),targetRelative=relativeSrgbChroma(target),baseRelative=relativeSrgbChroma(base),isReference=paletteTokenOrder.every(token=>colors[token].toLowerCase()===referenceColors[token].toLowerCase()),chromaScale=referenceRelative>=.006?clamp(targetRelative/referenceRelative,.55,1.45):1,lightnessShift=clamp((target.l-reference.l)*.35,-.12,.12),lightness=clamp(base.l+lightnessShift*(base.c<.006?.5:1)+(isReference?0:anchor.lightnessOffset??0),.03,.999999),hue=base.h+shift,relative=base.c<.006?0:clamp(Math.max(baseRelative*chromaScale,isReference?0:darkRelativeChromaFloor[anchor.token]),0,1);return oklchToHexInGamut({l:lightness,c:relative*maxSrgbChroma(lightness,hue),h:hue});}
 function deriveDarkGlow(anchors,colors,referenceColors=palettes[0].colors){return{white:deriveDarkAnchorColor(anchors.narrow,colors,referenceColors),glow1:deriveDarkAnchorColor(anchors.medium,colors,referenceColors),glow2:deriveDarkAnchorColor(anchors.wide,colors,referenceColors)};}
 function deriveAppearancePalette(colors,appearance,referenceColors=palettes[0].colors){if(appearance!=="dark")return{...colors};const next={};for(const token of paletteTokenOrder)next[token]=deriveDarkAnchorColor(A(darkReferencePalette[token],token),colors,referenceColors);return next;}
 /* --- data: shapes --- */
@@ -623,7 +624,7 @@ function renderBody(study,id,cx,cy,scale,tw){const t=study.type,dark=study.appea
   return renderJade(id,study.p,study.glow,dark,cx,cy,scale,tw);}
 function createAvatar(options){options=options||{};
   const shape=getShape(options.shape??"bloom");const palette=getPalette(options.palette??"rose-milk");
-  const appearance=options.appearance??"light",hasDarkTone=options.tone&&((options.tone.hue!=null&&Math.round(options.tone.hue)!==getPaletteMainHue(palette.colors))||(options.tone.chroma!=null&&options.tone.chroma!==1)||(options.tone.lightness!=null&&options.tone.lightness!==0)),sourceColors=appearance==="dark"&&!hasDarkTone?{...palette.colors}:derivePalette(palette.colors,options.tone),referenceColors=getPalette(darkShapeAnchors[shape.id].lightReference).colors,colors=deriveAppearancePalette(sourceColors,appearance,referenceColors);const size=options.size??64;
+  const appearance=options.appearance??"light",darkReference=getPalette(darkShapeAnchors[shape.id].lightReference),shapeToneDefault=appearance==="dark"&&palette.id!==darkReference.id?darkShapeToneDefaults[shape.id]:null,darkShapeTone=shapeToneDefault?{hue:shapeToneDefault.hueOffset==null?undefined:normalizeHue(getPaletteMainHue(palette.colors)+shapeToneDefault.hueOffset),chroma:shapeToneDefault.chroma,lightness:shapeToneDefault.lightness}:null,effectiveTone=darkShapeTone||options.tone?{...(darkShapeTone||{}),...(options.tone||{})}:null,hasDarkTone=effectiveTone&&((effectiveTone.hue!=null&&Math.round(effectiveTone.hue)!==getPaletteMainHue(palette.colors))||(effectiveTone.chroma!=null&&effectiveTone.chroma!==1)||(effectiveTone.lightness!=null&&effectiveTone.lightness!==0)),sourceColors=appearance==="dark"&&!hasDarkTone?{...palette.colors}:derivePalette(palette.colors,effectiveTone),referenceColors=darkReference.colors,colors=deriveAppearancePalette(sourceColors,appearance,referenceColors);const size=options.size??64;
   const study={type:shape.id,appearance,geometryKey:shape.name,p:paletteForType(shape.id,sourceColors,appearance,referenceColors),glow:glowForAppearance(shape.id,appearance,sourceColors,referenceColors),innerGlow:innerGlowForAppearance(shape.id,appearance,sourceColors,referenceColors)};
   const variantId=options.variantId??"default",drift=options.drift??0;
   const coordinateSize=64,cx=32,cy=32,scale=1,id=`oreo-${hashString(`${study.type}:${palette.name}:${appearance}:${variantId}:${JSON.stringify(study.p)}`).toString(36)}`;
@@ -654,10 +655,13 @@ if(savedTheme)root.setAttribute("data-theme",savedTheme);
 else if(matchMedia("(prefers-color-scheme: dark)").matches)root.setAttribute("data-theme","dark");
 function syncThemeToggle(){const isDark=root.getAttribute("data-theme")==="dark";$("theme-toggle").setAttribute("aria-pressed",String(isDark));$("theme-toggle").setAttribute("aria-label",isDark?"Switch to light theme":"Switch to dark theme");}
 syncThemeToggle();
-$("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);syncThemeToggle();renderGrid();refreshShapeButtons();render();});
+$("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);syncThemeToggle();resetToneForSelection();renderGrid();refreshShapeButtons();render();});
 
 /* state */
-const state={shape:"bloom",palette:"rose-milk",hue:getPaletteMainHue(getPalette("rose-milk").colors),chroma:1,lightness:0,drift:8,variantId:"a1f3"};
+function defaultTone(shape,palette,appearance=currentAppearance()){const main=getPaletteMainHue(getPalette(palette).colors),reference=darkShapeAnchors[shape].lightReference,bias=appearance==="dark"&&palette!==reference?darkShapeToneDefaults[shape]:null;return{hue:bias?.hueOffset==null?main:normalizeHue(main+bias.hueOffset),chroma:bias?.chroma??1,lightness:bias?.lightness??0};}
+const initialTone=defaultTone("bloom","rose-milk");
+const state={shape:"bloom",palette:"rose-milk",...initialTone,drift:8,variantId:"a1f3"};
+function resetToneForSelection(){Object.assign(state,defaultTone(state.shape,state.palette));syncTone();}
 function curTone(){const main=getPaletteMainHue(getPalette(state.palette).colors);const t={};if(Math.round(state.hue)!==main)t.hue=state.hue;if(state.chroma!==1)t.chroma=state.chroma;if(state.lightness!==0)t.lightness=state.lightness;return t;}
 function fullTone(){return{hue:state.hue,chroma:state.chroma,lightness:state.lightness};}
 
@@ -726,16 +730,14 @@ function markGrid(){[...gridScroll.querySelectorAll(".cell")].forEach(c=>{const 
 
 /* ---- shape buttons ---- */
 const shapesEl=$("shapes");
-shapes.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="shape-btn";b.dataset.shape=s.id;b.setAttribute("aria-pressed","false");b.innerHTML=`<span class="av"></span><span>${s.name}</span>`;b.addEventListener("click",()=>{state.shape=s.id;markShapes();markGrid();render();});shapesEl.appendChild(b);});
+shapes.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="shape-btn";b.dataset.shape=s.id;b.setAttribute("aria-pressed","false");b.innerHTML=`<span class="av"></span><span>${s.name}</span>`;b.addEventListener("click",()=>{state.shape=s.id;resetToneForSelection();markShapes();markGrid();render();});shapesEl.appendChild(b);});
 function refreshShapeButtons(){[...shapesEl.children].forEach(b=>{b.querySelector(".av").innerHTML=imgFor({shape:b.dataset.shape,palette:state.palette,size:avatarDisplaySize("shape")});});}
 function markShapes(){[...shapesEl.children].forEach(b=>{const active=b.dataset.shape===state.shape;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active));});}
 
 /* ---- selection ---- */
 function selectCombo(shape,pal){
   state.shape=shape;state.palette=pal;
-  const main=getPaletteMainHue(getPalette(pal).colors);
-  state.hue=main;state.chroma=1;state.lightness=0;
-  syncTone();markShapes();refreshShapeButtons();markGrid();render();
+  resetToneForSelection();markShapes();refreshShapeButtons();markGrid();render();
 }
 $("randomize").addEventListener("click",()=>{
   const s=shapes[Math.floor(Math.random()*shapes.length)].id;
@@ -754,7 +756,7 @@ function syncTone(){$("hue").value=Math.round(state.hue);$("hue-v").textContent=
 $("hue").addEventListener("input",e=>{state.hue=+e.target.value;$("hue-v").textContent=Math.round(state.hue)+"°";render();});
 $("chroma").addEventListener("input",e=>{state.chroma=+e.target.value;$("chroma-v").textContent=Math.round(state.chroma*100)+"%";render();});
 $("light").addEventListener("input",e=>{state.lightness=+e.target.value;$("light-v").textContent=state.lightness.toFixed(2);render();});
-$("reset-tone").addEventListener("click",()=>{const main=getPaletteMainHue(getPalette(state.palette).colors);state.hue=main;state.chroma=1;state.lightness=0;syncTone();render();});
+$("reset-tone").addEventListener("click",()=>{resetToneForSelection();render();});
 
 /* ---- drift / variant ---- */
 $("drift").addEventListener("input",e=>{state.drift=+e.target.value;$("drift-v").textContent=state.drift;render();});

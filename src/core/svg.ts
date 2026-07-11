@@ -1,10 +1,10 @@
 import { getPalette } from "../data/palettes";
 import { getShape } from "../data/shapes";
 import { darkShapeAnchors } from "../data/dark-appearance";
-import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId } from "../types";
+import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId, ToneOptions } from "../types";
 import { derivePalette, getPaletteMainHue } from "../color/tone";
 import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkGlow } from "../color/appearance";
-import { clamp } from "../color/oklch";
+import { clamp, normalizeHue } from "../color/oklch";
 import { hashString, randomFromString } from "./random";
 
 type LayerPalette =
@@ -32,6 +32,12 @@ interface GlowPalette {
   glow1: string;
   glow2: string;
 }
+
+type ShapeToneDefault = ToneOptions & { hueOffset?: number };
+
+const darkShapeToneDefaults: Partial<Record<ShapeId, ShapeToneDefault>> = {
+  flare: { hueOffset: -67, chroma: 0.45, lightness: -0.18 },
+};
 
 interface RectOptions {
   rotate?: number;
@@ -444,12 +450,27 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
   const palette = getPalette(options.palette);
   const appearance = options.appearance ?? "light";
   const darkReference = getPalette(darkShapeAnchors[shape.id].lightReference);
-  const hasDarkToneAdjustment = options.tone != null && (
-    (options.tone.hue != null && Math.round(options.tone.hue) !== getPaletteMainHue(palette))
-    || (options.tone.chroma != null && options.tone.chroma !== 1)
-    || (options.tone.lightness != null && options.tone.lightness !== 0)
+  const shapeToneDefault = appearance === "dark" && palette.id !== darkReference.id
+    ? darkShapeToneDefaults[shape.id]
+    : undefined;
+  const darkShapeTone = shapeToneDefault == null
+    ? undefined
+    : {
+        chroma: shapeToneDefault.chroma,
+        lightness: shapeToneDefault.lightness,
+        hue: shapeToneDefault.hueOffset == null
+          ? undefined
+          : normalizeHue(getPaletteMainHue(palette) + shapeToneDefault.hueOffset),
+      };
+  const effectiveTone = darkShapeTone == null && options.tone == null
+    ? undefined
+    : { ...darkShapeTone, ...options.tone };
+  const hasDarkToneAdjustment = effectiveTone != null && (
+    (effectiveTone.hue != null && Math.round(effectiveTone.hue) !== getPaletteMainHue(palette))
+    || (effectiveTone.chroma != null && effectiveTone.chroma !== 1)
+    || (effectiveTone.lightness != null && effectiveTone.lightness !== 0)
   );
-  const sourceColors = appearance === "dark" && !hasDarkToneAdjustment ? { ...palette.colors } : derivePalette(palette, options.tone);
+  const sourceColors = appearance === "dark" && !hasDarkToneAdjustment ? { ...palette.colors } : derivePalette(palette, effectiveTone);
   const colors = deriveAppearancePalette(sourceColors, appearance, darkReference);
   const size = options.size ?? 64;
   const study: Study = {
