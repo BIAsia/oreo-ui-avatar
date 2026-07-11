@@ -754,12 +754,13 @@ syncThemeToggle();
 $("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);syncThemeToggle();resetToneForSelection();renderGrid();refreshShapeButtons();render();});
 
 /* state */
-function defaultTone(shape,palette,appearance=currentAppearance()){const main=getPaletteMainHue(getPalette(palette).colors),reference=darkShapeAnchors[shape].lightReference,bias=appearance==="dark"&&palette!==reference?darkShapeToneDefaults[shape]:null;return{hue:main,chroma:bias?.chroma??1,lightness:bias?.lightness??0};}
+function defaultTone(shape,palette,appearance=currentAppearance()){const main=getPaletteMainHue(getPalette(palette).colors),reference=darkShapeAnchors[shape].lightReference,authoredFlare=appearance==="dark"&&shape==="flare"&&darkFlarePaletteOverrides[palette],bias=appearance==="dark"&&palette!==reference&&!authoredFlare?darkShapeToneDefaults[shape]:null;return{hue:main,chroma:bias?.chroma??1,lightness:bias?.lightness??0};}
 const initialTone=defaultTone("bloom","rose-milk");
 const state={shape:"bloom",palette:"rose-milk",...initialTone,drift:8,variantId:"a1f3"};
 function resetToneForSelection(){Object.assign(state,defaultTone(state.shape,state.palette));syncTone();}
 function curTone(){const main=getPaletteMainHue(getPalette(state.palette).colors);const t={};if(Math.round(state.hue)!==main)t.hue=state.hue;if(state.chroma!==1)t.chroma=state.chroma;if(state.lightness!==0)t.lightness=state.lightness;return t;}
-function fullTone(){return{hue:state.hue,chroma:state.chroma,lightness:state.lightness};}
+function activeTone(){const tone=curTone();return Object.keys(tone).length?tone:undefined;}
+function activePreviewOptions(shape,size){return{shape,palette:state.palette,tone:activeTone(),variantId:state.variantId,drift:state.drift,size};}
 
 /* ---- build gallery grid (presets, default tone) ---- */
 const chipDefs=[{id:"all",name:"All"},...shapes.map(s=>({id:s.id,name:s.name}))];
@@ -827,7 +828,7 @@ function markGrid(){[...gridScroll.querySelectorAll(".cell")].forEach(c=>{const 
 /* ---- shape buttons ---- */
 const shapesEl=$("shapes");
 shapes.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="shape-btn";b.dataset.shape=s.id;b.setAttribute("aria-pressed","false");b.innerHTML=`<span class="av"></span><span>${s.name}</span>`;b.addEventListener("click",()=>{state.shape=s.id;resetToneForSelection();markShapes();markGrid();render();if(!$("dark-lab").hidden)renderDarkLab();});shapesEl.appendChild(b);});
-function refreshShapeButtons(){[...shapesEl.children].forEach(b=>{b.querySelector(".av").innerHTML=imgFor({shape:b.dataset.shape,palette:state.palette,size:avatarDisplaySize("shape")});});}
+function refreshShapeButtons(){[...shapesEl.children].forEach(b=>{b.querySelector(".av").innerHTML=imgFor(activePreviewOptions(b.dataset.shape,avatarDisplaySize("shape")));});}
 function markShapes(){[...shapesEl.children].forEach(b=>{const active=b.dataset.shape===state.shape;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active));});}
 
 /* ---- selection ---- */
@@ -882,7 +883,7 @@ const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 function codeFor(t){
   const tone=curTone();const hasTone=Object.keys(tone).length>0;
   const shape=state.shape,pal=state.palette,appearance=currentAppearance();
-  if(t==="svg"){const svg=createAvatar({shape,palette:pal,tone:fullTone(),appearance,variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;return{plain:svg,html:esc(svg).replace(/&lt;(\/?[a-zA-Z]+)/g,'<span class="tok-punc">&lt;$1</span>')};}
+  if(t==="svg"){const svg=createAvatar({shape,palette:pal,tone:activeTone(),appearance,variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;return{plain:svg,html:esc(svg).replace(/&lt;(\/?[a-zA-Z]+)/g,'<span class="tok-punc">&lt;$1</span>')};}
   const appearanceStr=appearance==="dark"?' appearance="dark"':"";
   const appearanceStrH=appearance==="dark"?' <span class="tok-punc">appearance</span>=<span class="tok-str">"dark"</span>':"";
   const toneStr=hasTone?` tone={{ ${Object.entries(tone).map(([k,v])=>`${k}: ${k==="hue"?Math.round(v):v}`).join(", ")} }}`:"";
@@ -905,13 +906,13 @@ function codeFor(t){
 
 /* ---- render ---- */
 function render(){
-  const opts={shape:state.shape,palette:state.palette,tone:fullTone(),variantId:state.variantId,drift:state.drift,size:avatarDisplaySize("preview")};
+  const opts=activePreviewOptions(state.shape,avatarDisplaySize("preview"));
   const previewAvatar=createAvatar({...opts,appearance:currentAppearance(),background:null});
   $("preview-av").innerHTML=previewAvatar.svg;
   $("preview-shape").textContent=getShape(state.shape).name;
   $("preview-pal").textContent=getPalette(state.palette).name;
   $("preview-id").textContent="variant "+state.variantId;
-  $("mark-dot").innerHTML=imgFor({shape:state.shape,palette:state.palette,size:avatarDisplaySize("mark")});
+  $("mark-dot").innerHTML=imgFor(activePreviewOptions(state.shape,avatarDisplaySize("mark")));
   const colors=previewAvatar.usedColors;
   $("strip").style.gridTemplateColumns=`repeat(${colors.length},1fr)`;
   $("strip").innerHTML=colors.map(color=>`<i style="background:${color}"></i>`).join("");
@@ -1011,7 +1012,7 @@ const CHECK='<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke=
 $("code-copy").addEventListener("click",()=>{navigator.clipboard.writeText($("code-out").dataset.plain);flash($("code-copy"),CHECK+"Copied");});
 $("cmd").addEventListener("click",()=>{navigator.clipboard.writeText("npm i @oreo-ui/avatar");$("cmd").classList.add("copied");setTimeout(()=>$("cmd").classList.remove("copied"),1300);});
 $("download").addEventListener("click",()=>{
-  const svg=createAvatar({shape:state.shape,palette:state.palette,tone:fullTone(),appearance:currentAppearance(),variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;
+  const svg=createAvatar({shape:state.shape,palette:state.palette,tone:activeTone(),appearance:currentAppearance(),variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;
   const blob=new Blob([svg],{type:"image/svg+xml"});const url=URL.createObjectURL(blob);
   const a=document.createElement("a");a.href=url;a.download=`${state.shape}-${state.palette}.svg`;a.click();URL.revokeObjectURL(url);
 });
