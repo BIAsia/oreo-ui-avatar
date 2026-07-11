@@ -22,6 +22,7 @@ export function deriveDarkAnchorColor(
   anchor: DarkColorAnchor,
   palette: PaletteColors,
   referencePalette: PaletteColors = lightReferencePalette,
+  chromaFloorScale = 1,
 ): string {
   const base = hexToOklch(anchor.color);
   const reference = hexToOklch(referencePalette[anchor.token]);
@@ -34,7 +35,7 @@ export function deriveDarkAnchorColor(
     token => palette[token].toLowerCase() === referencePalette[token].toLowerCase(),
   );
   const chromaScale = referenceRelativeChroma >= 0.006
-    ? clamp(targetRelativeChroma / referenceRelativeChroma, 0.55, 1.45)
+    ? clamp(targetRelativeChroma / referenceRelativeChroma, 0, 1.45)
     : 1;
   const lightnessShift = clamp((target.l - reference.l) * 0.35, -0.12, 0.12);
   const lightness = clamp(base.l + lightnessShift * (base.c < 0.006 ? 0.5 : 1), 0.03, 0.999999);
@@ -43,7 +44,7 @@ export function deriveDarkAnchorColor(
     ? 0
     : clamp(Math.max(
       baseRelativeChroma * chromaScale,
-      isReferencePalette ? 0 : darkRelativeChromaFloor[anchor.token],
+      isReferencePalette ? 0 : darkRelativeChromaFloor[anchor.token] * clamp(chromaFloorScale, 0, 1),
     ), 0, 1);
 
   return oklchToHexInGamut({
@@ -57,11 +58,12 @@ export function deriveDarkGlow(
   anchors: DarkGlowAnchors,
   palette: PaletteColors,
   referencePalette: PaletteColors = lightReferencePalette,
+  chromaFloorScale = 1,
 ): { white: string; glow1: string; glow2: string } {
   return {
-    white: deriveDarkAnchorColor(anchors.narrow, palette, referencePalette),
-    glow1: deriveDarkAnchorColor(anchors.medium, palette, referencePalette),
-    glow2: deriveDarkAnchorColor(anchors.wide, palette, referencePalette),
+    white: deriveDarkAnchorColor(anchors.narrow, palette, referencePalette, chromaFloorScale),
+    glow1: deriveDarkAnchorColor(anchors.medium, palette, referencePalette, chromaFloorScale),
+    glow2: deriveDarkAnchorColor(anchors.wide, palette, referencePalette, chromaFloorScale),
   };
 }
 
@@ -74,6 +76,7 @@ export function deriveAppearancePalette(
   palette: PalettePreset | PaletteColors,
   appearance: AvatarAppearance = "light",
   referencePalette: PalettePreset | PaletteColors = lightReferencePalette,
+  chromaFloorScale = 1,
 ): PaletteColors {
   const colors = "colors" in palette ? palette.colors : palette;
   const referenceColors = "colors" in referencePalette ? referencePalette.colors : referencePalette;
@@ -81,7 +84,7 @@ export function deriveAppearancePalette(
 
   const next = {} as PaletteColors;
   for (const token of paletteTokenOrder) {
-    next[token] = deriveDarkAnchorColor({ color: darkReferencePalette[token], token }, colors, referenceColors);
+    next[token] = deriveDarkAnchorColor({ color: darkReferencePalette[token], token }, colors, referenceColors, chromaFloorScale);
   }
   return next;
 }

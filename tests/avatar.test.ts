@@ -48,10 +48,23 @@ describe("@oreo-ui/avatar", () => {
 
   it("derives the whole palette through OKLCH tone controls", () => {
     const original = palettes[0];
-    const shifted = derivePalette(original, { hue: 180, chroma: 1.2, lightness: 0.04 });
+    const shifted = derivePalette(original, { hue: 180, chroma: 0.8, lightness: 0.04 });
     expect(shifted.accent).toMatch(/^#[0-9a-f]{6}$/);
     expect(shifted.accent).not.toBe(original.colors.accent);
     expect(shifted.base).not.toBe(original.colors.base);
+  });
+
+  it("applies zero relative chroma to every painted dark color", () => {
+    const avatar = createAvatar({
+      shape: "flare",
+      palette: "lemon-mint",
+      appearance: "dark",
+      tone: { chroma: 0 },
+      background: null,
+    });
+    for (const color of avatar.usedColors) {
+      expect(relativeSrgbChroma(hexToOklch(color))).toBeLessThan(0.01);
+    }
   });
 
   it("keeps variant output deterministic", () => {

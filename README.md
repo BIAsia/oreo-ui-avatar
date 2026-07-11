@@ -29,7 +29,7 @@ const avatar = createAvatar({
   palette: "rose-milk",
   tone: {
     hue: 320,
-    chroma: 1.05,
+    chroma: 0.9,
     lightness: 0,
   },
   appearance: "dark",
@@ -51,7 +51,7 @@ export function UserAvatar() {
     <Avatar
       shape="nova"
       palette="aurora-pink"
-      tone={{ hue: 280, chroma: 1.1 }}
+      tone={{ hue: 280, chroma: 0.9 }}
       variantId="user-123"
       drift={8}
       size={64}
@@ -65,7 +65,7 @@ export function UserAvatar() {
 Palette presets are not edited color-by-color. Pick a preset first, then shift the whole palette:
 
 - `hue`: absolute OKLCH main hue in degrees
-- `chroma`: multiplier, where `1` keeps the preset
+- `chroma`: relative chroma scale from `0` to `1`, where `1` keeps each token's preset `Cr` and `0` removes chroma
 - `lightness`: OKLCH lightness delta, where `0` keeps the preset
 
 ```ts
@@ -73,7 +73,7 @@ import { derivePalette, palettes } from "@oreo-ui/avatar";
 
 const colors = derivePalette(palettes[0], {
   hue: 180,
-  chroma: 1.2,
+  chroma: 0.8,
   lightness: 0.04,
 });
 ```
@@ -95,7 +95,7 @@ Those reference pairs reproduce the Figma dark color anchors exactly. Other pres
 
 Chroma transfer is relative to the available sRGB gamut, not an absolute OKLCH `C` ratio. For each color, `Cr = C / Cmax(L, H)`. The derivative scales the dark anchor's `Cr` by `Cr(target) / Cr(reference)`, then resolves the result back to an in-gamut `C` at the derived lightness and hue. This keeps perceived saturation comparable across hues and lightness levels.
 
-Derived colors also have role-based `Cr` floors: `0.42` for dark endpoints, `0.58` for base, `0.68` for pale, and `0.72–0.82` for the chromatic middle roles (`lobe`, `accent`, `warm`, `cool`, and `beam`). Figma reference palettes bypass these floors and remain exact.
+Derived colors also have role-based `Cr` floors: `0.42` for dark endpoints, `0.58` for base, `0.68` for pale, and `0.72–0.82` for the chromatic middle roles (`lobe`, `accent`, `warm`, `cool`, and `beam`). The tone chroma scale applies to these floors too, so every painted dark color responds down to `0`. Figma reference palettes bypass these floors and remain exact.
 
 Each dark layer transfers the semantic palette direction of the matching light Figma layer. Flare maps its four gradient stops through `pale`, `light`, `warm`, and `accent` in structural order, while its solid base follows `lobe` and its dark endpoint follows `dark`.
 

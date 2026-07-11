@@ -326,8 +326,8 @@
                 <input type="range" id="hue" min="0" max="360" step="1" value="0" />
               </div>
               <div>
-                <label class="label" for="chroma" style="font-weight:500;color:var(--muted-soft)"><span>Chroma</span><span class="v" id="chroma-v">100%</span></label>
-                <input type="range" id="chroma" min="0.45" max="1.55" step="0.01" value="1" />
+                <label class="label" for="chroma" style="font-weight:500;color:var(--muted-soft)"><span>Relative chroma</span><span class="v" id="chroma-v">1.00</span></label>
+                <input type="range" id="chroma" min="0" max="1" step="0.01" value="1" />
               </div>
               <div>
                 <label class="label" for="light" style="font-weight:500;color:var(--muted-soft)"><span>Lightness</span><span class="v" id="light-v">0.00</span></label>
@@ -405,8 +405,8 @@ function oklchToHex(o){const h=normalizeHue(o.h)*Math.PI/180,a=Math.cos(h)*o.c,b
 const paletteTokenOrder=["base","lobe","accent","pale","light","warm","cool","dark","beam"];
 /* --- tone --- */
 function getPaletteMainHue(colors){return Math.round(hexToOklch(colors.accent).h);}
-function derivePalette(colors,tone){tone=tone||{};const baseHue=getPaletteMainHue(colors);const targetHue=tone.hue==null?baseHue:normalizeHue(tone.hue);const hueShift=normalizeHue(targetHue-baseHue);const chromaScale=tone.chroma??1;const lightShift=tone.lightness??0;const next={};
-  for(const key of paletteTokenOrder){const color=hexToOklch(colors[key]);const hue=color.c<0.006?targetHue:color.h+hueShift;const chroma=clamp(color.c*chromaScale,0,0.37);const light=clamp(color.l+lightShift,0.04,0.98);next[key]=oklchToHex({l:light,c:chroma,h:hue});}
+function derivePalette(colors,tone){tone=tone||{};const baseHue=getPaletteMainHue(colors);const targetHue=tone.hue==null?baseHue:normalizeHue(tone.hue);const hueShift=normalizeHue(targetHue-baseHue);const chromaScale=clamp(tone.chroma??1,0,1);const lightShift=tone.lightness??0;const next={};
+  for(const key of paletteTokenOrder){const color=hexToOklch(colors[key]);const hue=color.c<0.006?targetHue:color.h+hueShift;const light=clamp(color.l+lightShift,0.04,0.98),relative=color.c<0.006?0:relativeSrgbChroma(color)*chromaScale;next[key]=oklchToHexInGamut({l:light,c:relative*maxSrgbChroma(light,hue),h:hue});}
   return next;}
 function oklchToLinearRgb(o){const h=normalizeHue(o.h)*Math.PI/180,a=Math.cos(h)*o.c,b=Math.sin(h)*o.c;
   const lR=o.l+0.3963377774*a+0.2158037573*b,mR=o.l-0.1055613458*a-0.0638541728*b,sR=o.l-0.0894841775*a-1.291485548*b;
@@ -427,9 +427,9 @@ const darkShapeAnchors={
 const darkReferencePalette={base:"#b1e7ff",lobe:"#58e0ff",accent:"#ff5ad5",pale:"#0e82a3",light:"#ffffff",warm:"#1e0af6",cool:"#6aa7ff",dark:"#031a05",beam:"#57b565"};
 const darkRelativeChromaFloor={base:.58,lobe:.74,accent:.82,pale:.68,light:0,warm:.76,cool:.72,dark:.42,beam:.78};
 const darkShapeToneDefaults={flare:{chroma:.45,lightness:-.18}};
-function deriveDarkAnchorColor(anchor,colors,referenceColors=palettes[0].colors){const base=hexToOklch(anchor.color),reference=hexToOklch(referenceColors[anchor.token]),target=hexToOklch(colors[anchor.token]),targetAccent=hexToOklch(colors.accent),referenceRelative=relativeSrgbChroma(reference),targetRelative=relativeSrgbChroma(target),baseRelative=relativeSrgbChroma(base),isReference=paletteTokenOrder.every(token=>colors[token].toLowerCase()===referenceColors[token].toLowerCase()),chromaScale=referenceRelative>=.006?clamp(targetRelative/referenceRelative,.55,1.45):1,lightnessShift=clamp((target.l-reference.l)*.35,-.12,.12),lightness=clamp(base.l+lightnessShift*(base.c<.006?.5:1),.03,.999999),hue=isReference?base.h:target.c>=.006?target.h:targetAccent.h,relative=base.c<.006?0:clamp(Math.max(baseRelative*chromaScale,isReference?0:darkRelativeChromaFloor[anchor.token]),0,1);return oklchToHexInGamut({l:lightness,c:relative*maxSrgbChroma(lightness,hue),h:hue});}
-function deriveDarkGlow(anchors,colors,referenceColors=palettes[0].colors){return{white:deriveDarkAnchorColor(anchors.narrow,colors,referenceColors),glow1:deriveDarkAnchorColor(anchors.medium,colors,referenceColors),glow2:deriveDarkAnchorColor(anchors.wide,colors,referenceColors)};}
-function deriveAppearancePalette(colors,appearance,referenceColors=palettes[0].colors){if(appearance!=="dark")return{...colors};const next={};for(const token of paletteTokenOrder)next[token]=deriveDarkAnchorColor(A(darkReferencePalette[token],token),colors,referenceColors);return next;}
+function deriveDarkAnchorColor(anchor,colors,referenceColors=palettes[0].colors,chromaFloorScale=1){const base=hexToOklch(anchor.color),reference=hexToOklch(referenceColors[anchor.token]),target=hexToOklch(colors[anchor.token]),targetAccent=hexToOklch(colors.accent),referenceRelative=relativeSrgbChroma(reference),targetRelative=relativeSrgbChroma(target),baseRelative=relativeSrgbChroma(base),isReference=paletteTokenOrder.every(token=>colors[token].toLowerCase()===referenceColors[token].toLowerCase()),chromaScale=referenceRelative>=.006?clamp(targetRelative/referenceRelative,0,1.45):1,lightnessShift=clamp((target.l-reference.l)*.35,-.12,.12),lightness=clamp(base.l+lightnessShift*(base.c<.006?.5:1),.03,.999999),hue=isReference?base.h:target.c>=.006?target.h:targetAccent.h,relative=base.c<.006?0:clamp(Math.max(baseRelative*chromaScale,isReference?0:darkRelativeChromaFloor[anchor.token]*clamp(chromaFloorScale,0,1)),0,1);return oklchToHexInGamut({l:lightness,c:relative*maxSrgbChroma(lightness,hue),h:hue});}
+function deriveDarkGlow(anchors,colors,referenceColors=palettes[0].colors,chromaFloorScale=1){return{white:deriveDarkAnchorColor(anchors.narrow,colors,referenceColors,chromaFloorScale),glow1:deriveDarkAnchorColor(anchors.medium,colors,referenceColors,chromaFloorScale),glow2:deriveDarkAnchorColor(anchors.wide,colors,referenceColors,chromaFloorScale)};}
+function deriveAppearancePalette(colors,appearance,referenceColors=palettes[0].colors,chromaFloorScale=1){if(appearance!=="dark")return{...colors};const next={};for(const token of paletteTokenOrder)next[token]=deriveDarkAnchorColor(A(darkReferencePalette[token],token),colors,referenceColors,chromaFloorScale);return next;}
 /* --- data: shapes --- */
 const shapes=[
   {id:"bloom",name:"Bloom",description:"Diagonal paired ribbon with hot radial glows."},
@@ -491,13 +491,13 @@ const baseGlows={
   flare:{white:"#ffffff",glow1:"#ffdfda",glow2:"#ffbe74"},nova:{white:"#ffffff",glow1:"#88b9ff",glow2:"#7cb2ff"},
   void:{white:"#ffffff",glow1:"#71abff",glow2:"#71abff"},jade:{white:"#ffffff",glow1:"#42cba9",glow2:"#42cba9"},
 };
-function glowForAppearance(key,appearance,colors,referenceColors){const glow=baseGlows[key];return appearance!=="dark"?glow:deriveDarkGlow(darkShapeAnchors[key].frameGlow,colors,referenceColors);}
-function innerGlowForAppearance(key,appearance,colors,referenceColors){if(appearance!=="dark"||!darkShapeAnchors[key].innerGlow)return null;return deriveDarkGlow(darkShapeAnchors[key].innerGlow,colors,referenceColors);}
+function glowForAppearance(key,appearance,colors,referenceColors,chromaFloorScale){const glow=baseGlows[key];return appearance!=="dark"?glow:deriveDarkGlow(darkShapeAnchors[key].frameGlow,colors,referenceColors,chromaFloorScale);}
+function innerGlowForAppearance(key,appearance,colors,referenceColors,chromaFloorScale){if(appearance!=="dark"||!darkShapeAnchors[key].innerGlow)return null;return deriveDarkGlow(darkShapeAnchors[key].innerGlow,colors,referenceColors,chromaFloorScale);}
 function makeTweaker(seed,drift){const v=clamp(drift,0,24)/100;return function(key){const r=s=>randomFromString(`${seed}:${key}:${s}`)*2-1;return{dx:r("dx")*2.8*v,dy:r("dy")*2.8*v,sx:1+r("sx")*0.035*v,sy:1+r("sy")*0.035*v,rotate:r("rot")*2.8*v,opacity:1+r("op")*0.05*v};};}
 function escapeHtml(v){return v.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");}
-function paletteForType(type,p,appearance,referenceColors){
+function paletteForType(type,p,appearance,referenceColors,chromaFloorScale){
   if(appearance==="dark"){
-    const anchors=darkShapeAnchors[type].layers,color=name=>deriveDarkAnchorColor(anchors[name],p,referenceColors);
+    const anchors=darkShapeAnchors[type].layers,color=name=>deriveDarkAnchorColor(anchors[name],p,referenceColors,chromaFloorScale);
     if(type==="bloom")return{bg:color("base"),blob:color("blob"),hot:color("hot"),pale:color("base")};
     if(type==="silk")return{dark:color("dark"),base:color("base"),warm:color("warm"),cream:"",cream1:color("cream1"),cream2:color("cream2"),cool:color("cream2")};
     if(type==="flare")return{dark:color("dark"),base:color("base"),cream1:color("cream1"),cream2:color("cream2"),hot1:color("hot1"),hot2:color("hot2")};
@@ -623,8 +623,8 @@ function renderBody(study,id,cx,cy,scale,tw){const t=study.type,dark=study.appea
   return renderJade(id,study.p,study.glow,dark,cx,cy,scale,tw);}
 function createAvatar(options){options=options||{};
   const shape=getShape(options.shape??"bloom");const palette=getPalette(options.palette??"rose-milk");
-  const appearance=options.appearance??"light",darkReference=getPalette(darkShapeAnchors[shape.id].lightReference),shapeToneDefault=appearance==="dark"&&palette.id!==darkReference.id?darkShapeToneDefaults[shape.id]:null,darkShapeTone=shapeToneDefault?{chroma:shapeToneDefault.chroma,lightness:shapeToneDefault.lightness}:null,effectiveTone=darkShapeTone||options.tone?{...(darkShapeTone||{}),...(options.tone||{})}:null,hasDarkTone=effectiveTone&&((effectiveTone.hue!=null&&Math.round(effectiveTone.hue)!==getPaletteMainHue(palette.colors))||(effectiveTone.chroma!=null&&effectiveTone.chroma!==1)||(effectiveTone.lightness!=null&&effectiveTone.lightness!==0)),sourceColors=appearance==="dark"&&!hasDarkTone?{...palette.colors}:derivePalette(palette.colors,effectiveTone),referenceColors=darkReference.colors,colors=deriveAppearancePalette(sourceColors,appearance,referenceColors);const size=options.size??64;
-  const study={type:shape.id,appearance,geometryKey:shape.name,p:paletteForType(shape.id,sourceColors,appearance,referenceColors),glow:glowForAppearance(shape.id,appearance,sourceColors,referenceColors),innerGlow:innerGlowForAppearance(shape.id,appearance,sourceColors,referenceColors)};
+  const appearance=options.appearance??"light",darkReference=getPalette(darkShapeAnchors[shape.id].lightReference),shapeToneDefault=appearance==="dark"&&palette.id!==darkReference.id?darkShapeToneDefaults[shape.id]:null,darkShapeTone=shapeToneDefault?{chroma:shapeToneDefault.chroma,lightness:shapeToneDefault.lightness}:null,effectiveTone=darkShapeTone||options.tone?{...(darkShapeTone||{}),...(options.tone||{})}:null,hasDarkTone=effectiveTone&&((effectiveTone.hue!=null&&Math.round(effectiveTone.hue)!==getPaletteMainHue(palette.colors))||(effectiveTone.chroma!=null&&effectiveTone.chroma!==1)||(effectiveTone.lightness!=null&&effectiveTone.lightness!==0)),sourceColors=appearance==="dark"&&!hasDarkTone?{...palette.colors}:derivePalette(palette.colors,effectiveTone),referenceColors=darkReference.colors,chromaFloorScale=clamp(effectiveTone?.chroma??1,0,1),colors=deriveAppearancePalette(sourceColors,appearance,referenceColors,chromaFloorScale);const size=options.size??64;
+  const study={type:shape.id,appearance,geometryKey:shape.name,p:paletteForType(shape.id,sourceColors,appearance,referenceColors,chromaFloorScale),glow:glowForAppearance(shape.id,appearance,sourceColors,referenceColors,chromaFloorScale),innerGlow:innerGlowForAppearance(shape.id,appearance,sourceColors,referenceColors,chromaFloorScale)};
   const variantId=options.variantId??"default",drift=options.drift??0;
   const coordinateSize=64,cx=32,cy=32,scale=1,id=`oreo-${hashString(`${study.type}:${palette.name}:${appearance}:${variantId}:${JSON.stringify(study.p)}`).toString(36)}`;
   const tw=makeTweaker(`${variantId}:${study.geometryKey}:${study.type}`,drift);
@@ -751,9 +751,9 @@ $("randomize-palette").addEventListener("click",()=>{
 });
 
 /* ---- tone controls ---- */
-function syncTone(){$("hue").value=Math.round(state.hue);$("hue-v").textContent=Math.round(state.hue)+"°";$("chroma").value=state.chroma;$("chroma-v").textContent=Math.round(state.chroma*100)+"%";$("light").value=state.lightness;$("light-v").textContent=state.lightness.toFixed(2);}
+function syncTone(){$("hue").value=Math.round(state.hue);$("hue-v").textContent=Math.round(state.hue)+"°";$("chroma").value=state.chroma;$("chroma-v").textContent=state.chroma.toFixed(2);$("light").value=state.lightness;$("light-v").textContent=state.lightness.toFixed(2);}
 $("hue").addEventListener("input",e=>{state.hue=+e.target.value;$("hue-v").textContent=Math.round(state.hue)+"°";render();});
-$("chroma").addEventListener("input",e=>{state.chroma=+e.target.value;$("chroma-v").textContent=Math.round(state.chroma*100)+"%";render();});
+$("chroma").addEventListener("input",e=>{state.chroma=+e.target.value;$("chroma-v").textContent=state.chroma.toFixed(2);render();});
 $("light").addEventListener("input",e=>{state.lightness=+e.target.value;$("light-v").textContent=state.lightness.toFixed(2);render();});
 $("reset-tone").addEventListener("click",()=>{resetToneForSelection();render();});
 

@@ -54,7 +54,7 @@ Options:
   --shape       ${shapes.map((shape) => shape.id).join(", ")}
   --palette     ${palettes.slice(0, 5).map((palette) => palette.id).join(", ")}...
   --hue         OKLCH main hue in degrees
-  --chroma      OKLCH chroma multiplier, e.g. 1.1
+  --chroma      Relative OKLCH chroma scale from 0 to 1, e.g. 0.8
   --lightness   OKLCH lightness delta, e.g. 0.04
   --appearance  light or dark, default light
   --variant     deterministic geometry id

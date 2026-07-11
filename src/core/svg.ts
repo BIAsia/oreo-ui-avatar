@@ -112,16 +112,16 @@ const darkEffectProfiles: Record<ShapeId, DarkEffectProfile> = {
   },
 };
 
-function glowForAppearance(key: keyof typeof baseGlows, appearance: AvatarAppearance, palette: PaletteColors, referencePalette: PaletteColors): GlowPalette {
+function glowForAppearance(key: keyof typeof baseGlows, appearance: AvatarAppearance, palette: PaletteColors, referencePalette: PaletteColors, chromaFloorScale: number): GlowPalette {
   const glow = baseGlows[key];
   if (appearance === "light") return glow;
-  return deriveDarkGlow(darkShapeAnchors[key].frameGlow, palette, referencePalette);
+  return deriveDarkGlow(darkShapeAnchors[key].frameGlow, palette, referencePalette, chromaFloorScale);
 }
 
-function innerGlowForAppearance(key: ShapeId, appearance: AvatarAppearance, palette: PaletteColors, referencePalette: PaletteColors): GlowPalette | undefined {
+function innerGlowForAppearance(key: ShapeId, appearance: AvatarAppearance, palette: PaletteColors, referencePalette: PaletteColors, chromaFloorScale: number): GlowPalette | undefined {
   if (appearance === "light") return undefined;
   const anchors = darkShapeAnchors[key].innerGlow;
-  return anchors ? deriveDarkGlow(anchors, palette, referencePalette) : undefined;
+  return anchors ? deriveDarkGlow(anchors, palette, referencePalette, chromaFloorScale) : undefined;
 }
 
 function makeTweaker(seed: string, drift: number): (key: string) => Tweak {
@@ -143,10 +143,10 @@ function escapeHtml(value: string): string {
   return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
-function paletteForType(type: ShapeId, palette: PaletteColors, appearance: AvatarAppearance, referencePalette: PaletteColors): LayerPalette {
+function paletteForType(type: ShapeId, palette: PaletteColors, appearance: AvatarAppearance, referencePalette: PaletteColors, chromaFloorScale: number): LayerPalette {
   if (appearance === "dark") {
     const anchors = darkShapeAnchors[type].layers;
-    const color = (name: string): string => deriveDarkAnchorColor(anchors[name]!, palette, referencePalette);
+    const color = (name: string): string => deriveDarkAnchorColor(anchors[name]!, palette, referencePalette, chromaFloorScale);
     if (type === "bloom") return { bg: color("base"), blob: color("blob"), hot: color("hot"), pale: color("base") };
     if (type === "silk") return { dark: color("dark"), base: color("base"), warm: color("warm"), cream: "", cream1: color("cream1"), cream2: color("cream2"), cool: color("cream2") };
     if (type === "flare") return { dark: color("dark"), base: color("base"), cream1: color("cream1"), cream2: color("cream2"), hot1: color("hot1"), hot2: color("hot2") };
@@ -466,7 +466,8 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     || (effectiveTone.lightness != null && effectiveTone.lightness !== 0)
   );
   const sourceColors = appearance === "dark" && !hasDarkToneAdjustment ? { ...palette.colors } : derivePalette(palette, effectiveTone);
-  const colors = deriveAppearancePalette(sourceColors, appearance, darkReference);
+  const chromaFloorScale = clamp(effectiveTone?.chroma ?? 1, 0, 1);
+  const colors = deriveAppearancePalette(sourceColors, appearance, darkReference, chromaFloorScale);
   const size = options.size ?? 64;
   const study: Study = {
     type: shape.id,
@@ -475,9 +476,9 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     shapeName: shape.name,
     paletteName: palette.name,
     geometryKey: shape.name,
-    p: paletteForType(shape.id, sourceColors, appearance, darkReference.colors),
-    glow: glowForAppearance(shape.id, appearance, sourceColors, darkReference.colors),
-    innerGlow: innerGlowForAppearance(shape.id, appearance, sourceColors, darkReference.colors),
+    p: paletteForType(shape.id, sourceColors, appearance, darkReference.colors, chromaFloorScale),
+    glow: glowForAppearance(shape.id, appearance, sourceColors, darkReference.colors, chromaFloorScale),
+    innerGlow: innerGlowForAppearance(shape.id, appearance, sourceColors, darkReference.colors, chromaFloorScale),
   };
   const svg = renderSvg(study, {
     variantId: options.variantId ?? "default",

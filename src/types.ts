@@ -33,7 +33,7 @@ export interface ToneOptions {
    */
   hue?: number;
   /**
-   * Chroma multiplier. 1 keeps the preset chroma, 0.8 softens, 1.2 intensifies.
+   * Relative chroma scale from 0 to 1. 1 keeps the preset Cr, 0 removes chroma.
    */
   chroma?: number;
   /**
