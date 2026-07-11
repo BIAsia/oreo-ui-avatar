@@ -248,7 +248,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,.22); font-size: 12px; font-weight: 600; cursor: pointer;
   }
   .dark-lab {
-    position: fixed; z-index: 31; top: 16px; right: 16px; bottom: 16px; width: min(360px, calc(100vw - 32px));
+    position: fixed; z-index: 31; top: 16px; right: 16px; bottom: 16px; width: min(460px, calc(100vw - 32px));
     display: flex; flex-direction: column; overflow: hidden; border: .5px solid var(--border-strong); border-radius: 14px;
     background: color-mix(in srgb, var(--surface) 96%, transparent); box-shadow: 0 18px 60px rgba(0,0,0,.35); backdrop-filter: blur(18px);
   }
@@ -273,6 +273,21 @@
   .dark-lab-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 14px; border-top: .5px solid var(--border); }
   .dark-lab-actions button { min-height: 34px; border: .5px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--fg); font-size: 11px; cursor: pointer; }
   .dark-lab-actions button:hover { border-color: var(--border-strong); background: var(--bg-weak); }
+  .dark-lab-actions .primary { border-color: color-mix(in srgb, var(--fg) 42%, transparent); background: var(--fg); color: var(--bg); }
+  .gradient-lab-previews { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
+  .gradient-lab-preview { min-width: 0; padding: 9px 5px 8px; border: .5px solid var(--border); border-radius: 10px; background: var(--bg-weak); text-align: center; }
+  .gradient-lab-preview .av { display: grid; width: 56px; height: 56px; margin: 0 auto 6px; place-items: center; }
+  .gradient-lab-preview .av svg { display: block; width: 100%; height: 100%; }
+  .gradient-lab-preview span { color: var(--muted); font-size: 9.5px; }
+  .gradient-lab-direction { margin-top: 8px; color: var(--muted-soft); font: 10px var(--mono); text-align: center; }
+  .gradient-lab-colors { display: grid; gap: 5px; }
+  .gradient-lab-color-head,.gradient-lab-color-row { display: grid; grid-template-columns: minmax(72px,1fr) repeat(3,36px); gap: 6px; align-items: center; }
+  .gradient-lab-color-head { padding: 0 2px 3px; color: var(--muted-soft); font-size: 9px; text-align: center; }
+  .gradient-lab-color-head span:first-child { text-align: left; }
+  .gradient-lab-color-row { min-height: 32px; padding: 3px 5px; border: .5px solid var(--border); border-radius: 8px; background: var(--bg-weak); }
+  .gradient-lab-color-row .slot { overflow: hidden; color: var(--muted); font: 9.5px var(--mono); text-overflow: ellipsis; white-space: nowrap; }
+  .gradient-lab-swatch { width: 36px; height: 24px; border: .5px solid rgba(127,127,127,.28); border-radius: 6px; }
+  .gradient-lab-swatch[title] { cursor: help; }
 
   @media (max-width: 860px) {
     body { overflow: auto; }
@@ -416,19 +431,21 @@
   </main>
 </div>
 
-<button class="dark-lab-toggle" id="dark-lab-toggle" type="button">Dark derivation lab</button>
-<aside class="dark-lab" id="dark-lab" aria-label="Dark derivation lab" hidden>
+<button class="dark-lab-toggle" id="dark-lab-toggle" type="button">Gradient editor</button>
+<aside class="dark-lab" id="dark-lab" aria-label="Gradient color editor" hidden>
   <div class="dark-lab-head">
     <div>
-      <div class="dark-lab-title">Dark derivation lab</div>
+      <div class="dark-lab-title">Gradient color editor</div>
       <div class="dark-lab-subtitle" id="dark-lab-shape">Selected shape</div>
     </div>
-    <button class="dark-lab-close" id="dark-lab-close" type="button" aria-label="Close dark derivation lab">×</button>
+    <button class="dark-lab-close" id="dark-lab-close" type="button" aria-label="Close gradient color editor">×</button>
   </div>
   <div class="dark-lab-body" id="dark-lab-body"></div>
   <div class="dark-lab-actions">
-    <button id="dark-lab-reset" type="button">Reset</button>
+    <button id="dark-lab-reset" type="button">Reset transform</button>
+    <button id="dark-lab-revert" type="button">Revert override</button>
     <button id="dark-lab-copy" type="button">Copy JSON</button>
+    <button class="primary" id="dark-lab-apply" type="button">Apply override</button>
   </div>
 </aside>
 
@@ -718,10 +735,36 @@ function renderBody(study,id,cx,cy,scale,tw){const t=study.type,dark=study.appea
   if(t==="nova")return renderNova(id,study.p,study.glow,dark,cx,cy,scale,tw);
   if(t==="void")return renderVoid(id,study.p,study.glow,dark,cx,cy,scale,tw);
   return renderJade(id,study.p,study.glow,dark,cx,cy,scale,tw);}
+const GRADIENT_OVERRIDES_KEY="oreo-avatar-gradient-overrides-v1";
+let gradientOverrides={};
+try{gradientOverrides=JSON.parse(localStorage.getItem(GRADIENT_OVERRIDES_KEY)||"{}")||{};}catch{}
+let gradientPreviewOverride=null;
+function gradientOverrideKey(shape,palette,appearance){return`${shape}:${palette}:${appearance}`;}
+function studyColorSlots(study){
+  const layers=layerColorSlots(study),slots={};
+  layers.forEach((color,index)=>slots[`layer.${index+1}`]=color);
+  slots["frame.wide"]=study.glow.glow2;slots["frame.medium"]=study.glow.glow1;slots["frame.narrow"]=study.glow.white;
+  if(study.innerGlow){slots["inner.wide"]=study.innerGlow.glow2;slots["inner.medium"]=study.innerGlow.glow1;slots["inner.narrow"]=study.innerGlow.white;}
+  return slots;
+}
+function applyStudyColorSlots(study,slots){
+  if(!slots)return;
+  const p=study.p,c=index=>slots[`layer.${index}`];
+  if("bg" in p){p.bg=c(1)??p.bg;p.blob=c(2)??p.blob;p.hot=c(3)??p.hot;}
+  else if("hot1" in p){p.dark=c(1)??p.dark;p.base=c(2)??p.base;p.cream1=c(3)??p.cream1;p.cream2=c(4)??p.cream2;p.hot1=c(5)??p.hot1;p.hot2=c(6)??p.hot2;}
+  else if("warm" in p){p.dark=c(1)??p.dark;p.base=c(2)??p.base;p.warm=c(3)??p.warm;if(p.cream1){p.cream1=c(4)??p.cream1;p.cream2=c(5)??p.cream2;}else p.cream=c(4)??p.cream;p.cool=c(6)??p.cool;}
+  else if("white" in p){p.base=c(1)??p.base;p.white=c(2)??p.white;p.hot=c(3)??p.hot;}
+  else if("blue" in p){p.base=c(1)??p.base;p.blue=c(2)??p.blue;p.green=c(3)??p.green;}
+  else{if(p.base1){p.base1=c(1)??p.base1;p.base2=c(2)??p.base2;}else p.base=c(1)??p.base;p.milk=c(3)??p.milk;p.grad1=c(4)??p.grad1;p.grad2=c(5)??p.grad2;p.glow=c(6)??p.glow;}
+  study.glow={glow2:slots["frame.wide"]??study.glow.glow2,glow1:slots["frame.medium"]??study.glow.glow1,white:slots["frame.narrow"]??study.glow.white};
+  if(study.innerGlow)study.innerGlow={glow2:slots["inner.wide"]??study.innerGlow.glow2,glow1:slots["inner.medium"]??study.innerGlow.glow1,white:slots["inner.narrow"]??study.innerGlow.white};
+}
 function createAvatar(options){options=options||{};
   const shape=getShape(options.shape??"bloom");const palette=getPalette(options.palette??"rose-milk");
   const appearance=options.appearance??"light",darkReference=getPalette(darkShapeAnchors[shape.id].lightReference),shapeToneDefault=appearance==="dark"&&palette.id!==darkReference.id?darkShapeToneDefaults[shape.id]:null,darkShapeTone=shapeToneDefault?{chroma:shapeToneDefault.chroma,lightness:shapeToneDefault.lightness}:null,effectiveTone=darkShapeTone||options.tone?{...(darkShapeTone||{}),...(options.tone||{})}:null,hasDarkTone=effectiveTone&&((effectiveTone.hue!=null&&Math.round(effectiveTone.hue)!==getPaletteMainHue(palette.colors))||(effectiveTone.chroma!=null&&effectiveTone.chroma!==1)||(effectiveTone.lightness!=null&&effectiveTone.lightness!==0)),sourceColors=appearance==="dark"&&!hasDarkTone?{...palette.colors}:derivePalette(palette.colors,effectiveTone),manualFlareOverride=appearance==="dark"&&shape.id==="flare"?darkFlarePaletteOverrides[palette.id]:null,manualFlarePalette=manualFlareOverride?(options.tone?derivePalette({...palette.colors,...manualFlareOverride},options.tone):{...palette.colors,...manualFlareOverride}):null,referenceColors=darkReference.colors,chromaFloorScale=clamp(effectiveTone?.chroma??1,0,1),colors=deriveAppearancePalette(sourceColors,appearance,referenceColors,chromaFloorScale);const size=options.size??64;
   const study={type:shape.id,appearance,geometryKey:shape.name,p:paletteForType(shape.id,sourceColors,appearance,referenceColors,chromaFloorScale,manualFlarePalette),glow:glowForAppearance(shape.id,appearance,sourceColors,referenceColors,chromaFloorScale),innerGlow:innerGlowForAppearance(shape.id,appearance,sourceColors,referenceColors,chromaFloorScale)};
+  const overrideKey=gradientOverrideKey(shape.id,palette.id,appearance),savedOverride=gradientOverrides[overrideKey],previewOverride=!options.__ignorePreview&&gradientPreviewOverride?.key===overrideKey?gradientPreviewOverride.colors:null;
+  applyStudyColorSlots(study,previewOverride||savedOverride);
   const variantId=options.variantId??"default",drift=options.drift??0;
   const coordinateSize=64,cx=32,cy=32,scale=1,id=`oreo-${hashString(`${study.type}:${palette.name}:${appearance}:${variantId}:${JSON.stringify(study.p)}`).toString(36)}`;
   const tw=makeTweaker(`${variantId}:${study.geometryKey}:${study.type}`,drift);
@@ -734,7 +777,7 @@ function createAvatar(options){options=options||{};
     ${background}
     <g mask="url(#edge-mask-${id})">${appearance==="dark"?`<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>`:`<g clip-path="url(#clip-${id})">${body}</g>`}</g>
   </svg>`;
-  return{shape,palette,colors,usedColors:usedColors(study),appearance,size,svg,toDataUri:()=>`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`};
+  return{shape,palette,colors,usedColors:usedColors(study),colorSlots:studyColorSlots(study),appearance,size,svg,toDataUri:()=>`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`};
 }
 
 /* ===================== UI ===================== */
@@ -751,7 +794,7 @@ if(savedTheme)root.setAttribute("data-theme",savedTheme);
 else if(matchMedia("(prefers-color-scheme: dark)").matches)root.setAttribute("data-theme","dark");
 function syncThemeToggle(){const isDark=root.getAttribute("data-theme")==="dark";$("theme-toggle").setAttribute("aria-pressed",String(isDark));$("theme-toggle").setAttribute("aria-label",isDark?"Switch to light theme":"Switch to dark theme");}
 syncThemeToggle();
-$("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);syncThemeToggle();resetToneForSelection();renderGrid();refreshShapeButtons();render();});
+$("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);syncThemeToggle();resetToneForSelection();renderGrid();refreshShapeButtons();render();if(!$("dark-lab").hidden)renderDarkLab();});
 
 /* state */
 function defaultTone(shape,palette,appearance=currentAppearance()){const main=getPaletteMainHue(getPalette(palette).colors),reference=darkShapeAnchors[shape].lightReference,authoredFlare=appearance==="dark"&&shape==="flare"&&darkFlarePaletteOverrides[palette],bias=appearance==="dark"&&palette!==reference&&!authoredFlare?darkShapeToneDefaults[shape]:null;return{hue:main,chroma:bias?.chroma??1,lightness:bias?.lightness??0};}
@@ -850,15 +893,15 @@ $("randomize-palette").addEventListener("click",()=>{
 
 /* ---- tone controls ---- */
 function syncTone(){$("hue").value=Math.round(state.hue);$("hue-v").textContent=Math.round(state.hue)+"°";$("chroma").value=state.chroma;$("chroma-v").textContent=state.chroma.toFixed(2);$("light").value=state.lightness;$("light-v").textContent=state.lightness.toFixed(2);}
-$("hue").addEventListener("input",e=>{state.hue=+e.target.value;$("hue-v").textContent=Math.round(state.hue)+"°";render();});
-$("chroma").addEventListener("input",e=>{state.chroma=+e.target.value;$("chroma-v").textContent=state.chroma.toFixed(2);render();});
-$("light").addEventListener("input",e=>{state.lightness=+e.target.value;$("light-v").textContent=state.lightness.toFixed(2);render();});
-$("reset-tone").addEventListener("click",()=>{resetToneForSelection();render();});
+$("hue").addEventListener("input",e=>{state.hue=+e.target.value;$("hue-v").textContent=Math.round(state.hue)+"°";render();if(!$("dark-lab").hidden)renderDarkLab();});
+$("chroma").addEventListener("input",e=>{state.chroma=+e.target.value;$("chroma-v").textContent=state.chroma.toFixed(2);render();if(!$("dark-lab").hidden)renderDarkLab();});
+$("light").addEventListener("input",e=>{state.lightness=+e.target.value;$("light-v").textContent=state.lightness.toFixed(2);render();if(!$("dark-lab").hidden)renderDarkLab();});
+$("reset-tone").addEventListener("click",()=>{resetToneForSelection();render();if(!$("dark-lab").hidden)renderDarkLab();});
 
 /* ---- drift / variant ---- */
-$("drift").addEventListener("input",e=>{state.drift=+e.target.value;$("drift-v").textContent=state.drift;render();});
-$("variant").addEventListener("input",e=>{state.variantId=e.target.value||"default";render();});
-$("reroll").addEventListener("click",()=>{state.variantId=Math.random().toString(36).slice(2,6);$("variant").value=state.variantId;render();});
+$("drift").addEventListener("input",e=>{state.drift=+e.target.value;$("drift-v").textContent=state.drift;render();if(!$("dark-lab").hidden)renderDarkLab();});
+$("variant").addEventListener("input",e=>{state.variantId=e.target.value||"default";render();if(!$("dark-lab").hidden)renderDarkLab();});
+$("reroll").addEventListener("click",()=>{state.variantId=Math.random().toString(36).slice(2,6);$("variant").value=state.variantId;render();if(!$("dark-lab").hidden)renderDarkLab();});
 
 /* ---- responsive panels ---- */
 const compactLayout=matchMedia("(max-width: 860px)");
@@ -919,91 +962,54 @@ function render(){
   const out=codeFor(tab);$("code-out").innerHTML=out.html;$("code-out").dataset.plain=out.plain;
 }
 
-/* ---- temporary dark derivation lab ---- */
-const DARK_LAB_KEY="oreo-avatar-dark-lab-v2";
-const cloneJson=value=>JSON.parse(JSON.stringify(value));
-function serializeDarkLab(){return{
-  params:{...darkDerivationParams},
-  floors:{...darkRelativeChromaFloor},
-  shapeToneDefaults:cloneJson(darkShapeToneDefaults),
-  anchors:Object.fromEntries(Object.entries(darkShapeAnchors).map(([shape,anchors])=>[shape,{
-    layers:Object.fromEntries(Object.entries(anchors.layers).map(([name,anchor])=>[name,anchor.color])),
-    frameGlow:{narrow:anchors.frameGlow.narrow.color,medium:anchors.frameGlow.medium.color,wide:anchors.frameGlow.wide.color},
-    innerGlow:anchors.innerGlow?{narrow:anchors.innerGlow.narrow.color,medium:anchors.innerGlow.medium.color,wide:anchors.innerGlow.wide.color}:null,
-  }]))
-};}
-const darkLabDefaults=serializeDarkLab();
-function validHex(value){return /^#[0-9a-f]{6}$/i.test(value||"");}
-function applyDarkLab(config){
-  if(!config||typeof config!=="object")return;
-  for(const key of ["lightnessDelta","chromaDelta"]){const value=+config.params?.[key];if(Number.isFinite(value))darkDerivationParams[key]=clamp(value,0,1.5);}
-  for(const token of paletteTokenOrder){const value=+config.floors?.[token];if(Number.isFinite(value))darkRelativeChromaFloor[token]=clamp(value,0,1);}
-  for(const shape of shapes.map(item=>item.id)){
-    const tone=config.shapeToneDefaults?.[shape];
-    if(tone&&Number.isFinite(+tone.lightness))darkShapeToneDefaults[shape]={...(darkShapeToneDefaults[shape]||{}),lightness:clamp(+tone.lightness,-.5,.5)};
-    else if(config.shapeToneDefaults&&!(shape in config.shapeToneDefaults))delete darkShapeToneDefaults[shape];
-    const incoming=config.anchors?.[shape],anchors=darkShapeAnchors[shape];if(!incoming||!anchors)continue;
-    for(const [name,color] of Object.entries(incoming.layers||{}))if(anchors.layers[name]&&validHex(color))anchors.layers[name].color=color.toLowerCase();
-    for(const key of ["narrow","medium","wide"])if(validHex(incoming.frameGlow?.[key]))anchors.frameGlow[key].color=incoming.frameGlow[key].toLowerCase();
-    if(anchors.innerGlow&&incoming.innerGlow)for(const key of ["narrow","medium","wide"])if(validHex(incoming.innerGlow[key]))anchors.innerGlow[key].color=incoming.innerGlow[key].toLowerCase();
+/* ---- temporary bidirectional gradient color editor ---- */
+const gradientEditorDefaults={hueShift:0,lightnessShift:0,chromaScale:1,hueDelta:1,lightnessDelta:1,chromaDelta:1};
+let gradientEditorParams={...gradientEditorDefaults},gradientEditorSelection="",gradientEditorResult=null;
+function editorRange(key,label,min,max,step){const value=gradientEditorParams[key];return`<div class="dark-lab-range"><label><span>${label}<output>${Number(value).toFixed(2)}</output></span><input type="range" min="${min}" max="${max}" step="${step}" value="${value}" data-editor-range="${key}"></label><input class="dark-lab-number" type="number" min="${min}" max="${max}" step="${step}" value="${Number(value).toFixed(2)}" data-editor-number="${key}"></div>`;}
+function editorColorInfo(color){const value=hexToOklch(color),relative=relativeSrgbChroma(value);return`${color} · L ${value.l.toFixed(3)} · Cr ${relative.toFixed(3)} · H ${value.h.toFixed(1)}°`;}
+function editorCenter(colors){
+  const values=colors.map(hexToOklch),count=Math.max(1,values.length),l=values.reduce((sum,value)=>sum+value.l,0)/count,cr=values.reduce((sum,value)=>sum+relativeSrgbChroma(value),0)/count;
+  let x=0,y=0,weight=0;for(const value of values){const w=Math.max(value.c,.005);x+=Math.cos(value.h*Math.PI/180)*w;y+=Math.sin(value.h*Math.PI/180)*w;weight+=w;}
+  return{l,cr,h:weight?normalizeHue(Math.atan2(y,x)*180/Math.PI):0};
+}
+function transformEditorColors(sourceSlots,targetSlots){
+  const keys=[...new Set([...Object.keys(targetSlots),...Object.keys(sourceSlots)])],source={};
+  for(const key of keys){const frameKey=key.startsWith("inner.")?key.replace("inner.","frame."):key;source[key]=sourceSlots[key]??sourceSlots[frameKey]??targetSlots[key];}
+  const center=editorCenter(Object.values(source)),result={};
+  for(const key of keys){const value=hexToOklch(source[key]),relative=relativeSrgbChroma(value),hueDistance=((value.h-center.h+540)%360)-180;
+    const l=clamp(center.l+(value.l-center.l)*gradientEditorParams.lightnessDelta+gradientEditorParams.lightnessShift,0,1),h=normalizeHue(center.h+hueDistance*gradientEditorParams.hueDelta+gradientEditorParams.hueShift),cr=clamp((center.cr+(relative-center.cr)*gradientEditorParams.chromaDelta)*gradientEditorParams.chromaScale,0,1);
+    result[key]=oklchToHexInGamut({l,c:value.c<.006?0:cr*maxSrgbChroma(l,h),h});
   }
+  return result;
 }
-try{applyDarkLab(JSON.parse(localStorage.getItem(DARK_LAB_KEY)||"null"));}catch{}
-function persistDarkLab(){localStorage.setItem(DARK_LAB_KEY,JSON.stringify(serializeDarkLab()));}
-let darkLabGridTimer=0;
-function refreshFromDarkLab(){
-  persistDarkLab();render();refreshShapeButtons();
-  clearTimeout(darkLabGridTimer);darkLabGridTimer=setTimeout(renderGrid,100);
+function gradientEditorData(){
+  const targetAppearance=currentAppearance(),sourceAppearance=targetAppearance==="dark"?"light":"dark",options={shape:state.shape,palette:state.palette,tone:activeTone(),variantId:state.variantId,drift:state.drift,size:56,background:null,__ignorePreview:true};
+  const sourceAvatar=createAvatar({...options,appearance:sourceAppearance}),currentAvatar=createAvatar({...options,appearance:targetAppearance}),key=gradientOverrideKey(state.shape,state.palette,targetAppearance),result=transformEditorColors(sourceAvatar.colorSlots,currentAvatar.colorSlots);
+  gradientPreviewOverride={key,colors:result};
+  const resultAvatar=createAvatar({...options,appearance:targetAppearance,__ignorePreview:false});
+  gradientEditorResult={key,sourceAppearance,targetAppearance,source:sourceAvatar.colorSlots,current:currentAvatar.colorSlots,result,sourceSvg:sourceAvatar.svg,currentSvg:currentAvatar.svg,resultSvg:resultAvatar.svg};return gradientEditorResult;
 }
-function darkLabRange(path,label,value,min,max,step){return`<div class="dark-lab-range"><label><span>${label}<output>${Number(value).toFixed(2)}</output></span><input type="range" min="${min}" max="${max}" step="${step}" value="${value}" data-lab-range="${path}"></label><input class="dark-lab-number" type="number" min="${min}" max="${max}" step="${step}" value="${Number(value).toFixed(2)}" data-lab-number="${path}"></div>`;}
-function darkLabColor(path,label,color){return`<div class="dark-lab-color"><label title="${escapeHtml(label)}">${escapeHtml(label)}</label><input type="color" value="${color}" data-lab-color="${path}"><input class="dark-lab-hex" value="${color}" data-lab-hex="${path}" maxlength="7" spellcheck="false"></div>`;}
-function setDarkLabNumber(path,value){
-  if(!Number.isFinite(value))return;
-  const [group,key]=path.split(".");
-  if(group==="params")darkDerivationParams[key]=clamp(value,0,1.5);
-  if(group==="floors")darkRelativeChromaFloor[key]=clamp(value,0,1);
-  if(group==="shapeLightness")darkShapeToneDefaults[state.shape]={...(darkShapeToneDefaults[state.shape]||{}),lightness:clamp(value,-.5,.5)};
-  document.querySelectorAll(`[data-lab-range="${path}"],[data-lab-number="${path}"]`).forEach(input=>{input.value=value;});
-  document.querySelectorAll(`[data-lab-range="${path}"]`).forEach(input=>{input.closest("label").querySelector("output").textContent=value.toFixed(2);});
-  if(group==="shapeLightness")resetToneForSelection();
-  refreshFromDarkLab();
-}
-function setDarkLabColor(path,value){
-  if(!validHex(value))return false;
-  const [group,key]=path.split("."),anchors=darkShapeAnchors[state.shape];
-  if(group==="layers"&&anchors.layers[key])anchors.layers[key].color=value.toLowerCase();
-  if(group==="frameGlow")anchors.frameGlow[key].color=value.toLowerCase();
-  if(group==="innerGlow"&&anchors.innerGlow)anchors.innerGlow[key].color=value.toLowerCase();
-  document.querySelectorAll(`[data-lab-color="${path}"],[data-lab-hex="${path}"]`).forEach(input=>{input.value=value.toLowerCase();});
-  refreshFromDarkLab();return true;
-}
+function renderGradientColorRows(data){const keys=[...new Set([...Object.keys(data.current),...Object.keys(data.source),...Object.keys(data.result)])];return`<div class="gradient-lab-color-head"><span>Slot</span><span>Source</span><span>Current</span><span>Result</span></div><div class="gradient-lab-colors">${keys.map(key=>{const frameKey=key.startsWith("inner.")?key.replace("inner.","frame."):key,source=data.source[key]??data.source[frameKey]??data.current[key],current=data.current[key]??source,result=data.result[key]??current;return`<div class="gradient-lab-color-row"><span class="slot" title="${key}">${key}</span><i class="gradient-lab-swatch" style="background:${source}" title="${editorColorInfo(source)}"></i><i class="gradient-lab-swatch" style="background:${current}" title="${editorColorInfo(current)}"></i><i class="gradient-lab-swatch" style="background:${result}" title="${editorColorInfo(result)}"></i></div>`;}).join("")}</div>`;}
+function refreshGradientPreview(){render();refreshShapeButtons();}
 function renderDarkLab(){
-  const body=$("dark-lab-body");if(!body)return;
-  const shape=state.shape,anchors=darkShapeAnchors[shape],shapeTone=darkShapeToneDefaults[shape]?.lightness??0;
-  $("dark-lab-shape").textContent=`${getShape(shape).name} · live local overrides`;
-  const layerColors=Object.entries(anchors.layers).map(([name,anchor])=>darkLabColor(`layers.${name}`,`${name} · ${anchor.token}`,anchor.color)).join("");
-  const frameColors=["narrow","medium","wide"].map(key=>darkLabColor(`frameGlow.${key}`,`frame ${key}`,anchors.frameGlow[key].color)).join("");
-  const innerColors=anchors.innerGlow?["narrow","medium","wide"].map(key=>darkLabColor(`innerGlow.${key}`,`inner ${key}`,anchors.innerGlow[key].color)).join(""):"<div class=\"dark-lab-subtitle\">No inner glow anchors</div>";
-  body.innerHTML=`
-    <section class="dark-lab-section"><h3>Transfer algorithm</h3>
-      ${darkLabRange("params.lightnessDelta","Lightness delta",darkDerivationParams.lightnessDelta,0,1.5,.01)}
-      ${darkLabRange("params.chromaDelta","Relative chroma delta",darkDerivationParams.chromaDelta,0,1.5,.01)}
-      ${darkLabRange("shapeLightness.value","Shape lightness bias",shapeTone,-.5,.5,.01)}
-    </section>
-    <section class="dark-lab-section"><h3>Relative chroma floors</h3>${paletteTokenOrder.map(token=>darkLabRange(`floors.${token}`,token,darkRelativeChromaFloor[token],0,1,.01)).join("")}</section>
-    <section class="dark-lab-section"><h3>${getShape(shape).name} layer anchors</h3><div class="dark-lab-colors">${layerColors}</div></section>
-    <section class="dark-lab-section"><h3>Frame glow anchors</h3><div class="dark-lab-colors">${frameColors}</div></section>
-    <section class="dark-lab-section"><h3>Inner glow anchors</h3><div class="dark-lab-colors">${innerColors}</div></section>`;
-  body.querySelectorAll("[data-lab-range]").forEach(input=>input.addEventListener("input",event=>setDarkLabNumber(event.target.dataset.labRange,+event.target.value)));
-  body.querySelectorAll("[data-lab-number]").forEach(input=>input.addEventListener("change",event=>setDarkLabNumber(event.target.dataset.labNumber,+event.target.value)));
-  body.querySelectorAll("[data-lab-color]").forEach(input=>input.addEventListener("input",event=>setDarkLabColor(event.target.dataset.labColor,event.target.value)));
-  body.querySelectorAll("[data-lab-hex]").forEach(input=>input.addEventListener("change",event=>{if(!setDarkLabColor(event.target.dataset.labHex,event.target.value))event.target.value=document.querySelector(`[data-lab-color="${event.target.dataset.labHex}"]`).value;}));
+  const body=$("dark-lab-body");if(!body)return;const selection=`${state.shape}:${state.palette}:${currentAppearance()}`;if(selection!==gradientEditorSelection){gradientEditorSelection=selection;gradientEditorParams={...gradientEditorDefaults};gradientPreviewOverride=null;}
+  const data=gradientEditorData(),shape=getShape(state.shape),palette=getPalette(state.palette);$("dark-lab-shape").textContent=`${shape.name} · ${palette.name} · ${data.sourceAppearance} → ${data.targetAppearance}`;
+  body.innerHTML=`<section class="dark-lab-section"><div class="gradient-lab-previews"><div class="gradient-lab-preview"><div class="av">${data.sourceSvg}</div><span>Source · ${data.sourceAppearance}</span></div><div class="gradient-lab-preview"><div class="av">${data.currentSvg}</div><span>Current · ${data.targetAppearance}</span></div><div class="gradient-lab-preview"><div class="av">${data.resultSvg}</div><span>Result</span></div></div><div class="gradient-lab-direction">${data.sourceAppearance} → ${data.targetAppearance} · body + frame + inner</div></section>
+    <section class="dark-lab-section"><h3>Common OKLCH transform</h3>${editorRange("hueShift","Hue shift",-360,360,1)}${editorRange("lightnessShift","Lightness shift",-1,1,.01)}${editorRange("chromaScale","Relative chroma scale",0,3,.01)}</section>
+    <section class="dark-lab-section"><h3>Palette difference scale</h3>${editorRange("hueDelta","Hue difference",0,3,.01)}${editorRange("lightnessDelta","Lightness difference",0,3,.01)}${editorRange("chromaDelta","Relative chroma difference",0,3,.01)}</section>
+    <section class="dark-lab-section"><h3>Actual painted colors</h3>${renderGradientColorRows(data)}</section>`;
+  body.querySelectorAll("[data-editor-range]").forEach(input=>input.addEventListener("input",event=>setGradientEditorParam(event.target.dataset.editorRange,+event.target.value)));
+  body.querySelectorAll("[data-editor-number]").forEach(input=>input.addEventListener("change",event=>setGradientEditorParam(event.target.dataset.editorNumber,+event.target.value)));
+  refreshGradientPreview();
 }
-function setDarkLabOpen(open){$("dark-lab").hidden=!open;localStorage.setItem("oreo-avatar-dark-lab-open",open?"1":"0");if(open)renderDarkLab();}
+function setGradientEditorParam(key,value){if(!Number.isFinite(value))return;gradientEditorParams[key]=value;renderDarkLab();}
+function setDarkLabOpen(open){$("dark-lab").hidden=!open;localStorage.setItem("oreo-avatar-dark-lab-open",open?"1":"0");if(open)renderDarkLab();else{gradientPreviewOverride=null;render();refreshShapeButtons();}}
 $("dark-lab-toggle").addEventListener("click",()=>setDarkLabOpen(true));
 $("dark-lab-close").addEventListener("click",()=>setDarkLabOpen(false));
-$("dark-lab-reset").addEventListener("click",()=>{applyDarkLab(cloneJson(darkLabDefaults));localStorage.removeItem(DARK_LAB_KEY);resetToneForSelection();renderDarkLab();refreshFromDarkLab();});
-$("dark-lab-copy").addEventListener("click",async event=>{await navigator.clipboard.writeText(JSON.stringify(serializeDarkLab(),null,2));const button=event.currentTarget,old=button.textContent;button.textContent="Copied";setTimeout(()=>button.textContent=old,1200);});
+$("dark-lab-reset").addEventListener("click",()=>{gradientEditorParams={...gradientEditorDefaults};renderDarkLab();});
+$("dark-lab-revert").addEventListener("click",()=>{const key=gradientOverrideKey(state.shape,state.palette,currentAppearance());delete gradientOverrides[key];localStorage.setItem(GRADIENT_OVERRIDES_KEY,JSON.stringify(gradientOverrides));gradientEditorParams={...gradientEditorDefaults};gradientPreviewOverride=null;renderDarkLab();renderGrid();});
+$("dark-lab-apply").addEventListener("click",event=>{if(!gradientEditorResult)return;gradientOverrides[gradientEditorResult.key]={...gradientEditorResult.result};localStorage.setItem(GRADIENT_OVERRIDES_KEY,JSON.stringify(gradientOverrides));gradientPreviewOverride=null;const button=event.currentTarget,old=button.textContent;button.textContent="Applied";setTimeout(()=>button.textContent=old,1000);renderDarkLab();renderGrid();});
+$("dark-lab-copy").addEventListener("click",async event=>{if(!gradientEditorResult)return;await navigator.clipboard.writeText(JSON.stringify({shape:state.shape,palette:state.palette,sourceAppearance:gradientEditorResult.sourceAppearance,targetAppearance:gradientEditorResult.targetAppearance,params:gradientEditorParams,colors:gradientEditorResult.result},null,2));const button=event.currentTarget,old=button.textContent;button.textContent="Copied";setTimeout(()=>button.textContent=old,1200);});
 if(localStorage.getItem("oreo-avatar-dark-lab-open")==="1")setDarkLabOpen(true);
 
 /* ---- copy / download ---- */
