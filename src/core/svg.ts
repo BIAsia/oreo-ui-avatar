@@ -2,6 +2,7 @@ import { getPalette } from "../data/palettes";
 import { getShape } from "../data/shapes";
 import type { AvatarOptions, AvatarResult, PaletteColors, ShapeId } from "../types";
 import { derivePalette } from "../color/tone";
+import { toDarkColors } from "../color/dark";
 import { clamp } from "../color/oklch";
 import { randomFromString } from "./random";
 
@@ -251,7 +252,8 @@ function renderSvg(study: Study, options: Required<Pick<AvatarOptions, "variantI
 export function createAvatar(options: AvatarOptions = {}): AvatarResult {
   const shape = getShape(options.shape ?? "bloom");
   const palette = getPalette(options.palette);
-  const colors = derivePalette(palette, options.tone);
+  const source = options.theme === "dark" ? toDarkColors(palette.colors) : palette.colors;
+  const colors = derivePalette(source, options.tone);
   const size = options.size ?? 64;
   const study: Study = {
     type: shape.id,

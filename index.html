@@ -402,6 +402,27 @@ function getPaletteMainHue(colors){return Math.round(hexToOklch(colors.accent).h
 function derivePalette(colors,tone){tone=tone||{};const baseHue=getPaletteMainHue(colors);const targetHue=tone.hue==null?baseHue:normalizeHue(tone.hue);const hueShift=normalizeHue(targetHue-baseHue);const chromaScale=tone.chroma??1;const lightShift=tone.lightness??0;const next={};
   for(const key of paletteTokenOrder){const color=hexToOklch(colors[key]);const hue=color.c<0.006?targetHue:color.h+hueShift;const chroma=clamp(color.c*chromaScale,0,0.37);const light=clamp(color.l+lightShift,0.04,0.98);next[key]=oklchToHex({l:light,c:chroma,h:hue});}
   return next;}
+/* --- dark variant --- */
+function mixHue(a,b,t){const d=((b-a+540)%360)-180;return normalizeHue(a+d*t);}
+// Support fills deepen and pull toward the accent hue; vivid accents stay luminous and glow.
+const darkSpec={
+  base:{l:0.2,cx:1.15,cmin:0.04,cmax:0.12,hueMix:0.45},
+  dark:{lx:0.7,lmin:0.08,lmax:0.17,cx:1.0,cmin:0.03,cmax:0.13,hueMix:0.4},
+  pale:{lmin:0.6,lmax:0.74,cx:1.5,cmin:0.05,cmax:0.16,hueMix:0.6},
+  light:{lmin:0.66,lmax:0.8,cx:1.8,cmin:0.06,cmax:0.18,hueMix:0.55},
+  warm:{lmin:0.62,lmax:0.76,cx:1.5,cmin:0.06,cmax:0.17,hueMix:0.7},
+  cool:{lmin:0.55,lmax:0.72,cx:1.3,cmin:0.06,cmax:0.18,hueMix:0.35},
+  lobe:{lmin:0.6,lmax:0.76,cx:1.3,cmin:0.12,cmax:0.3},
+  accent:{lmin:0.58,lmax:0.78,cx:1.3,cmin:0.12,cmax:0.32},
+  beam:{lmin:0.62,lmax:0.82,cx:1.25,cmin:0.1,cmax:0.28},
+};
+function toDarkColors(colors){const accentHue=hexToOklch(colors.accent).h;const next={};
+  for(const key of paletteTokenOrder){const o=hexToOklch(colors[key]);const spec=darkSpec[key];
+    const ownHue=o.c<0.02?accentHue:o.h;const hue=mixHue(ownHue,accentHue,spec.hueMix??0);
+    let light=spec.l??o.l;if(spec.lx!=null)light=o.l*spec.lx;if(spec.lmin!=null)light=clamp(light,spec.lmin,spec.lmax??1);
+    const chroma=clamp(o.c*(spec.cx??1),spec.cmin??0,spec.cmax??0.37);
+    next[key]=oklchToHex({l:clamp(light,0.04,0.98),c:chroma,h:hue});}
+  return next;}
 /* --- data: shapes --- */
 const shapes=[
   {id:"bloom",name:"Bloom",description:"Diagonal paired ribbon with hot radial glows."},
@@ -558,7 +579,8 @@ function renderBody(study,id,cx,cy,scale,tw){const t=study.type;
   return renderJade(id,study.p,cx,cy,scale,tw);}
 function createAvatar(options){options=options||{};
   const shape=getShape(options.shape??"bloom");const palette=getPalette(options.palette??"rose-milk");
-  const colors=derivePalette(palette.colors,options.tone);const size=options.size??64;
+  const src=options.theme==="dark"?toDarkColors(palette.colors):palette.colors;
+  const colors=derivePalette(src,options.tone);const size=options.size??64;
   const study={type:shape.id,geometryKey:shape.name,p:paletteForType(shape.id,colors)};
   const variantId=options.variantId??"default",drift=options.drift??0;
   const cx=size/2,cy=size/2,scale=size/64,id="oreo-avatar";
@@ -578,7 +600,8 @@ function createAvatar(options){options=options||{};
 /* ===================== UI ===================== */
 const $=id=>document.getElementById(id);
 const root=document.documentElement;
-function imgFor(opts){return `<img src="${createAvatar({...opts,background:null}).toDataUri()}" alt="" draggable="false"/>`;}
+function curTheme(){return root.getAttribute("data-theme")==="dark"?"dark":"light";}
+function imgFor(opts){return `<img src="${createAvatar({theme:curTheme(),...opts,background:null}).toDataUri()}" alt="" draggable="false"/>`;}
 
 /* theme */
 const savedTheme=localStorage.getItem("oa-theme");
@@ -586,7 +609,8 @@ if(savedTheme)root.setAttribute("data-theme",savedTheme);
 else if(matchMedia("(prefers-color-scheme: dark)").matches)root.setAttribute("data-theme","dark");
 function syncThemeToggle(){const isDark=root.getAttribute("data-theme")==="dark";$("theme-toggle").setAttribute("aria-pressed",String(isDark));$("theme-toggle").setAttribute("aria-label",isDark?"Switch to light theme":"Switch to dark theme");}
 syncThemeToggle();
-$("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);syncThemeToggle();});
+$("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);syncThemeToggle();rerenderAvatars();});
+function rerenderAvatars(){renderGrid();refreshShapeButtons();render();}
 
 /* state */
 const state={shape:"bloom",palette:"rose-milk",hue:getPaletteMainHue(getPalette("rose-milk").colors),chroma:1,lightness:0,drift:8,variantId:"a1f3"};
@@ -706,7 +730,7 @@ const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 function codeFor(t){
   const tone=curTone();const hasTone=Object.keys(tone).length>0;
   const shape=state.shape,pal=state.palette;
-  if(t==="svg"){const svg=createAvatar({shape,palette:pal,tone:fullTone(),variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;return{plain:svg,html:esc(svg).replace(/&lt;(\/?[a-zA-Z]+)/g,'<span class="tok-punc">&lt;$1</span>')};}
+  if(t==="svg"){const svg=createAvatar({shape,palette:pal,theme:curTheme(),tone:fullTone(),variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;return{plain:svg,html:esc(svg).replace(/&lt;(\/?[a-zA-Z]+)/g,'<span class="tok-punc">&lt;$1</span>')};}
   const toneStr=hasTone?` tone={{ ${Object.entries(tone).map(([k,v])=>`${k}: ${k==="hue"?Math.round(v):v}`).join(", ")} }}`:"";
   const toneStrH=hasTone?` <span class="tok-punc">tone</span>={{ ${Object.entries(tone).map(([k,v])=>`${k}: <span class="tok-str">${k==="hue"?Math.round(v):v}</span>`).join(", ")} }}`:"";
   const drift=state.drift>0?` variantId="${state.variantId}" drift={${state.drift}}`:"";
@@ -742,7 +766,7 @@ const CHECK='<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke=
 $("code-copy").addEventListener("click",()=>{navigator.clipboard.writeText($("code-out").dataset.plain);flash($("code-copy"),CHECK+"Copied");});
 $("cmd").addEventListener("click",()=>{navigator.clipboard.writeText("npm i @oreo-ui/avatar");$("cmd").classList.add("copied");setTimeout(()=>$("cmd").classList.remove("copied"),1300);});
 $("download").addEventListener("click",()=>{
-  const svg=createAvatar({shape:state.shape,palette:state.palette,tone:fullTone(),variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;
+  const svg=createAvatar({shape:state.shape,palette:state.palette,theme:curTheme(),tone:fullTone(),variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;
   const blob=new Blob([svg],{type:"image/svg+xml"});const url=URL.createObjectURL(blob);
   const a=document.createElement("a");a.href=url;a.download=`${state.shape}-${state.palette}.svg`;a.click();URL.revokeObjectURL(url);
 });

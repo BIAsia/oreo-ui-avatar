@@ -23,6 +23,15 @@ describe("@oreo-ui/avatar", () => {
     expect(shifted.base).not.toBe(original.colors.base);
   });
 
+  it("renders a distinct dark-theme variant for every palette", () => {
+    for (const preset of palettes) {
+      const light = createAvatar({ shape: "bloom", palette: preset.id });
+      const dark = createAvatar({ shape: "bloom", palette: preset.id, theme: "dark" });
+      expect(dark.svg).not.toBe(light.svg);
+      expect(dark.colors.base).toMatch(/^#[0-9a-f]{6}$/);
+    }
+  });
+
   it("keeps variant output deterministic", () => {
     const first = createAvatar({ shape: "void", palette: "teal-void", variantId: "same", drift: 12 }).svg;
     const second = createAvatar({ shape: "void", palette: "teal-void", variantId: "same", drift: 12 }).svg;

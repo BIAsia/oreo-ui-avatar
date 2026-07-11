@@ -43,6 +43,11 @@ export interface ToneOptions {
 export interface AvatarOptions {
   shape?: ShapeId;
   palette?: string | PalettePreset | PaletteColors;
+  /**
+   * Colour theme. `"dark"` swaps the palette for a deep, glowing dark-mode
+   * variant derived from the same preset. Defaults to `"light"`.
+   */
+  theme?: "light" | "dark";
   tone?: ToneOptions;
   variantId?: string;
   drift?: number;
