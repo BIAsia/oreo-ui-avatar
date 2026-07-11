@@ -1,7 +1,7 @@
 import { getPalette } from "../data/palettes";
 import { getShape } from "../data/shapes";
 import { darkShapeAnchors } from "../data/dark-appearance";
-import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId, ToneOptions } from "../types";
+import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, PaletteToken, ShapeId, ToneOptions } from "../types";
 import { derivePalette, getPaletteMainHue } from "../color/tone";
 import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkFlareLayerColor, deriveDarkGlow } from "../color/appearance";
 import { clamp } from "../color/oklch";
@@ -151,8 +151,8 @@ function paletteForType(type: ShapeId, palette: PaletteColors, appearance: Avata
     if (type === "bloom") return { bg: color("base"), blob: color("blob"), hot: color("hot"), pale: color("base") };
     if (type === "silk") return { dark: color("dark"), base: color("base"), warm: color("warm"), cream: "", cream1: color("cream1"), cream2: color("cream2"), cool: color("cream2") };
     if (type === "flare") {
-      const flareColor = (name: string): string => deriveDarkFlareLayerColor(anchors[name]!, palette, referencePalette, chromaFloorScale);
-      return { dark: flareColor("dark"), base: flareColor("base"), cream1: flareColor("cream1"), cream2: flareColor("cream2"), hot1: flareColor("hot1"), hot2: flareColor("hot2") };
+      const flareColor = (name: string, hueToken?: PaletteToken): string => deriveDarkFlareLayerColor(anchors[name]!, palette, referencePalette, chromaFloorScale, hueToken);
+      return { dark: flareColor("dark"), base: flareColor("base", "lobe"), cream1: flareColor("cream1", "lobe"), cream2: flareColor("cream2", "lobe"), hot1: flareColor("hot1", "accent"), hot2: flareColor("hot2", "accent") };
     }
     if (type === "nova") return { base: color("base"), white: color("light"), hot: color("hot"), cool: color("base") };
     if (type === "void") return { base: color("base"), blue: color("core"), green: color("beam"), glow: color("beam") };
