@@ -157,12 +157,12 @@ export const darkFlarePaletteOverrides: Partial<Record<string, DarkFlarePaletteO
     accent: "#45165c",
   },
   "ice-berry": {
-    dark: "#0b1b3a",
-    lobe: "#d85f94",
-    pale: "#9bcce9",
-    light: "#c8e6f4",
-    warm: "#b947b8",
-    accent: "#321759",
+    dark: "#2b0a22",
+    lobe: "#cf5f91",
+    pale: "#e58db7",
+    light: "#f3bdd5",
+    warm: "#c44288",
+    accent: "#541137",
   },
   "apricot-mint": {
     dark: "#092b24",
