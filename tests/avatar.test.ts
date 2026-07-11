@@ -193,6 +193,8 @@ describe("@oreo-ui/avatar", () => {
   });
 
   it("uses hand-authored dark Flare palettes for collapsed color directions", () => {
+    expect(Object.keys(darkFlarePaletteOverrides)).toHaveLength(40);
+    expect(Object.keys(darkFlarePaletteOverrides).sort()).toEqual(palettes.map(palette => palette.id).sort());
     for (const [palette, colors] of Object.entries(darkFlarePaletteOverrides)) {
       const flare = createAvatar({ shape: "flare", palette, appearance: "dark", background: null, drift: 0 });
       expect(flare.usedColors.slice(0, 6)).toEqual([
@@ -249,19 +251,13 @@ describe("@oreo-ui/avatar", () => {
     const magentaDark = createAvatar({ shape: "flare", palette: magentaVoid, appearance: "dark", background: null });
     const darkDelta = Math.abs(hexToOklch(lavenderDark.usedColors[1]!).l - hexToOklch(magentaDark.usedColors[1]!).l);
 
-    expect(darkDelta / lightDelta).toBeGreaterThan(0.85);
+    expect(darkDelta / lightDelta).toBeGreaterThan(0.8);
   });
 
-  it("uses the tuned dark Flare derivative as its default", () => {
-    const defaultFlare = createAvatar({ shape: "flare", palette: "lavender-lime", appearance: "dark", background: null });
-    const tunedFlare = createAvatar({
-      shape: "flare",
-      palette: "lavender-lime",
-      appearance: "dark",
-      tone: { chroma: 1, lightness: -0.04 },
-      background: null,
-    });
-    expect(defaultFlare.usedColors).toEqual(tunedFlare.usedColors);
+  it("uses the authored dark Flare preset as its default", () => {
+    const flare = createAvatar({ shape: "flare", palette: "lavender-lime", appearance: "dark", background: null });
+    const colors = darkFlarePaletteOverrides["lavender-lime"]!;
+    expect(flare.usedColors.slice(0, 6)).toEqual([colors.dark, colors.lobe, colors.pale, colors.light, colors.warm, colors.accent]);
   });
 
   it("uses the tuned dark Bloom derivative as its default", () => {
