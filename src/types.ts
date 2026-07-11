@@ -62,7 +62,7 @@ export interface AvatarResult {
   shape: ShapePreset;
   palette: PalettePreset;
   colors: PaletteColors;
-  /** Colors actually painted by this shape and appearance, in layer order. */
+  /** Nine fixed paint/effect slots used by this shape in both appearances. */
   usedColors: readonly string[];
   appearance: AvatarAppearance;
   size: number;

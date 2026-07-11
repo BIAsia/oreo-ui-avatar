@@ -4,7 +4,7 @@ import { darkShapeAnchors } from "../data/dark-appearance";
 import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId } from "../types";
 import { derivePalette, getPaletteMainHue } from "../color/tone";
 import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkGlow } from "../color/appearance";
-import { clamp, paletteTokenOrder } from "../color/oklch";
+import { clamp } from "../color/oklch";
 import { hashString, randomFromString } from "./random";
 
 type LayerPalette =
@@ -251,18 +251,29 @@ function darkEffectDefs(id: string, study: Study): string {
   return `${innerShadowFilter(`dark-frame-${id}`, frameMetrics, frameColors, profile.noiseFrequency)}${surface}${layerBlurs}`;
 }
 
-function usedColors(study: Study, palette: PaletteColors): string[] {
-  if (study.appearance === "light") return paletteTokenOrder.map(token => palette[token]);
-  const candidates = [
-    ...Object.values(study.p),
+function layerColorSlots(study: Study): [string, string, string, string, string, string] {
+  const p = study.p;
+  if ("bg" in p) return [p.bg, p.blob, p.hot, p.bg, p.blob, p.hot];
+  if ("hot1" in p) return [p.dark, p.base, p.cream1, p.cream2, p.hot1, p.hot2];
+  if ("warm" in p) {
+    const cream1 = p.cream1 || p.cream;
+    const cream2 = p.cream2 || p.cream;
+    return [p.dark, p.base, p.warm, cream1, cream2, p.cool];
+  }
+  if ("white" in p) return [p.base, p.white, p.hot, p.base, p.white, p.hot];
+  if ("blue" in p) return [p.base, p.blue, p.green, p.base, p.blue, p.green];
+  const base1 = p.base1 || p.base;
+  const base2 = p.base2 || p.base;
+  return [base1, base2, p.milk, p.grad1, p.grad2, p.glow];
+}
+
+function usedColors(study: Study): string[] {
+  return [
+    ...layerColorSlots(study),
     study.glow.glow2,
     study.glow.glow1,
     study.glow.white,
-    study.innerGlow?.glow2,
-    study.innerGlow?.glow1,
-    study.innerGlow?.white,
   ];
-  return [...new Set(candidates.filter((color): color is string => typeof color === "string" && /^#[0-9a-f]{6}$/i.test(color)))];
 }
 
 function frame(id: string, cx: number, cy: number, size: number): string {
@@ -480,7 +491,7 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     shape,
     palette,
     colors,
-    usedColors: usedColors(study, sourceColors),
+    usedColors: usedColors(study),
     appearance,
     size,
     svg,

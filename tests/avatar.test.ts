@@ -129,8 +129,11 @@ describe("@oreo-ui/avatar", () => {
 
   it("reports the colors actually painted by the selected dark shape", () => {
     const flare = createAvatar({ shape: "flare", palette: "cherry-cola", appearance: "dark", background: null });
-    expect(flare.usedColors.length).toBeGreaterThanOrEqual(6);
+    const light = createAvatar({ shape: "flare", palette: "cherry-cola", appearance: "light", background: null });
+    expect(flare.usedColors).toHaveLength(9);
+    expect(light.usedColors).toHaveLength(9);
     for (const color of flare.usedColors) expect(flare.svg).toContain(color);
+    for (const color of light.usedColors) expect(light.svg).toContain(color);
     expect(flare.usedColors).not.toContain(flare.colors.beam);
   });
 
