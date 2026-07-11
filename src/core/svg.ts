@@ -70,7 +70,6 @@ interface ShadowMetric {
 
 interface DarkEffectProfile {
   frame: [ShadowMetric, ShadowMetric, ShadowMetric];
-  noiseFrequency: number;
   surface?: [ShadowMetric, ShadowMetric, ShadowMetric];
   layerBlurs: [number, number];
 }
@@ -79,33 +78,31 @@ interface DarkEffectProfile {
 const darkEffectProfiles: Record<ShapeId, DarkEffectProfile> = {
   nova: {
     frame: [{ blur: 5.052632, dy: -1.122807 }, { blur: 1.122807, spread: 1.016887 }, { blur: 1.122807, spread: 1.015873 }],
-    noiseFrequency: 3.9335744380950928,
     layerBlurs: [5.614035, 8.421053],
   },
   void: {
     frame: [{ blur: 5.614035 }, { blur: 2.245614, spread: 1.015873 }, { blur: 1.122807, spread: 1.015873 }],
-    noiseFrequency: 3.9335744380950928,
     layerBlurs: [13.714285, 5.079366],
   },
   jade: {
     frame: [{ blur: 5.614035 }, { blur: 1.684211, spread: 1.016887 }, { blur: 1.122807, spread: 1.015873 }],
-    noiseFrequency: 3.9335744380950928,
     layerBlurs: [13.727973, 5.084435],
   },
   bloom: {
     frame: [{ blur: 5.614035 }, { blur: 2.245614, spread: 1.016887 }, { blur: 1.122807, spread: 1.015873 }],
-    noiseFrequency: 3.9335744380950928,
     layerBlurs: [3.224692, 1.074898],
   },
   silk: {
     frame: [{ blur: 5.925926 }, { blur: 1.481482, spread: 1.015873 }, { blur: 1.122807, spread: 1.015873 }],
-    noiseFrequency: 3.937499761581421,
     surface: [{ blur: 12.698412, spread: 2.539683, alpha: 0.5 }, { blur: 5.079365 }, { blur: 1.269841, spread: 1.015873 }],
     layerBlurs: [10.370371, 7.626652],
   },
   flare: {
-    frame: [{ blur: 5.614035 }, { blur: 2.245614, spread: 1.016887 }, { blur: 1.122807, spread: 1.015873 }],
-    noiseFrequency: 3.9335744380950928,
+    frame: [
+      { blur: 5.614035, alpha: 0.72 },
+      { blur: 2.245614, spread: 1.016887, alpha: 0.58 },
+      { blur: 1.122807, spread: 1.015873, alpha: 0.32 },
+    ],
     surface: [{ blur: 12.711087, spread: 2.542217, alpha: 0.5 }, { blur: 5.084435 }, { blur: 1.271109, spread: 1.016887 }],
     layerBlurs: [4.830213, 7.626652],
   },
@@ -186,7 +183,6 @@ function innerShadowFilter(
   id: string,
   metrics: [ShadowMetric, ShadowMetric, ShadowMetric],
   colors: [string, string, string],
-  noiseFrequency?: number,
 ): string {
   let previous = "shape";
   const shadows = metrics.map((metric, index) => {
@@ -212,22 +208,10 @@ function innerShadowFilter(
     return result;
   }).join("");
 
-  // Figma exports the inverse of its 0.254px noise size. Chromium aliases
-  // that sub-pixel frequency into coarse blocks, so use a continuous fine
-  // grain while retaining the authored 15% black noise strength.
-  const browserNoiseFrequency = noiseFrequency == null ? null : Math.min(noiseFrequency, 0.9);
-  const noise = browserNoiseFrequency == null ? "" : `
-      <feTurbulence type="fractalNoise" baseFrequency="${browserNoiseFrequency} ${browserNoiseFrequency}" stitchTiles="stitch" numOctaves="1" seed="2560" result="noise-${id}"/>
-      <feColorMatrix in="noise-${id}" type="luminanceToAlpha" result="alpha-noise-${id}"/>
-      <feComposite in="alpha-noise-${id}" in2="${previous}" operator="in" result="clipped-noise-${id}"/>
-      <feFlood flood-color="#000000" flood-opacity="0.15" result="noise-color-${id}"/>
-      <feComposite in="noise-color-${id}" in2="clipped-noise-${id}" operator="in" result="colored-noise-${id}"/>
-      <feMerge><feMergeNode in="${previous}"/><feMergeNode in="colored-noise-${id}"/></feMerge>`;
-
   return `<filter id="${id}" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
       <feFlood flood-opacity="0" result="BackgroundImageFix"/>
       <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-      ${shadows}${noise}
+      ${shadows}
     </filter>`;
 }
 
@@ -248,7 +232,7 @@ function darkEffectDefs(id: string, study: Study): string {
     <filter id="dark-layer-${index + 1}-${id}" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB">
       <feGaussianBlur stdDeviation="${blur}"/>
     </filter>`).join("");
-  return `${innerShadowFilter(`dark-frame-${id}`, frameMetrics, frameColors, profile.noiseFrequency)}${surface}${layerBlurs}`;
+  return `${innerShadowFilter(`dark-frame-${id}`, frameMetrics, frameColors)}${surface}${layerBlurs}`;
 }
 
 function layerColorSlots(study: Study): [string, string, string, string, string, string] {

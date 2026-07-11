@@ -109,7 +109,7 @@ describe("@oreo-ui/avatar", () => {
     const flare = createAvatar({ shape: "flare", palette: "peach-cream", appearance: "dark", background: null, drift: 0 }).svg;
 
     expect(bloom).toMatch(/filter="url\(#dark-frame-oreo-[a-z0-9]+\)"/);
-    expect(bloom).toContain("feTurbulence");
+    expect(bloom).not.toContain("feTurbulence");
     expect(bloom).toContain('stdDeviation="3.224692"');
     expect(bloom).toContain('flood-color="#ffffff" flood-opacity="0.45"');
     expect(bloom).not.toContain('opacity="0.860"');
@@ -117,12 +117,13 @@ describe("@oreo-ui/avatar", () => {
     expect(bloom).toContain('mask="url(#edge-mask-');
     expect(bloom).toContain('stop-opacity="0"');
     expect(bloom).not.toContain('shape-rendering="geometricPrecision"');
-    expect(flare).toContain('flood-color="#ff8c79" flood-opacity="1"');
-    expect(flare).toContain('flood-color="#ff8774" flood-opacity="1"');
+    expect(flare).toContain('flood-color="#ff8c79" flood-opacity="0.72"');
+    expect(flare).toContain('flood-color="#ff8774" flood-opacity="0.58"');
+    expect(flare).toContain('flood-color="#ffffff" flood-opacity="0.32"');
     expect(flare).toContain('stdDeviation="5.614035"');
     expect(flare).toContain('stdDeviation="2.245614"');
     expect(flare).toContain('stdDeviation="1.122807"');
-    expect(flare).toContain('baseFrequency="0.9 0.9"');
+    expect(flare).not.toContain("feTurbulence");
     expect(silk).toContain('gradientTransform="translate(-0.03 -15.355) rotate(89.9503) scale(36.7093 41.0794)"');
     expect(silk).toContain('stdDeviation="12.698412"');
   });
