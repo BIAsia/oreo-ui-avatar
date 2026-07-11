@@ -97,7 +97,7 @@ Chroma transfer is relative to the available sRGB gamut, not an absolute OKLCH `
 
 Derived colors also have role-based `Cr` floors: `0.42` for dark endpoints, `0.58` for base, `0.68` for pale, and `0.72–0.82` for the chromatic middle roles (`lobe`, `accent`, `warm`, `cool`, and `beam`). Figma reference palettes bypass these floors and remain exact.
 
-Each dark layer transfers a semantic palette direction from its Figma anchor. Flare keeps its paired orange, center, and glow directions coherent, then applies small per-layer lightness offsets so adjacent layers separate without jumping to unrelated hues.
+Each dark layer transfers the semantic palette direction of the matching light Figma layer. Flare maps its four gradient stops through `pale`, `light`, `warm`, and `accent` in structural order, while its solid base follows `lobe` and its dark endpoint follows `dark`.
 
 Dark Flare derivatives use a shape-level input tone (`hueOffset: -67`, `chroma: 0.45`, `lightness: -0.18`) before their semantic deltas are transferred. The relative hue offset keeps palettes distinct while Lavender Lime lands at `227°`. The Peach Cream Figma reference bypasses this derivative bias and remains exact. The preview's lightness control spans `-0.35` to `0.35`.
 

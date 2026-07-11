@@ -47,13 +47,7 @@ export function deriveDarkAnchorColor(
     ? clamp(targetRelativeChroma / referenceRelativeChroma, 0.55, 1.45)
     : 1;
   const lightnessShift = clamp((target.l - reference.l) * 0.35, -0.12, 0.12);
-  const lightness = clamp(
-    base.l
-      + lightnessShift * (base.c < 0.006 ? 0.5 : 1)
-      + (isReferencePalette ? 0 : anchor.lightnessOffset ?? 0),
-    0.03,
-    0.999999,
-  );
+  const lightness = clamp(base.l + lightnessShift * (base.c < 0.006 ? 0.5 : 1), 0.03, 0.999999);
   const hue = base.h + shift;
   const relativeChroma = base.c < 0.006
     ? 0

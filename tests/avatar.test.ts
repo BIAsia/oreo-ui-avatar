@@ -9,6 +9,7 @@ import {
   relativeSrgbChroma,
   shapes,
 } from "../src";
+import { darkShapeAnchors } from "../src/data/dark-appearance";
 
 function layerGeometry(svg: string): string[] {
   return [...svg.matchAll(/<g transform="([^"]+)"><rect x="([^"]+)" y="([^"]+)" width="([^"]+)" height="([^"]+)" rx="([^"]+)"/g)]
@@ -151,6 +152,23 @@ describe("@oreo-ui/avatar", () => {
   it("keeps Flare derivative layers semantically separated", () => {
     const flare = createAvatar({ shape: "flare", palette: "lavender-lime", appearance: "dark", background: null });
     expect(new Set(flare.usedColors.slice(0, 6)).size).toBeGreaterThanOrEqual(5);
+  });
+
+  it("maps dark Flare layers to their matching light Figma roles", () => {
+    const flare = darkShapeAnchors.flare;
+    expect(Object.fromEntries(Object.entries(flare.layers).map(([name, anchor]) => [name, anchor.token]))).toEqual({
+      dark: "dark",
+      base: "lobe",
+      cream1: "pale",
+      cream2: "light",
+      hot1: "warm",
+      hot2: "accent",
+    });
+    expect([flare.frameGlow.narrow.token, flare.frameGlow.medium.token, flare.frameGlow.wide.token]).toEqual([
+      "light",
+      "pale",
+      "beam",
+    ]);
   });
 
   it("uses the tuned dark Flare derivative as its default", () => {

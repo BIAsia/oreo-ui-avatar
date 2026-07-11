@@ -3,7 +3,6 @@ import type { PaletteColors, PaletteToken, ShapeId } from "../types";
 export interface DarkColorAnchor {
   color: string;
   token: PaletteToken;
-  lightnessOffset?: number;
 }
 
 export interface DarkGlowAnchors {
@@ -19,7 +18,7 @@ export interface DarkShapeAnchors {
   innerGlow?: DarkGlowAnchors;
 }
 
-const a = (color: string, token: PaletteToken, lightnessOffset?: number): DarkColorAnchor => ({ color, token, lightnessOffset });
+const a = (color: string, token: PaletteToken): DarkColorAnchor => ({ color, token });
 const glow = (narrow: DarkColorAnchor, medium: DarkColorAnchor, wide: DarkColorAnchor): DarkGlowAnchors => ({ narrow, medium, wide });
 
 /** Exact color anchors from Oreo UI Standard, node 1303:606. */
@@ -79,13 +78,13 @@ export const darkShapeAnchors: Record<ShapeId, DarkShapeAnchors> = {
     layers: {
       dark: a("#000000", "dark"),
       base: a("#ff9a44", "lobe"),
-      cream1: a("#ff9a44", "lobe", 0.035),
-      cream2: a("#f62b0a", "accent", 0.025),
-      hot1: a("#f62b0a", "accent", -0.035),
-      hot2: a("#170312", "dark"),
+      cream1: a("#ff9a44", "pale"),
+      cream2: a("#f62b0a", "light"),
+      hot1: a("#f62b0a", "warm"),
+      hot2: a("#170312", "accent"),
     },
-    frameGlow: glow(a("#ffffff", "light"), a("#ff8774", "warm"), a("#ff8c79", "warm", 0.025)),
-    innerGlow: glow(a("#ff9de7", "accent"), a("#ed66cb", "accent"), a("#ed66cb", "accent", 0.025)),
+    frameGlow: glow(a("#ffffff", "light"), a("#ff8774", "pale"), a("#ff8c79", "beam")),
+    innerGlow: glow(a("#ff9de7", "accent"), a("#ed66cb", "accent"), a("#ed66cb", "accent")),
   },
 };
 
