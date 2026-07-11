@@ -43,7 +43,7 @@ export const darkShapeAnchors: Record<ShapeId, DarkShapeAnchors> = {
     frameGlow: glow(a("#000000", "dark"), a("#71abff", "cool"), a("#71abff", "cool")),
   },
   jade: {
-    lightReference: "mint-milk",
+    lightReference: "jade-cream",
     layers: {
       base1: a("#031a05", "dark"),
       base2: a("#08b98d", "lobe"),

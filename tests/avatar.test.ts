@@ -66,7 +66,7 @@ describe("@oreo-ui/avatar", () => {
       flare: "peach-cream",
       nova: "aurora-pink",
       void: "rose-milk",
-      jade: "mint-milk",
+      jade: "jade-cream",
     };
     const expected: Record<string, string[]> = {
       bloom: ["#ff7a7c", "#df1c77", "#421d11", "#e22775", "#ff25a1", "#ffb58e"],
