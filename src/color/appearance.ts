@@ -2,7 +2,7 @@ import type { AvatarAppearance, PaletteColors, PalettePreset, PaletteToken } fro
 import type { DarkColorAnchor, DarkGlowAnchors } from "../data/dark-appearance";
 import { darkReferencePalette } from "../data/dark-appearance";
 import { palettes } from "../data/palettes";
-import { clamp, hexToOklch, maxSrgbChroma, normalizeHue, oklchToHexInGamut, paletteTokenOrder, relativeSrgbChroma } from "./oklch";
+import { clamp, hexToOklch, maxSrgbChroma, oklchToHexInGamut, paletteTokenOrder, relativeSrgbChroma } from "./oklch";
 
 const lightReferencePalette = palettes[0].colors;
 
@@ -18,11 +18,6 @@ const darkRelativeChromaFloor: Record<PaletteToken, number> = {
   beam: 0.78,
 };
 
-function hueDelta(target: number, source: number): number {
-  const delta = normalizeHue(target - source);
-  return delta > 180 ? delta - 360 : delta;
-}
-
 export function deriveDarkAnchorColor(
   anchor: DarkColorAnchor,
   palette: PaletteColors,
@@ -31,12 +26,7 @@ export function deriveDarkAnchorColor(
   const base = hexToOklch(anchor.color);
   const reference = hexToOklch(referencePalette[anchor.token]);
   const target = hexToOklch(palette[anchor.token]);
-  const referenceAccent = hexToOklch(referencePalette.accent);
   const targetAccent = hexToOklch(palette.accent);
-
-  const shift = reference.c >= 0.006 && target.c >= 0.006
-    ? hueDelta(target.h, reference.h)
-    : hueDelta(targetAccent.h, referenceAccent.h);
   const referenceRelativeChroma = relativeSrgbChroma(reference);
   const targetRelativeChroma = relativeSrgbChroma(target);
   const baseRelativeChroma = relativeSrgbChroma(base);
@@ -48,7 +38,7 @@ export function deriveDarkAnchorColor(
     : 1;
   const lightnessShift = clamp((target.l - reference.l) * 0.35, -0.12, 0.12);
   const lightness = clamp(base.l + lightnessShift * (base.c < 0.006 ? 0.5 : 1), 0.03, 0.999999);
-  const hue = base.h + shift;
+  const hue = isReferencePalette ? base.h : target.c >= 0.006 ? target.h : targetAccent.h;
   const relativeChroma = base.c < 0.006
     ? 0
     : clamp(Math.max(

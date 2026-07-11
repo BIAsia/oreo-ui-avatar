@@ -10,10 +10,16 @@ import {
   shapes,
 } from "../src";
 import { darkShapeAnchors } from "../src/data/dark-appearance";
+import { deriveDarkAnchorColor } from "../src/color/appearance";
 
 function layerGeometry(svg: string): string[] {
   return [...svg.matchAll(/<g transform="([^"]+)"><rect x="([^"]+)" y="([^"]+)" width="([^"]+)" height="([^"]+)" rx="([^"]+)"/g)]
     .map(match => match.slice(1).join("|"));
+}
+
+function hueDistance(a: number, b: number): number {
+  const distance = Math.abs(a - b) % 360;
+  return Math.min(distance, 360 - distance);
 }
 
 describe("@oreo-ui/avatar", () => {
@@ -171,13 +177,31 @@ describe("@oreo-ui/avatar", () => {
     ]);
   });
 
+  it("keeps a derived palette's token hues consistent across dark shapes", () => {
+    const lemonMint = palettes.find(palette => palette.id === "lemon-mint")!;
+    const samples = [
+      { shape: "flare" as const, layer: "cream1" },
+      { shape: "silk" as const, layer: "warm" },
+      { shape: "bloom" as const, layer: "blob" },
+    ];
+
+    for (const sample of samples) {
+      const shape = darkShapeAnchors[sample.shape];
+      const anchor = shape.layers[sample.layer]!;
+      const reference = palettes.find(palette => palette.id === shape.lightReference)!;
+      const derived = hexToOklch(deriveDarkAnchorColor(anchor, lemonMint.colors, reference.colors));
+      const target = hexToOklch(lemonMint.colors[anchor.token]);
+      expect(hueDistance(derived.h, target.h)).toBeLessThan(4);
+    }
+  });
+
   it("uses the tuned dark Flare derivative as its default", () => {
     const defaultFlare = createAvatar({ shape: "flare", palette: "lavender-lime", appearance: "dark", background: null });
     const tunedFlare = createAvatar({
       shape: "flare",
       palette: "lavender-lime",
       appearance: "dark",
-      tone: { hue: 227, chroma: 0.45, lightness: -0.18 },
+      tone: { chroma: 0.45, lightness: -0.18 },
       background: null,
     });
     expect(defaultFlare.usedColors).toEqual(tunedFlare.usedColors);

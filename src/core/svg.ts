@@ -4,7 +4,7 @@ import { darkShapeAnchors } from "../data/dark-appearance";
 import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId, ToneOptions } from "../types";
 import { derivePalette, getPaletteMainHue } from "../color/tone";
 import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkGlow } from "../color/appearance";
-import { clamp, normalizeHue } from "../color/oklch";
+import { clamp } from "../color/oklch";
 import { hashString, randomFromString } from "./random";
 
 type LayerPalette =
@@ -33,10 +33,8 @@ interface GlowPalette {
   glow2: string;
 }
 
-type ShapeToneDefault = ToneOptions & { hueOffset?: number };
-
-const darkShapeToneDefaults: Partial<Record<ShapeId, ShapeToneDefault>> = {
-  flare: { hueOffset: -67, chroma: 0.45, lightness: -0.18 },
+const darkShapeToneDefaults: Partial<Record<ShapeId, ToneOptions>> = {
+  flare: { chroma: 0.45, lightness: -0.18 },
 };
 
 interface RectOptions {
@@ -458,9 +456,6 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     : {
         chroma: shapeToneDefault.chroma,
         lightness: shapeToneDefault.lightness,
-        hue: shapeToneDefault.hueOffset == null
-          ? undefined
-          : normalizeHue(getPaletteMainHue(palette) + shapeToneDefault.hueOffset),
       };
   const effectiveTone = darkShapeTone == null && options.tone == null
     ? undefined
