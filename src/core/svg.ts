@@ -3,7 +3,7 @@ import { getShape } from "../data/shapes";
 import { darkShapeAnchors } from "../data/dark-appearance";
 import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId, ToneOptions } from "../types";
 import { derivePalette, getPaletteMainHue } from "../color/tone";
-import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkGlow } from "../color/appearance";
+import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkFlareLayerColor, deriveDarkGlow } from "../color/appearance";
 import { clamp } from "../color/oklch";
 import { hashString, randomFromString } from "./random";
 
@@ -150,7 +150,10 @@ function paletteForType(type: ShapeId, palette: PaletteColors, appearance: Avata
     const color = (name: string): string => deriveDarkAnchorColor(anchors[name]!, palette, referencePalette, chromaFloorScale);
     if (type === "bloom") return { bg: color("base"), blob: color("blob"), hot: color("hot"), pale: color("base") };
     if (type === "silk") return { dark: color("dark"), base: color("base"), warm: color("warm"), cream: "", cream1: color("cream1"), cream2: color("cream2"), cool: color("cream2") };
-    if (type === "flare") return { dark: color("dark"), base: color("base"), cream1: color("cream1"), cream2: color("cream2"), hot1: color("hot1"), hot2: color("hot2") };
+    if (type === "flare") {
+      const flareColor = (name: string): string => deriveDarkFlareLayerColor(anchors[name]!, palette, referencePalette, chromaFloorScale);
+      return { dark: flareColor("dark"), base: flareColor("base"), cream1: flareColor("cream1"), cream2: flareColor("cream2"), hot1: flareColor("hot1"), hot2: flareColor("hot2") };
+    }
     if (type === "nova") return { base: color("base"), white: color("light"), hot: color("hot"), cool: color("base") };
     if (type === "void") return { base: color("base"), blue: color("core"), green: color("beam"), glow: color("beam") };
     return { base: "", base1: color("base1"), base2: color("base2"), milk: color("milk"), grad1: color("glow1"), grad2: color("glow2"), glow: color("glow1") };

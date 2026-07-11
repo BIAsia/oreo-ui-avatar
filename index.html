@@ -480,6 +480,7 @@ const darkRelativeChromaFloor={base:1,lobe:1,accent:1,pale:1,light:1,warm:1,cool
 const darkShapeToneDefaults={flare:{lightness:-.04},bloom:{lightness:-.1}};
 const darkDerivationParams={lightnessDelta:.86,chromaDelta:.86};
 function deriveDarkAnchorColor(anchor,colors,referenceColors=palettes[0].colors,chromaFloorScale=1){const base=hexToOklch(anchor.color),reference=hexToOklch(referenceColors[anchor.token]),target=hexToOklch(colors[anchor.token]),targetAccent=hexToOklch(colors.accent),referenceRelative=relativeSrgbChroma(reference),targetRelative=relativeSrgbChroma(target),baseRelative=relativeSrgbChroma(base),isReference=paletteTokenOrder.every(token=>colors[token].toLowerCase()===referenceColors[token].toLowerCase()),toneChroma=clamp(chromaFloorScale,0,1),fullTargetRelative=toneChroma>.0001?clamp(targetRelative/toneChroma,0,1):referenceRelative,transferredRelative=clamp(baseRelative+(fullTargetRelative-referenceRelative)*darkDerivationParams.chromaDelta,0,1),lightness=clamp(base.l+(target.l-reference.l)*darkDerivationParams.lightnessDelta,.03,.999999),hue=isReference?base.h:target.c>=.006?target.h:targetAccent.h,relative=base.c<.006?0:isReference?baseRelative:toneChroma*Math.max(transferredRelative,darkRelativeChromaFloor[anchor.token]);return oklchToHexInGamut({l:lightness,c:relative*maxSrgbChroma(lightness,hue),h:hue});}
+function deriveDarkFlareLayerColor(anchor,colors,referenceColors,chromaFloorScale=1){const dark=hexToOklch(anchor.color),referenceLight=hexToOklch(referenceColors[anchor.token]),targetLight=hexToOklch(colors[anchor.token]),targetAccent=hexToOklch(colors.accent),isReference=paletteTokenOrder.every(token=>colors[token].toLowerCase()===referenceColors[token].toLowerCase());if(isReference)return anchor.color.toLowerCase();const toneChroma=clamp(chromaFloorScale,0,1),lightnessRatio=referenceLight.l>.0001?dark.l/referenceLight.l:1,lightness=clamp(targetLight.l*lightnessRatio,.03,.999999),sourceHue=targetLight.c>=.006?targetLight.h:targetAccent.h,referenceHueDelta=((dark.h-referenceLight.h+540)%360)-180,hue=normalizeHue(sourceHue+referenceHueDelta),relative=dark.c<.006?0:toneChroma;return oklchToHexInGamut({l:lightness,c:relative*maxSrgbChroma(lightness,hue),h:hue});}
 function deriveDarkGlow(anchors,colors,referenceColors=palettes[0].colors,chromaFloorScale=1){return{white:deriveDarkAnchorColor(anchors.narrow,colors,referenceColors,chromaFloorScale),glow1:deriveDarkAnchorColor(anchors.medium,colors,referenceColors,chromaFloorScale),glow2:deriveDarkAnchorColor(anchors.wide,colors,referenceColors,chromaFloorScale)};}
 function deriveAppearancePalette(colors,appearance,referenceColors=palettes[0].colors,chromaFloorScale=1){if(appearance!=="dark")return{...colors};const next={};for(const token of paletteTokenOrder)next[token]=deriveDarkAnchorColor(A(darkReferencePalette[token],token),colors,referenceColors,chromaFloorScale);return next;}
 /* --- data: shapes --- */
@@ -552,7 +553,7 @@ function paletteForType(type,p,appearance,referenceColors,chromaFloorScale){
     const anchors=darkShapeAnchors[type].layers,color=name=>deriveDarkAnchorColor(anchors[name],p,referenceColors,chromaFloorScale);
     if(type==="bloom")return{bg:color("base"),blob:color("blob"),hot:color("hot"),pale:color("base")};
     if(type==="silk")return{dark:color("dark"),base:color("base"),warm:color("warm"),cream:"",cream1:color("cream1"),cream2:color("cream2"),cool:color("cream2")};
-    if(type==="flare")return{dark:color("dark"),base:color("base"),cream1:color("cream1"),cream2:color("cream2"),hot1:color("hot1"),hot2:color("hot2")};
+    if(type==="flare"){const flareColor=name=>deriveDarkFlareLayerColor(anchors[name],p,referenceColors,chromaFloorScale);return{dark:flareColor("dark"),base:flareColor("base"),cream1:flareColor("cream1"),cream2:flareColor("cream2"),hot1:flareColor("hot1"),hot2:flareColor("hot2")};}
     if(type==="nova")return{base:color("base"),white:color("light"),hot:color("hot"),cool:color("base")};
     if(type==="void")return{base:color("base"),blue:color("core"),green:color("beam"),glow:color("beam")};
     return{base:"",base1:color("base1"),base2:color("base2"),milk:color("milk"),grad1:color("glow1"),grad2:color("glow2"),glow:color("glow1")};
@@ -874,7 +875,7 @@ function render(){
 }
 
 /* ---- temporary dark derivation lab ---- */
-const DARK_LAB_KEY="oreo-avatar-dark-lab-v1";
+const DARK_LAB_KEY="oreo-avatar-dark-lab-v2";
 const cloneJson=value=>JSON.parse(JSON.stringify(value));
 function serializeDarkLab(){return{
   params:{...darkDerivationParams},

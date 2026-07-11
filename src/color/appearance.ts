@@ -2,7 +2,7 @@ import type { AvatarAppearance, PaletteColors, PalettePreset, PaletteToken } fro
 import type { DarkColorAnchor, DarkGlowAnchors } from "../data/dark-appearance";
 import { darkReferencePalette } from "../data/dark-appearance";
 import { palettes } from "../data/palettes";
-import { clamp, hexToOklch, maxSrgbChroma, oklchToHexInGamut, paletteTokenOrder, relativeSrgbChroma } from "./oklch";
+import { clamp, hexToOklch, maxSrgbChroma, normalizeHue, oklchToHexInGamut, paletteTokenOrder, relativeSrgbChroma } from "./oklch";
 
 const lightReferencePalette = palettes[0].colors;
 
@@ -53,6 +53,43 @@ export function deriveDarkAnchorColor(
     : isReferencePalette
       ? baseRelativeChroma
       : toneChroma * Math.max(transferredRelativeChroma, darkRelativeChromaFloor[anchor.token]);
+
+  return oklchToHexInGamut({
+    l: lightness,
+    c: relativeChroma * maxSrgbChroma(lightness, hue),
+    h: hue,
+  });
+}
+
+/**
+ * Flare is derived layer-for-layer from its rendered light palette. The Figma
+ * Peach Cream pair supplies each layer's darkening ratio and bounded hue move,
+ * both applied to the selected light layer itself. This prevents unrelated
+ * utility tokens from being introduced while preserving the authored hierarchy.
+ */
+export function deriveDarkFlareLayerColor(
+  anchor: DarkColorAnchor,
+  palette: PaletteColors,
+  referencePalette: PaletteColors,
+  chromaFloorScale = 1,
+): string {
+  const dark = hexToOklch(anchor.color);
+  const referenceLight = hexToOklch(referencePalette[anchor.token]);
+  const targetLight = hexToOklch(palette[anchor.token]);
+  const targetAccent = hexToOklch(palette.accent);
+  const isReferencePalette = paletteTokenOrder.every(
+    token => palette[token].toLowerCase() === referencePalette[token].toLowerCase(),
+  );
+
+  if (isReferencePalette) return anchor.color.toLowerCase();
+
+  const toneChroma = clamp(chromaFloorScale, 0, 1);
+  const lightnessRatio = referenceLight.l > 0.0001 ? dark.l / referenceLight.l : 1;
+  const lightness = clamp(targetLight.l * lightnessRatio, 0.03, 0.999999);
+  const sourceHue = targetLight.c >= 0.006 ? targetLight.h : targetAccent.h;
+  const referenceHueDelta = ((dark.h - referenceLight.h + 540) % 360) - 180;
+  const hue = normalizeHue(sourceHue + referenceHueDelta);
+  const relativeChroma = dark.c < 0.006 ? 0 : toneChroma;
 
   return oklchToHexInGamut({
     l: lightness,

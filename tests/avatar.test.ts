@@ -175,6 +175,20 @@ describe("@oreo-ui/avatar", () => {
     expect(new Set(flare.usedColors.slice(0, 6)).size).toBeGreaterThanOrEqual(5);
   });
 
+  it("derives every visible dark Flare layer from its matching light layer", () => {
+    const light = createAvatar({ shape: "flare", palette: "rose-milk", appearance: "light", background: null, drift: 0 });
+    const dark = createAvatar({ shape: "flare", palette: "rose-milk", appearance: "dark", background: null, drift: 0 });
+
+    for (const index of [1, 2, 4, 5]) {
+      const lightColor = hexToOklch(light.usedColors[index]!);
+      const darkColor = hexToOklch(dark.usedColors[index]!);
+      expect(darkColor.l).toBeLessThan(lightColor.l);
+      expect(darkColor.h < 75 || darkColor.h > 280).toBe(true);
+    }
+
+    expect(dark.usedColors.slice(0, 6)).not.toContain("#009a36");
+  });
+
   it("maps dark Flare layers to their matching light Figma roles", () => {
     const flare = darkShapeAnchors.flare;
     expect(Object.fromEntries(Object.entries(flare.layers).map(([name, anchor]) => [name, anchor.token]))).toEqual({
