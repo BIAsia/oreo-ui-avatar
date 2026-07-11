@@ -53,7 +53,7 @@
   }
   .mark { display: flex; align-items: center; gap: 9px; font-weight: 540; font-size: 13.5px; }
   .mark .dot { width: 19px; height: 19px; border-radius: 50%; flex: none; overflow: hidden; }
-  .mark .dot img { width: 100%; height: 100%; display: block; }
+  .mark .dot img, .mark .dot svg { width: 100%; height: 100%; display: block; }
   .mark .slash { color: var(--faint); font-weight: 400; }
   .grow { flex: 1; }
   .icon-btn {
@@ -239,7 +239,7 @@
   .cell .cap.mixed { display: grid; gap: 1px; width: 100%; text-align: center; line-height: 1.35; white-space: normal; }
   .cell .cap.mixed .shape-name { color: var(--fg); font-weight: 580; }
   .cell .cap.mixed .palette-name { color: var(--muted-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .av img { width: 100%; height: 100%; display: block; }
+  .av img, .av svg { width: 100%; height: 100%; display: block; }
 
   @media (max-width: 860px) {
     body { overflow: auto; }
@@ -420,7 +420,7 @@ const darkShapeAnchors={
   nova:{lightReference:"aurora-pink",layers:{base:A("#6550b9","cool"),light:A("#ffffff","light"),hot:A("#ff0084","accent")},frameGlow:G(A("#ffffff","light"),A("#0958ca","cool"),A("#6aa7ff","cool"))},
   void:{lightReference:"rose-milk",layers:{base:A("#031a05","dark"),core:A("#4229ff","cool"),beam:A("#57b565","beam")},frameGlow:G(A("#000000","dark"),A("#71abff","cool"),A("#71abff","cool"))},
   jade:{lightReference:"mint-milk",layers:{base1:A("#031a05","dark"),base2:A("#08b98d","lobe"),milk:A("#0f9a73","pale"),glow1:A("#5fec83","beam"),glow2:A("#ffffff","light")},frameGlow:G(A("#ffffff","light"),A("#00c48c","beam"),A("#5fec83","beam"))},
-  bloom:{lightReference:"rose-milk",layers:{base:A("#b1e7ff","base"),blob:A("#58e0ff","lobe"),hot:A("#ff5ad5","accent")},frameGlow:G(A("#ffffff","light"),A("#0e82a3","pale"),A("#008ce3","pale"))},
+  bloom:{lightReference:"rose-milk",layers:{base:A("#b1e7ff","base"),blob:A("#58e0ff","lobe"),hot:A("#ff5ad5","accent")},frameGlow:G(A("#ffffff","light"),A("#37d3ff","pale"),A("#008ce3","pale"))},
   silk:{lightReference:"rose-milk",layers:{dark:A("#0047c3","dark"),base:A("#6e4eff","base"),warm:A("#1e0af6","warm"),cream1:A("#00133e","dark"),cream2:A("#0047c3","cool")},frameGlow:G(A("#b58aff","accent"),A("#1a00df","cool"),A("#4430ff","cool")),innerGlow:G(A("#ff9de7","accent"),A("#0047c3","dark"),A("#0047c3","dark"))},
   flare:{lightReference:"peach-cream",layers:{dark:A("#000000","dark"),base:A("#ff9a44","lobe"),cream1:A("#ff9a44","lobe"),cream2:A("#f62b0a","accent"),hot1:A("#f62b0a","accent"),hot2:A("#170312","dark")},frameGlow:G(A("#ffffff","light"),A("#ff8774","warm"),A("#ff8c79","warm")),innerGlow:G(A("#ff9de7","accent"),A("#ed66cb","accent"),A("#ed66cb","accent"))},
 };
@@ -527,7 +527,6 @@ const darkEffectProfiles={
   silk:{frame:[{blur:5.925926},{blur:1.481482,spread:1.015873},{blur:1.122807,spread:1.015873}],noiseFrequency:3.937499761581421,surface:[{blur:12.698412,spread:2.539683,alpha:.5},{blur:5.079365},{blur:1.269841,spread:1.015873}],layerBlurs:[10.370371,7.626652]},
   flare:{frame:[{blur:5.614035},{blur:2.245614,spread:1.016887},{blur:1.122807,spread:1.015873}],noiseFrequency:3.9335744380950928,surface:[{blur:12.711087,spread:2.542217,alpha:.5},{blur:5.084435},{blur:1.271109,spread:1.016887}],layerBlurs:[4.830213,7.626652]},
 };
-const noiseAlphaTable=`${"1 ".repeat(51)}${"0 ".repeat(49)}`.trim();
 function innerShadowFilter(id,metrics,colors,noiseFrequency){let previous="shape";const shadows=metrics.map((metric,index)=>{const step=index+1,hardAlpha=`hard-alpha-${step}-${id}`,source=metric.spread?`<feMorphology in="SourceAlpha" operator="erode" radius="${metric.spread}" result="spread-${step}-${id}"/>`:`<feComposite in="SourceAlpha" in2="SourceAlpha" operator="in" result="spread-${step}-${id}"/>`,offset=metric.dx||metric.dy?`<feOffset in="spread-${step}-${id}" dx="${metric.dx??0}" dy="${metric.dy??0}" result="offset-${step}-${id}"/>`:`<feOffset in="spread-${step}-${id}" result="offset-${step}-${id}"/>`,current=`shadow-${step}-${id}`,result=`
       <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="${hardAlpha}"/>
       ${source}${offset}<feGaussianBlur in="offset-${step}-${id}" stdDeviation="${metric.blur}" result="blur-${step}-${id}"/>
@@ -535,10 +534,10 @@ function innerShadowFilter(id,metrics,colors,noiseFrequency){let previous="shape
       <feFlood flood-color="${colors[index]}" flood-opacity="${metric.alpha??1}" result="flood-${step}-${id}"/>
       <feComposite in="flood-${step}-${id}" in2="alpha-${step}-${id}" operator="in" result="color-${step}-${id}"/>
       <feBlend mode="normal" in="color-${step}-${id}" in2="${previous}" result="${current}"/>`;previous=current;return result;}).join("");
-  const noise=noiseFrequency==null?"":`<feTurbulence type="fractalNoise" baseFrequency="${noiseFrequency} ${noiseFrequency}" stitchTiles="stitch" numOctaves="3" seed="2560" result="noise-${id}"/><feColorMatrix in="noise-${id}" type="luminanceToAlpha" result="alpha-noise-${id}"/><feComponentTransfer in="alpha-noise-${id}" result="threshold-noise-${id}"><feFuncA type="discrete" tableValues="${noiseAlphaTable}"/></feComponentTransfer><feComposite in="threshold-noise-${id}" in2="${previous}" operator="in" result="clipped-noise-${id}"/><feFlood flood-color="#000000" flood-opacity="0.15" result="noise-color-${id}"/><feComposite in="noise-color-${id}" in2="clipped-noise-${id}" operator="in" result="colored-noise-${id}"/><feMerge><feMergeNode in="${previous}"/><feMergeNode in="colored-noise-${id}"/></feMerge>`;
+  const browserNoiseFrequency=noiseFrequency==null?null:Math.min(noiseFrequency,.9),noise=browserNoiseFrequency==null?"":`<feTurbulence type="fractalNoise" baseFrequency="${browserNoiseFrequency} ${browserNoiseFrequency}" stitchTiles="stitch" numOctaves="1" seed="2560" result="noise-${id}"/><feColorMatrix in="noise-${id}" type="luminanceToAlpha" result="alpha-noise-${id}"/><feComposite in="alpha-noise-${id}" in2="${previous}" operator="in" result="clipped-noise-${id}"/><feFlood flood-color="#000000" flood-opacity="0.15" result="noise-color-${id}"/><feComposite in="noise-color-${id}" in2="clipped-noise-${id}" operator="in" result="colored-noise-${id}"/><feMerge><feMergeNode in="${previous}"/><feMergeNode in="colored-noise-${id}"/></feMerge>`;
   return`<filter id="${id}" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>${shadows}${noise}</filter>`;}
-function darkEffectDefs(id,study){if(study.appearance!=="dark")return"";const profile=darkEffectProfiles[study.type],frameMetrics=profile.frame.map((metric,index)=>index===2?{...metric,alpha:metric.alpha??.58}:metric),frameColors=[study.glow.glow2,study.glow.glow1,study.glow.white],surface=profile.surface&&study.innerGlow?innerShadowFilter(`dark-surface-${id}`,profile.surface,[study.innerGlow.glow2,study.innerGlow.glow1,study.innerGlow.white]):"",layerBlurs=profile.layerBlurs.map((blur,index)=>`<filter id="dark-layer-${index+1}-${id}" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${blur}"/></filter>`).join("");return innerShadowFilter(`dark-frame-${id}`,frameMetrics,frameColors)+surface+layerBlurs;}
-function frame(id,cx,cy,size){return`<clipPath id="clip-${id}"><circle cx="${cx}" cy="${cy}" r="${size/2}"/></clipPath>`;}
+function darkEffectDefs(id,study){if(study.appearance!=="dark")return"";const profile=darkEffectProfiles[study.type],frameColors=[study.glow.glow2,study.glow.glow1,study.glow.white],surface=profile.surface&&study.innerGlow?innerShadowFilter(`dark-surface-${id}`,profile.surface,[study.innerGlow.glow2,study.innerGlow.glow1,study.innerGlow.white]):"",layerBlurs=profile.layerBlurs.map((blur,index)=>`<filter id="dark-layer-${index+1}-${id}" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${blur}"/></filter>`).join("");return innerShadowFilter(`dark-frame-${id}`,profile.frame,frameColors,profile.noiseFrequency)+surface+layerBlurs;}
+function frame(id,cx,cy,size){return`<clipPath id="clip-${id}"><rect width="${size}" height="${size}" rx="${size/2}" fill="#ffffff"/></clipPath>`;}
 function defsFor(id,study){const p=study.p;const g=[];
   if(study.type==="flare"&&"hot1"in p){g.push(`
       <linearGradient id="cream-${id}" x1="0" y1="0" x2="0" y2="1">
@@ -630,7 +629,7 @@ function createAvatar(options){options=options||{};
   const body=renderBody(study,id,cx,cy,scale,tw);
   const defaultBackground=appearance==="dark"?"#0b0b0d":"#ffffff";const background=options.background===null?"":`<rect width="100%" height="100%" fill="${options.background??defaultBackground}"/>`;
   const title=options.title?`<title>${escapeHtml(options.title)}</title>`:`<title>${shape.name} avatar</title>`;
-  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${coordinateSize} ${coordinateSize}" role="img" shape-rendering="geometricPrecision">
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${coordinateSize} ${coordinateSize}" role="img">
     ${title}
     <defs>${sharedDefs()}${frame(id,cx,cy,coordinateSize)}${defsFor(id,study)}</defs>
     ${background}
@@ -643,7 +642,9 @@ function createAvatar(options){options=options||{};
 const $=id=>document.getElementById(id);
 const root=document.documentElement;
 function currentAppearance(){return root.getAttribute("data-theme")==="dark"?"dark":"light";}
-function imgFor(opts){return `<img src="${createAvatar({...opts,appearance:currentAppearance(),background:null}).toDataUri()}" alt="" draggable="false"/>`;}
+function avatarDisplaySize(slot){if(slot==="preview")return compactLayout.matches?64:76;if(slot==="grid")return compactLayout.matches?56:60;if(slot==="shape")return 34;return 19;}
+let avatarRenderSerial=0;
+function imgFor(opts){const isolated=opts.variantId==null?{...opts,variantId:`ui-${avatarRenderSerial++}`} : opts;return createAvatar({...isolated,appearance:currentAppearance(),background:null}).svg;}
 
 /* theme */
 const savedTheme=localStorage.getItem("oa-theme");
@@ -696,7 +697,7 @@ function createGridCell(shape,pal,mixed){
   const cell=document.createElement("button");
   cell.type="button";cell.className="cell";cell.dataset.shape=shape.id;cell.dataset.pal=pal.id;cell.setAttribute("aria-label",`${shape.name}, ${pal.name}`);
   const caption=mixed?`<span class="cap mixed"><span class="shape-name">${shape.name}</span><span class="palette-name">${pal.name}</span></span>`:`<span class="cap">${pal.name}</span>`;
-  cell.innerHTML=`<span class="av">${imgFor({shape:shape.id,palette:pal.id,size:64})}</span>${caption}`;
+  cell.innerHTML=`<span class="av">${imgFor({shape:shape.id,palette:pal.id,size:avatarDisplaySize("grid")})}</span>${caption}`;
   cell.addEventListener("click",()=>selectCombo(shape.id,pal.id));
   return cell;
 }
@@ -724,7 +725,7 @@ function markGrid(){[...gridScroll.querySelectorAll(".cell")].forEach(c=>{const 
 /* ---- shape buttons ---- */
 const shapesEl=$("shapes");
 shapes.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="shape-btn";b.dataset.shape=s.id;b.setAttribute("aria-pressed","false");b.innerHTML=`<span class="av"></span><span>${s.name}</span>`;b.addEventListener("click",()=>{state.shape=s.id;markShapes();markGrid();render();});shapesEl.appendChild(b);});
-function refreshShapeButtons(){[...shapesEl.children].forEach(b=>{b.querySelector(".av").innerHTML=imgFor({shape:b.dataset.shape,palette:state.palette,size:64});});}
+function refreshShapeButtons(){[...shapesEl.children].forEach(b=>{b.querySelector(".av").innerHTML=imgFor({shape:b.dataset.shape,palette:state.palette,size:avatarDisplaySize("shape")});});}
 function markShapes(){[...shapesEl.children].forEach(b=>{const active=b.dataset.shape===state.shape;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active));});}
 
 /* ---- selection ---- */
@@ -804,12 +805,12 @@ function codeFor(t){
 
 /* ---- render ---- */
 function render(){
-  const opts={shape:state.shape,palette:state.palette,tone:fullTone(),variantId:state.variantId,drift:state.drift,size:64};
+  const opts={shape:state.shape,palette:state.palette,tone:fullTone(),variantId:state.variantId,drift:state.drift,size:avatarDisplaySize("preview")};
   $("preview-av").innerHTML=imgFor(opts);
   $("preview-shape").textContent=getShape(state.shape).name;
   $("preview-pal").textContent=getPalette(state.palette).name;
   $("preview-id").textContent="variant "+state.variantId;
-  $("mark-dot").innerHTML=imgFor({shape:state.shape,palette:state.palette,size:64});
+  $("mark-dot").innerHTML=imgFor({shape:state.shape,palette:state.palette,size:avatarDisplaySize("mark")});
   const referenceColors=getPalette(darkShapeAnchors[state.shape].lightReference).colors;
   const colors=deriveAppearancePalette(getPalette(state.palette).colors,currentAppearance(),referenceColors);
   $("strip").innerHTML=paletteTokenOrder.map(k=>`<i style="background:${colors[k]}"></i>`).join("");
@@ -829,6 +830,7 @@ $("download").addEventListener("click",()=>{
 
 /* ---- init ---- */
 syncTone();markShapes();refreshShapeButtons();renderGrid();render();
+compactLayout.addEventListener("change",()=>{refreshShapeButtons();renderGrid();render();});
 </script>
 </body>
 </html>

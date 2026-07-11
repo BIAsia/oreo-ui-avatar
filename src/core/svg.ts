@@ -182,8 +182,6 @@ function sharedDefs(): string {
     <filter id="blur-14" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter>`;
 }
 
-const noiseAlphaTable = `${"1 ".repeat(51)}${"0 ".repeat(49)}`.trim();
-
 function innerShadowFilter(
   id: string,
   metrics: [ShadowMetric, ShadowMetric, ShadowMetric],
@@ -214,11 +212,14 @@ function innerShadowFilter(
     return result;
   }).join("");
 
-  const noise = noiseFrequency == null ? "" : `
-      <feTurbulence type="fractalNoise" baseFrequency="${noiseFrequency} ${noiseFrequency}" stitchTiles="stitch" numOctaves="3" seed="2560" result="noise-${id}"/>
+  // Figma exports the inverse of its 0.254px noise size. Chromium aliases
+  // that sub-pixel frequency into coarse blocks, so use a continuous fine
+  // grain while retaining the authored 15% black noise strength.
+  const browserNoiseFrequency = noiseFrequency == null ? null : Math.min(noiseFrequency, 0.9);
+  const noise = browserNoiseFrequency == null ? "" : `
+      <feTurbulence type="fractalNoise" baseFrequency="${browserNoiseFrequency} ${browserNoiseFrequency}" stitchTiles="stitch" numOctaves="1" seed="2560" result="noise-${id}"/>
       <feColorMatrix in="noise-${id}" type="luminanceToAlpha" result="alpha-noise-${id}"/>
-      <feComponentTransfer in="alpha-noise-${id}" result="threshold-noise-${id}"><feFuncA type="discrete" tableValues="${noiseAlphaTable}"/></feComponentTransfer>
-      <feComposite in="threshold-noise-${id}" in2="${previous}" operator="in" result="clipped-noise-${id}"/>
+      <feComposite in="alpha-noise-${id}" in2="${previous}" operator="in" result="clipped-noise-${id}"/>
       <feFlood flood-color="#000000" flood-opacity="0.15" result="noise-color-${id}"/>
       <feComposite in="noise-color-${id}" in2="clipped-noise-${id}" operator="in" result="colored-noise-${id}"/>
       <feMerge><feMergeNode in="${previous}"/><feMergeNode in="colored-noise-${id}"/></feMerge>`;
@@ -233,13 +234,6 @@ function innerShadowFilter(
 function darkEffectDefs(id: string, study: Study): string {
   if (study.appearance !== "dark") return "";
   const profile = darkEffectProfiles[study.type];
-  // Figma composites this highlight on its own canvas. At avatar size, a
-  // full-opacity 1px white inner shadow exposes the browser's circle sampling
-  // against a black page, so soften only that final composite—not the color,
-  // geometry, or the wider glow layers.
-  const frameMetrics = profile.frame.map((metric, index) => (
-    index === 2 ? { ...metric, alpha: metric.alpha ?? 0.58 } : metric
-  )) as [ShadowMetric, ShadowMetric, ShadowMetric];
   const frameColors: [string, string, string] = [study.glow.glow2, study.glow.glow1, study.glow.white];
   const surface = profile.surface && study.innerGlow
     ? innerShadowFilter(`dark-surface-${id}`, profile.surface, [study.innerGlow.glow2, study.innerGlow.glow1, study.innerGlow.white])
@@ -248,14 +242,11 @@ function darkEffectDefs(id: string, study: Study): string {
     <filter id="dark-layer-${index + 1}-${id}" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB">
       <feGaussianBlur stdDeviation="${blur}"/>
     </filter>`).join("");
-  // Figma's NOISE paint rasterizes smoothly in-canvas but its exported
-  // feTurbulence becomes coarse at 64px in browsers. Keep the exact shadow
-  // stack and omit only that non-equivalent browser export.
-  return `${innerShadowFilter(`dark-frame-${id}`, frameMetrics, frameColors)}${surface}${layerBlurs}`;
+  return `${innerShadowFilter(`dark-frame-${id}`, profile.frame, frameColors, profile.noiseFrequency)}${surface}${layerBlurs}`;
 }
 
 function frame(id: string, cx: number, cy: number, size: number): string {
-  return `<clipPath id="clip-${id}"><circle cx="${cx}" cy="${cy}" r="${size / 2}"/></clipPath>`;
+  return `<clipPath id="clip-${id}"><rect width="${size}" height="${size}" rx="${size / 2}" fill="#ffffff"/></clipPath>`;
 }
 
 function defsFor(id: string, study: Study): string {
@@ -414,7 +405,7 @@ function renderSvg(study: Study, options: Required<Pick<AvatarOptions, "variantI
   const title = options.title ? `<title>${escapeHtml(options.title)}</title>` : "";
   const background = options.background === null ? "" : `<rect width="100%" height="100%" fill="${options.background ?? "#ffffff"}"/>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${displaySize}" height="${displaySize}" viewBox="0 0 ${coordinateSize} ${coordinateSize}" role="img" shape-rendering="geometricPrecision">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${displaySize}" height="${displaySize}" viewBox="0 0 ${coordinateSize} ${coordinateSize}" role="img">
     ${title}
     <defs>${sharedDefs()}${frame(id, cx, cy, coordinateSize)}${defsFor(id, study)}</defs>
     ${background}

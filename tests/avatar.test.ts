@@ -69,7 +69,7 @@ describe("@oreo-ui/avatar", () => {
       jade: "mint-milk",
     };
     const expected: Record<string, string[]> = {
-      bloom: ["#b1e7ff", "#58e0ff", "#ff5ad5", "#008ce3"],
+      bloom: ["#b1e7ff", "#58e0ff", "#ff5ad5", "#37d3ff", "#008ce3"],
       silk: ["#0047c3", "#6e4eff", "#1e0af6", "#00133e", "#4430ff"],
       flare: ["#000000", "#ff9a44", "#f62b0a", "#170312", "#ff8c79"],
       nova: ["#6550b9", "#ffffff", "#ff0084", "#6aa7ff"],
@@ -106,13 +106,21 @@ describe("@oreo-ui/avatar", () => {
   it("keeps the browser-faithful Figma dark effect structure and full layer opacity", () => {
     const bloom = createAvatar({ shape: "bloom", palette: "rose-milk", appearance: "dark", background: null, drift: 0 }).svg;
     const silk = createAvatar({ shape: "silk", palette: "rose-milk", appearance: "dark", background: null, drift: 0 }).svg;
+    const flare = createAvatar({ shape: "flare", palette: "peach-cream", appearance: "dark", background: null, drift: 0 }).svg;
 
     expect(bloom).toMatch(/filter="url\(#dark-frame-oreo-[a-z0-9]+\)"/);
-    expect(bloom).not.toContain("feTurbulence");
+    expect(bloom).toContain("feTurbulence");
     expect(bloom).toContain('stdDeviation="3.224692"');
-    expect(bloom).toContain('flood-color="#ffffff" flood-opacity="0.58"');
+    expect(bloom).toContain('flood-color="#ffffff" flood-opacity="1"');
     expect(bloom).not.toContain('opacity="0.860"');
-    expect(bloom).toContain('shape-rendering="geometricPrecision"');
+    expect(bloom).toContain('<rect width="64" height="64" rx="32" fill="#ffffff"/>');
+    expect(bloom).not.toContain('shape-rendering="geometricPrecision"');
+    expect(flare).toContain('flood-color="#ff8c79" flood-opacity="1"');
+    expect(flare).toContain('flood-color="#ff8774" flood-opacity="1"');
+    expect(flare).toContain('stdDeviation="5.614035"');
+    expect(flare).toContain('stdDeviation="2.245614"');
+    expect(flare).toContain('stdDeviation="1.122807"');
+    expect(flare).toContain('baseFrequency="0.9 0.9"');
     expect(silk).toContain('gradientTransform="translate(-0.03 -15.355) rotate(89.9503) scale(36.7093 41.0794)"');
     expect(silk).toContain('stdDeviation="12.698412"');
   });
