@@ -62,6 +62,8 @@ export interface AvatarResult {
   shape: ShapePreset;
   palette: PalettePreset;
   colors: PaletteColors;
+  /** Colors actually painted by this shape and appearance, in layer order. */
+  usedColors: readonly string[];
   appearance: AvatarAppearance;
   size: number;
   svg: string;

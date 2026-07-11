@@ -6,6 +6,18 @@ import { clamp, hexToOklch, maxSrgbChroma, normalizeHue, oklchToHexInGamut, pale
 
 const lightReferencePalette = palettes[0].colors;
 
+const darkRelativeChromaFloor: Record<PaletteToken, number> = {
+  base: 0.58,
+  lobe: 0.74,
+  accent: 0.82,
+  pale: 0.68,
+  light: 0,
+  warm: 0.76,
+  cool: 0.72,
+  dark: 0.42,
+  beam: 0.78,
+};
+
 function hueDelta(target: number, source: number): number {
   const delta = normalizeHue(target - source);
   return delta > 180 ? delta - 360 : delta;
@@ -28,13 +40,21 @@ export function deriveDarkAnchorColor(
   const referenceRelativeChroma = relativeSrgbChroma(reference);
   const targetRelativeChroma = relativeSrgbChroma(target);
   const baseRelativeChroma = relativeSrgbChroma(base);
+  const isReferencePalette = paletteTokenOrder.every(
+    token => palette[token].toLowerCase() === referencePalette[token].toLowerCase(),
+  );
   const chromaScale = referenceRelativeChroma >= 0.006
     ? clamp(targetRelativeChroma / referenceRelativeChroma, 0.55, 1.45)
     : 1;
   const lightnessShift = clamp((target.l - reference.l) * 0.35, -0.12, 0.12);
   const lightness = clamp(base.l + lightnessShift * (base.c < 0.006 ? 0.5 : 1), 0.03, 0.999999);
   const hue = base.h + shift;
-  const relativeChroma = base.c < 0.006 ? 0 : clamp(baseRelativeChroma * chromaScale, 0, 1);
+  const relativeChroma = base.c < 0.006
+    ? 0
+    : clamp(Math.max(
+      baseRelativeChroma * chromaScale,
+      isReferencePalette ? 0 : darkRelativeChromaFloor[anchor.token],
+    ), 0, 1);
 
   return oklchToHexInGamut({
     l: lightness,

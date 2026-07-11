@@ -111,7 +111,7 @@ describe("@oreo-ui/avatar", () => {
     expect(bloom).toMatch(/filter="url\(#dark-frame-oreo-[a-z0-9]+\)"/);
     expect(bloom).toContain("feTurbulence");
     expect(bloom).toContain('stdDeviation="3.224692"');
-    expect(bloom).toContain('flood-color="#ffffff" flood-opacity="1"');
+    expect(bloom).toContain('flood-color="#ffffff" flood-opacity="0.45"');
     expect(bloom).not.toContain('opacity="0.860"');
     expect(bloom).toContain('<rect width="64" height="64" rx="32" fill="#ffffff"/>');
     expect(bloom).toContain('mask="url(#edge-mask-');
@@ -125,6 +125,21 @@ describe("@oreo-ui/avatar", () => {
     expect(flare).toContain('baseFrequency="0.9 0.9"');
     expect(silk).toContain('gradientTransform="translate(-0.03 -15.355) rotate(89.9503) scale(36.7093 41.0794)"');
     expect(silk).toContain('stdDeviation="12.698412"');
+  });
+
+  it("reports the colors actually painted by the selected dark shape", () => {
+    const flare = createAvatar({ shape: "flare", palette: "cherry-cola", appearance: "dark", background: null });
+    expect(flare.usedColors.length).toBeGreaterThanOrEqual(6);
+    for (const color of flare.usedColors) expect(flare.svg).toContain(color);
+    expect(flare.usedColors).not.toContain(flare.colors.beam);
+  });
+
+  it("keeps derived middle colors above their relative-chroma floors", () => {
+    const cherryCola = palettes.find(palette => palette.id === "cherry-cola")!;
+    const derived = deriveAppearancePalette(cherryCola, "dark");
+    expect(relativeSrgbChroma(hexToOklch(derived.lobe))).toBeGreaterThanOrEqual(0.739);
+    expect(relativeSrgbChroma(hexToOklch(derived.accent))).toBeGreaterThanOrEqual(0.819);
+    expect(relativeSrgbChroma(hexToOklch(derived.beam))).toBeGreaterThanOrEqual(0.779);
   });
 
   it("uses a dark default canvas while preserving explicit transparency", () => {

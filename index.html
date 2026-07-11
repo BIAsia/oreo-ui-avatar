@@ -425,8 +425,9 @@ const darkShapeAnchors={
   flare:{lightReference:"peach-cream",layers:{dark:A("#000000","dark"),base:A("#ff9a44","lobe"),cream1:A("#ff9a44","lobe"),cream2:A("#f62b0a","accent"),hot1:A("#f62b0a","accent"),hot2:A("#170312","dark")},frameGlow:G(A("#ffffff","light"),A("#ff8774","warm"),A("#ff8c79","warm")),innerGlow:G(A("#ff9de7","accent"),A("#ed66cb","accent"),A("#ed66cb","accent"))},
 };
 const darkReferencePalette={base:"#b1e7ff",lobe:"#58e0ff",accent:"#ff5ad5",pale:"#0e82a3",light:"#ffffff",warm:"#1e0af6",cool:"#6aa7ff",dark:"#031a05",beam:"#57b565"};
+const darkRelativeChromaFloor={base:.58,lobe:.74,accent:.82,pale:.68,light:0,warm:.76,cool:.72,dark:.42,beam:.78};
 function hueDelta(target,source){const d=normalizeHue(target-source);return d>180?d-360:d;}
-function deriveDarkAnchorColor(anchor,colors,referenceColors=palettes[0].colors){const base=hexToOklch(anchor.color),reference=hexToOklch(referenceColors[anchor.token]),target=hexToOklch(colors[anchor.token]),referenceAccent=hexToOklch(referenceColors.accent),targetAccent=hexToOklch(colors.accent);const shift=reference.c>=.006&&target.c>=.006?hueDelta(target.h,reference.h):hueDelta(targetAccent.h,referenceAccent.h),referenceRelative=relativeSrgbChroma(reference),targetRelative=relativeSrgbChroma(target),baseRelative=relativeSrgbChroma(base),chromaScale=referenceRelative>=.006?clamp(targetRelative/referenceRelative,.55,1.45):1,lightnessShift=clamp((target.l-reference.l)*.35,-.12,.12),lightness=clamp(base.l+lightnessShift*(base.c<.006?.5:1),.03,.999999),hue=base.h+shift,relative=base.c<.006?0:clamp(baseRelative*chromaScale,0,1);return oklchToHexInGamut({l:lightness,c:relative*maxSrgbChroma(lightness,hue),h:hue});}
+function deriveDarkAnchorColor(anchor,colors,referenceColors=palettes[0].colors){const base=hexToOklch(anchor.color),reference=hexToOklch(referenceColors[anchor.token]),target=hexToOklch(colors[anchor.token]),referenceAccent=hexToOklch(referenceColors.accent),targetAccent=hexToOklch(colors.accent);const shift=reference.c>=.006&&target.c>=.006?hueDelta(target.h,reference.h):hueDelta(targetAccent.h,referenceAccent.h),referenceRelative=relativeSrgbChroma(reference),targetRelative=relativeSrgbChroma(target),baseRelative=relativeSrgbChroma(base),isReference=paletteTokenOrder.every(token=>colors[token].toLowerCase()===referenceColors[token].toLowerCase()),chromaScale=referenceRelative>=.006?clamp(targetRelative/referenceRelative,.55,1.45):1,lightnessShift=clamp((target.l-reference.l)*.35,-.12,.12),lightness=clamp(base.l+lightnessShift*(base.c<.006?.5:1),.03,.999999),hue=base.h+shift,relative=base.c<.006?0:clamp(Math.max(baseRelative*chromaScale,isReference?0:darkRelativeChromaFloor[anchor.token]),0,1);return oklchToHexInGamut({l:lightness,c:relative*maxSrgbChroma(lightness,hue),h:hue});}
 function deriveDarkGlow(anchors,colors,referenceColors=palettes[0].colors){return{white:deriveDarkAnchorColor(anchors.narrow,colors,referenceColors),glow1:deriveDarkAnchorColor(anchors.medium,colors,referenceColors),glow2:deriveDarkAnchorColor(anchors.wide,colors,referenceColors)};}
 function deriveAppearancePalette(colors,appearance,referenceColors=palettes[0].colors){if(appearance!=="dark")return{...colors};const next={};for(const token of paletteTokenOrder)next[token]=deriveDarkAnchorColor(A(darkReferencePalette[token],token),colors,referenceColors);return next;}
 /* --- data: shapes --- */
@@ -536,7 +537,8 @@ function innerShadowFilter(id,metrics,colors,noiseFrequency){let previous="shape
       <feBlend mode="normal" in="color-${step}-${id}" in2="${previous}" result="${current}"/>`;previous=current;return result;}).join("");
   const browserNoiseFrequency=noiseFrequency==null?null:Math.min(noiseFrequency,.9),noise=browserNoiseFrequency==null?"":`<feTurbulence type="fractalNoise" baseFrequency="${browserNoiseFrequency} ${browserNoiseFrequency}" stitchTiles="stitch" numOctaves="1" seed="2560" result="noise-${id}"/><feColorMatrix in="noise-${id}" type="luminanceToAlpha" result="alpha-noise-${id}"/><feComposite in="alpha-noise-${id}" in2="${previous}" operator="in" result="clipped-noise-${id}"/><feFlood flood-color="#000000" flood-opacity="0.15" result="noise-color-${id}"/><feComposite in="noise-color-${id}" in2="clipped-noise-${id}" operator="in" result="colored-noise-${id}"/><feMerge><feMergeNode in="${previous}"/><feMergeNode in="colored-noise-${id}"/></feMerge>`;
   return`<filter id="${id}" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>${shadows}${noise}</filter>`;}
-function darkEffectDefs(id,study){if(study.appearance!=="dark")return"";const profile=darkEffectProfiles[study.type],frameColors=[study.glow.glow2,study.glow.glow1,study.glow.white],surface=profile.surface&&study.innerGlow?innerShadowFilter(`dark-surface-${id}`,profile.surface,[study.innerGlow.glow2,study.innerGlow.glow1,study.innerGlow.white]):"",layerBlurs=profile.layerBlurs.map((blur,index)=>`<filter id="dark-layer-${index+1}-${id}" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${blur}"/></filter>`).join("");return innerShadowFilter(`dark-frame-${id}`,profile.frame,frameColors,profile.noiseFrequency)+surface+layerBlurs;}
+function darkEffectDefs(id,study){if(study.appearance!=="dark")return"";const profile=darkEffectProfiles[study.type],frameMetrics=profile.frame.map((metric,index)=>index===2?{...metric,alpha:metric.alpha??.45}:metric),frameColors=[study.glow.glow2,study.glow.glow1,study.glow.white],surface=profile.surface&&study.innerGlow?innerShadowFilter(`dark-surface-${id}`,profile.surface,[study.innerGlow.glow2,study.innerGlow.glow1,study.innerGlow.white]):"",layerBlurs=profile.layerBlurs.map((blur,index)=>`<filter id="dark-layer-${index+1}-${id}" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${blur}"/></filter>`).join("");return innerShadowFilter(`dark-frame-${id}`,frameMetrics,frameColors,profile.noiseFrequency)+surface+layerBlurs;}
+function usedColors(study,colors){if(study.appearance!=="dark")return paletteTokenOrder.map(token=>colors[token]);const candidates=[...Object.values(study.p),study.glow.glow2,study.glow.glow1,study.glow.white,study.innerGlow?.glow2,study.innerGlow?.glow1,study.innerGlow?.white];return[...new Set(candidates.filter(color=>typeof color==="string"&&/^#[0-9a-f]{6}$/i.test(color)))];}
 function frame(id,cx,cy,size){const radius=size/2,featherStart=(radius-.5)/radius*100;return`<clipPath id="clip-${id}"><rect width="${size}" height="${size}" rx="${radius}" fill="#ffffff"/></clipPath><radialGradient id="edge-${id}" gradientUnits="userSpaceOnUse" cx="${cx}" cy="${cy}" r="${radius}"><stop offset="${featherStart}%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient><mask id="edge-mask-${id}" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="${size}" height="${size}" style="mask-type:alpha"><rect width="${size}" height="${size}" fill="url(#edge-${id})"/></mask>`;}
 function defsFor(id,study){const p=study.p;const g=[];
   if(study.type==="flare"&&"hot1"in p){g.push(`
@@ -635,7 +637,7 @@ function createAvatar(options){options=options||{};
     ${background}
     <g mask="url(#edge-mask-${id})">${appearance==="dark"?`<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>`:`<g clip-path="url(#clip-${id})">${body}</g>`}</g>
   </svg>`;
-  return{shape,palette,colors,appearance,size,svg,toDataUri:()=>`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`};
+  return{shape,palette,colors,usedColors:usedColors(study,sourceColors),appearance,size,svg,toDataUri:()=>`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`};
 }
 
 /* ===================== UI ===================== */
@@ -806,14 +808,15 @@ function codeFor(t){
 /* ---- render ---- */
 function render(){
   const opts={shape:state.shape,palette:state.palette,tone:fullTone(),variantId:state.variantId,drift:state.drift,size:avatarDisplaySize("preview")};
-  $("preview-av").innerHTML=imgFor(opts);
+  const previewAvatar=createAvatar({...opts,appearance:currentAppearance(),background:null});
+  $("preview-av").innerHTML=previewAvatar.svg;
   $("preview-shape").textContent=getShape(state.shape).name;
   $("preview-pal").textContent=getPalette(state.palette).name;
   $("preview-id").textContent="variant "+state.variantId;
   $("mark-dot").innerHTML=imgFor({shape:state.shape,palette:state.palette,size:avatarDisplaySize("mark")});
-  const referenceColors=getPalette(darkShapeAnchors[state.shape].lightReference).colors;
-  const colors=deriveAppearancePalette(getPalette(state.palette).colors,currentAppearance(),referenceColors);
-  $("strip").innerHTML=paletteTokenOrder.map(k=>`<i style="background:${colors[k]}"></i>`).join("");
+  const colors=previewAvatar.usedColors;
+  $("strip").style.gridTemplateColumns=`repeat(${colors.length},1fr)`;
+  $("strip").innerHTML=colors.map(color=>`<i style="background:${color}"></i>`).join("");
   const out=codeFor(tab);$("code-out").innerHTML=out.html;$("code-out").dataset.plain=out.plain;
 }
 

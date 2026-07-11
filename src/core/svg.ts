@@ -4,7 +4,7 @@ import { darkShapeAnchors } from "../data/dark-appearance";
 import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId } from "../types";
 import { derivePalette, getPaletteMainHue } from "../color/tone";
 import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkGlow } from "../color/appearance";
-import { clamp } from "../color/oklch";
+import { clamp, paletteTokenOrder } from "../color/oklch";
 import { hashString, randomFromString } from "./random";
 
 type LayerPalette =
@@ -234,6 +234,12 @@ function innerShadowFilter(
 function darkEffectDefs(id: string, study: Study): string {
   if (study.appearance !== "dark") return "";
   const profile = darkEffectProfiles[study.type];
+  // Figma composites the 1.12px white highlight at 64px, then downsamples it.
+  // Chromium resolves it directly at the final SVG size, producing a nearly
+  // solid bright pixel. This alpha matches the effective Figma coverage.
+  const frameMetrics = profile.frame.map((metric, index) => (
+    index === 2 ? { ...metric, alpha: metric.alpha ?? 0.45 } : metric
+  )) as [ShadowMetric, ShadowMetric, ShadowMetric];
   const frameColors: [string, string, string] = [study.glow.glow2, study.glow.glow1, study.glow.white];
   const surface = profile.surface && study.innerGlow
     ? innerShadowFilter(`dark-surface-${id}`, profile.surface, [study.innerGlow.glow2, study.innerGlow.glow1, study.innerGlow.white])
@@ -242,7 +248,21 @@ function darkEffectDefs(id: string, study: Study): string {
     <filter id="dark-layer-${index + 1}-${id}" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB">
       <feGaussianBlur stdDeviation="${blur}"/>
     </filter>`).join("");
-  return `${innerShadowFilter(`dark-frame-${id}`, profile.frame, frameColors, profile.noiseFrequency)}${surface}${layerBlurs}`;
+  return `${innerShadowFilter(`dark-frame-${id}`, frameMetrics, frameColors, profile.noiseFrequency)}${surface}${layerBlurs}`;
+}
+
+function usedColors(study: Study, palette: PaletteColors): string[] {
+  if (study.appearance === "light") return paletteTokenOrder.map(token => palette[token]);
+  const candidates = [
+    ...Object.values(study.p),
+    study.glow.glow2,
+    study.glow.glow1,
+    study.glow.white,
+    study.innerGlow?.glow2,
+    study.innerGlow?.glow1,
+    study.innerGlow?.white,
+  ];
+  return [...new Set(candidates.filter((color): color is string => typeof color === "string" && /^#[0-9a-f]{6}$/i.test(color)))];
 }
 
 function frame(id: string, cx: number, cy: number, size: number): string {
@@ -460,6 +480,7 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     shape,
     palette,
     colors,
+    usedColors: usedColors(study, sourceColors),
     appearance,
     size,
     svg,

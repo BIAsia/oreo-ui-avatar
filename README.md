@@ -95,6 +95,8 @@ Those reference pairs reproduce the Figma dark color anchors exactly. Other pres
 
 Chroma transfer is relative to the available sRGB gamut, not an absolute OKLCH `C` ratio. For each color, `Cr = C / Cmax(L, H)`. The derivative scales the dark anchor's `Cr` by `Cr(target) / Cr(reference)`, then resolves the result back to an in-gamut `C` at the derived lightness and hue. This keeps perceived saturation comparable across hues and lightness levels.
 
+Derived colors also have role-based `Cr` floors: `0.42` for dark endpoints, `0.58` for base, `0.68` for pale, and `0.72–0.82` for the chromatic middle roles (`lobe`, `accent`, `warm`, `cool`, and `beam`). Figma reference palettes bypass these floors and remain exact.
+
 ```ts
 const avatar = createAvatar({
   shape: "flare",
