@@ -208,6 +208,17 @@ describe("@oreo-ui/avatar", () => {
     }
   });
 
+  it("preserves light palette contrast in matching dark layers", () => {
+    const lemonMint = palettes.find(palette => palette.id === "lemon-mint")!;
+    const magentaVoid = palettes.find(palette => palette.id === "magenta-void")!;
+    const lightDelta = Math.abs(hexToOklch(lemonMint.colors.lobe).l - hexToOklch(magentaVoid.colors.lobe).l);
+    const lemonDark = createAvatar({ shape: "flare", palette: lemonMint, appearance: "dark", background: null });
+    const magentaDark = createAvatar({ shape: "flare", palette: magentaVoid, appearance: "dark", background: null });
+    const darkDelta = Math.abs(hexToOklch(lemonDark.usedColors[1]!).l - hexToOklch(magentaDark.usedColors[1]!).l);
+
+    expect(darkDelta / lightDelta).toBeGreaterThan(0.85);
+  });
+
   it("uses the tuned dark Flare derivative as its default", () => {
     const defaultFlare = createAvatar({ shape: "flare", palette: "lavender-lime", appearance: "dark", background: null });
     const tunedFlare = createAvatar({

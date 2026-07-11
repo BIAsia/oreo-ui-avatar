@@ -34,18 +34,22 @@ export function deriveDarkAnchorColor(
   const isReferencePalette = paletteTokenOrder.every(
     token => palette[token].toLowerCase() === referencePalette[token].toLowerCase(),
   );
-  const chromaScale = referenceRelativeChroma >= 0.006
-    ? clamp(targetRelativeChroma / referenceRelativeChroma, 0, 1.45)
-    : 1;
-  const lightnessShift = clamp((target.l - reference.l) * 0.35, -0.12, 0.12);
-  const lightness = clamp(base.l + lightnessShift * (base.c < 0.006 ? 0.5 : 1), 0.03, 0.999999);
+  const toneChroma = clamp(chromaFloorScale, 0, 1);
+  const fullTargetRelativeChroma = toneChroma > 0.0001
+    ? clamp(targetRelativeChroma / toneChroma, 0, 1)
+    : referenceRelativeChroma;
+  const transferredRelativeChroma = clamp(
+    baseRelativeChroma + fullTargetRelativeChroma - referenceRelativeChroma,
+    0,
+    1,
+  );
+  const lightness = clamp(base.l + target.l - reference.l, 0.03, 0.999999);
   const hue = isReferencePalette ? base.h : target.c >= 0.006 ? target.h : targetAccent.h;
   const relativeChroma = base.c < 0.006
     ? 0
-    : clamp(Math.max(
-      baseRelativeChroma * chromaScale,
-      isReferencePalette ? 0 : darkRelativeChromaFloor[anchor.token] * clamp(chromaFloorScale, 0, 1),
-    ), 0, 1);
+    : isReferencePalette
+      ? baseRelativeChroma
+      : toneChroma * Math.max(transferredRelativeChroma, darkRelativeChromaFloor[anchor.token]);
 
   return oklchToHexInGamut({
     l: lightness,

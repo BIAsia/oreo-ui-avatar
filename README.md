@@ -93,7 +93,7 @@ Dark mode uses a separate Figma-authored color grammar and light reference for e
 
 Those reference pairs reproduce the Figma dark color anchors exactly. Other presets preserve the same per-layer relationships by transferring each token's OKLCH deltas from the corresponding light reference.
 
-Chroma transfer is relative to the available sRGB gamut, not an absolute OKLCH `C` ratio. For each color, `Cr = C / Cmax(L, H)`. The derivative scales the dark anchor's `Cr` by `Cr(target) / Cr(reference)`, then resolves the result back to an in-gamut `C` at the derived lightness and hue. This keeps perceived saturation comparable across hues and lightness levels.
+Chroma transfer is relative to the available sRGB gamut, not an absolute OKLCH `C` ratio. For each color, `Cr = C / Cmax(L, H)`. Dark derivation transfers the selected light token's full OKLCH difference onto its matching Figma dark anchor: `Ld = Lanchor + (Ltarget - Lreference)` and `Crd = Cranchor + (Crtarget - Crreference)`. The result is resolved back to an in-gamut `C` at the target token hue, preserving light-palette contrast instead of compressing it.
 
 Derived colors also have role-based `Cr` floors: `0.42` for dark endpoints, `0.58` for base, `0.68` for pale, and `0.72–0.82` for the chromatic middle roles (`lobe`, `accent`, `warm`, `cool`, and `beam`). The tone chroma scale applies to these floors too, so every painted dark color responds down to `0`. Figma reference palettes bypass these floors and remain exact.
 
