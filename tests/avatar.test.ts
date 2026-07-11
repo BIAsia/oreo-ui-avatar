@@ -70,7 +70,7 @@ describe("@oreo-ui/avatar", () => {
     };
     const expected: Record<string, string[]> = {
       bloom: ["#b1e7ff", "#58e0ff", "#ff5ad5", "#37d3ff", "#008ce3"],
-      silk: ["#0047c3", "#6e4eff", "#1e0af6", "#00133e", "#4430ff"],
+      silk: ["#0047c3", "#b4a3ff", "#9086ff", "#1400ae", "#6d56ff", "#4430ff"],
       flare: ["#000000", "#ff9a44", "#f62b0a", "#170312", "#ff8c79"],
       nova: ["#6550b9", "#ffffff", "#ff0084", "#6aa7ff"],
       void: ["#031a05", "#4229ff", "#57b565", "#000000"],
