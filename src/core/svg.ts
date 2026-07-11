@@ -1,31 +1,43 @@
 import { getPalette } from "../data/palettes";
 import { getShape } from "../data/shapes";
-import type { AvatarOptions, AvatarResult, PaletteColors, ShapeId } from "../types";
-import { derivePalette } from "../color/tone";
+import { darkShapeAnchors } from "../data/dark-appearance";
+import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId } from "../types";
+import { derivePalette, getPaletteMainHue } from "../color/tone";
+import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkGlow } from "../color/appearance";
 import { clamp } from "../color/oklch";
-import { randomFromString } from "./random";
+import { hashString, randomFromString } from "./random";
 
 type LayerPalette =
   | { bg: string; blob: string; hot: string; pale: string }
-  | { dark: string; base: string; warm: string; cream: string; cool: string }
+  | { dark: string; base: string; warm: string; cream: string; cool: string; cream1?: string; cream2?: string }
   | { dark: string; base: string; cream1: string; cream2: string; hot1: string; hot2: string }
   | { base: string; white: string; hot: string; cool: string }
   | { base: string; blue: string; green: string; glow: string }
-  | { base: string; milk: string; grad1: string; grad2: string; glow: string };
+  | { base: string; milk: string; grad1: string; grad2: string; glow: string; base1?: string; base2?: string };
 
 interface Study {
   type: ShapeId;
+  appearance: AvatarAppearance;
   name: string;
   shapeName: string;
   paletteName: string;
   geometryKey: string;
   p: LayerPalette;
+  glow: GlowPalette;
+  innerGlow?: GlowPalette;
+}
+
+interface GlowPalette {
+  white: string;
+  glow1: string;
+  glow2: string;
 }
 
 interface RectOptions {
   rotate?: number;
   fixed?: boolean;
   blur?: string;
+  filterId?: string;
   opacity?: number;
   blend?: string;
 }
@@ -48,6 +60,69 @@ const baseGlows = {
   jade: { white: "#ffffff", glow1: "#42cba9", glow2: "#42cba9" },
 } as const;
 
+interface ShadowMetric {
+  blur: number;
+  spread?: number;
+  dx?: number;
+  dy?: number;
+  alpha?: number;
+}
+
+interface DarkEffectProfile {
+  frame: [ShadowMetric, ShadowMetric, ShadowMetric];
+  noiseFrequency: number;
+  surface?: [ShadowMetric, ShadowMetric, ShadowMetric];
+  layerBlurs: [number, number];
+}
+
+/** Exact effect metrics exported from Oreo UI Standard, node 1303:606. */
+const darkEffectProfiles: Record<ShapeId, DarkEffectProfile> = {
+  nova: {
+    frame: [{ blur: 5.052632, dy: -1.122807 }, { blur: 1.122807, spread: 1.016887 }, { blur: 1.122807, spread: 1.015873 }],
+    noiseFrequency: 3.9335744380950928,
+    layerBlurs: [5.614035, 8.421053],
+  },
+  void: {
+    frame: [{ blur: 5.614035 }, { blur: 2.245614, spread: 1.015873 }, { blur: 1.122807, spread: 1.015873 }],
+    noiseFrequency: 3.9335744380950928,
+    layerBlurs: [13.714285, 5.079366],
+  },
+  jade: {
+    frame: [{ blur: 5.614035 }, { blur: 1.684211, spread: 1.016887 }, { blur: 1.122807, spread: 1.015873 }],
+    noiseFrequency: 3.9335744380950928,
+    layerBlurs: [13.727973, 5.084435],
+  },
+  bloom: {
+    frame: [{ blur: 5.614035 }, { blur: 2.245614, spread: 1.016887 }, { blur: 1.122807, spread: 1.015873 }],
+    noiseFrequency: 3.9335744380950928,
+    layerBlurs: [3.224692, 1.074898],
+  },
+  silk: {
+    frame: [{ blur: 5.925926 }, { blur: 1.481482, spread: 1.015873 }, { blur: 1.122807, spread: 1.015873 }],
+    noiseFrequency: 3.937499761581421,
+    surface: [{ blur: 12.698412, spread: 2.539683, alpha: 0.5 }, { blur: 5.079365 }, { blur: 1.269841, spread: 1.015873 }],
+    layerBlurs: [10.370371, 7.626652],
+  },
+  flare: {
+    frame: [{ blur: 5.614035 }, { blur: 2.245614, spread: 1.016887 }, { blur: 1.122807, spread: 1.015873 }],
+    noiseFrequency: 3.9335744380950928,
+    surface: [{ blur: 12.711087, spread: 2.542217, alpha: 0.5 }, { blur: 5.084435 }, { blur: 1.271109, spread: 1.016887 }],
+    layerBlurs: [4.830213, 7.626652],
+  },
+};
+
+function glowForAppearance(key: keyof typeof baseGlows, appearance: AvatarAppearance, palette: PaletteColors, referencePalette: PaletteColors): GlowPalette {
+  const glow = baseGlows[key];
+  if (appearance === "light") return glow;
+  return deriveDarkGlow(darkShapeAnchors[key].frameGlow, palette, referencePalette);
+}
+
+function innerGlowForAppearance(key: ShapeId, appearance: AvatarAppearance, palette: PaletteColors, referencePalette: PaletteColors): GlowPalette | undefined {
+  if (appearance === "light") return undefined;
+  const anchors = darkShapeAnchors[key].innerGlow;
+  return anchors ? deriveDarkGlow(anchors, palette, referencePalette) : undefined;
+}
+
 function makeTweaker(seed: string, drift: number): (key: string) => Tweak {
   const v = clamp(drift, 0, 24) / 100;
   return function tweak(key: string): Tweak {
@@ -67,7 +142,17 @@ function escapeHtml(value: string): string {
   return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
-function paletteForType(type: ShapeId, palette: PaletteColors): LayerPalette {
+function paletteForType(type: ShapeId, palette: PaletteColors, appearance: AvatarAppearance, referencePalette: PaletteColors): LayerPalette {
+  if (appearance === "dark") {
+    const anchors = darkShapeAnchors[type].layers;
+    const color = (name: string): string => deriveDarkAnchorColor(anchors[name]!, palette, referencePalette);
+    if (type === "bloom") return { bg: color("base"), blob: color("blob"), hot: color("hot"), pale: color("base") };
+    if (type === "silk") return { dark: color("dark"), base: color("base"), warm: color("warm"), cream: "", cream1: color("cream1"), cream2: color("cream2"), cool: color("cream2") };
+    if (type === "flare") return { dark: color("dark"), base: color("base"), cream1: color("cream1"), cream2: color("cream2"), hot1: color("hot1"), hot2: color("hot2") };
+    if (type === "nova") return { base: color("base"), white: color("light"), hot: color("hot"), cool: color("base") };
+    if (type === "void") return { base: color("base"), blue: color("core"), green: color("beam"), glow: color("beam") };
+    return { base: "", base1: color("base1"), base2: color("base2"), milk: color("milk"), grad1: color("glow1"), grad2: color("glow2"), glow: color("glow1") };
+  }
   if (type === "bloom") {
     return { bg: palette.base, blob: palette.lobe, hot: palette.accent, pale: palette.pale };
   }
@@ -97,6 +182,78 @@ function sharedDefs(): string {
     <filter id="blur-14" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter>`;
 }
 
+const noiseAlphaTable = `${"1 ".repeat(51)}${"0 ".repeat(49)}`.trim();
+
+function innerShadowFilter(
+  id: string,
+  metrics: [ShadowMetric, ShadowMetric, ShadowMetric],
+  colors: [string, string, string],
+  noiseFrequency?: number,
+): string {
+  let previous = "shape";
+  const shadows = metrics.map((metric, index) => {
+    const step = index + 1;
+    const hardAlpha = `hard-alpha-${step}-${id}`;
+    const source = metric.spread
+      ? `<feMorphology in="SourceAlpha" operator="erode" radius="${metric.spread}" result="spread-${step}-${id}"/>`
+      : `<feComposite in="SourceAlpha" in2="SourceAlpha" operator="in" result="spread-${step}-${id}"/>`;
+    const offset = metric.dx || metric.dy
+      ? `<feOffset in="spread-${step}-${id}" dx="${metric.dx ?? 0}" dy="${metric.dy ?? 0}" result="offset-${step}-${id}"/>`
+      : `<feOffset in="spread-${step}-${id}" result="offset-${step}-${id}"/>`;
+    const current = `shadow-${step}-${id}`;
+    const result = `
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="${hardAlpha}"/>
+      ${source}
+      ${offset}
+      <feGaussianBlur in="offset-${step}-${id}" stdDeviation="${metric.blur}" result="blur-${step}-${id}"/>
+      <feComposite in="blur-${step}-${id}" in2="${hardAlpha}" operator="arithmetic" k2="-1" k3="1" result="alpha-${step}-${id}"/>
+      <feFlood flood-color="${colors[index]}" flood-opacity="${metric.alpha ?? 1}" result="flood-${step}-${id}"/>
+      <feComposite in="flood-${step}-${id}" in2="alpha-${step}-${id}" operator="in" result="color-${step}-${id}"/>
+      <feBlend mode="normal" in="color-${step}-${id}" in2="${previous}" result="${current}"/>`;
+    previous = current;
+    return result;
+  }).join("");
+
+  const noise = noiseFrequency == null ? "" : `
+      <feTurbulence type="fractalNoise" baseFrequency="${noiseFrequency} ${noiseFrequency}" stitchTiles="stitch" numOctaves="3" seed="2560" result="noise-${id}"/>
+      <feColorMatrix in="noise-${id}" type="luminanceToAlpha" result="alpha-noise-${id}"/>
+      <feComponentTransfer in="alpha-noise-${id}" result="threshold-noise-${id}"><feFuncA type="discrete" tableValues="${noiseAlphaTable}"/></feComponentTransfer>
+      <feComposite in="threshold-noise-${id}" in2="${previous}" operator="in" result="clipped-noise-${id}"/>
+      <feFlood flood-color="#000000" flood-opacity="0.15" result="noise-color-${id}"/>
+      <feComposite in="noise-color-${id}" in2="clipped-noise-${id}" operator="in" result="colored-noise-${id}"/>
+      <feMerge><feMergeNode in="${previous}"/><feMergeNode in="colored-noise-${id}"/></feMerge>`;
+
+  return `<filter id="${id}" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      ${shadows}${noise}
+    </filter>`;
+}
+
+function darkEffectDefs(id: string, study: Study): string {
+  if (study.appearance !== "dark") return "";
+  const profile = darkEffectProfiles[study.type];
+  // Figma composites this highlight on its own canvas. At avatar size, a
+  // full-opacity 1px white inner shadow exposes the browser's circle sampling
+  // against a black page, so soften only that final composite—not the color,
+  // geometry, or the wider glow layers.
+  const frameMetrics = profile.frame.map((metric, index) => (
+    index === 2 ? { ...metric, alpha: metric.alpha ?? 0.58 } : metric
+  )) as [ShadowMetric, ShadowMetric, ShadowMetric];
+  const frameColors: [string, string, string] = [study.glow.glow2, study.glow.glow1, study.glow.white];
+  const surface = profile.surface && study.innerGlow
+    ? innerShadowFilter(`dark-surface-${id}`, profile.surface, [study.innerGlow.glow2, study.innerGlow.glow1, study.innerGlow.white])
+    : "";
+  const layerBlurs = profile.layerBlurs.map((blur, index) => `
+    <filter id="dark-layer-${index + 1}-${id}" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="${blur}"/>
+    </filter>`).join("");
+  // Figma's NOISE paint rasterizes smoothly in-canvas but its exported
+  // feTurbulence becomes coarse at 64px in browsers. Keep the exact shadow
+  // stack and omit only that non-equivalent browser export.
+  return `${innerShadowFilter(`dark-frame-${id}`, frameMetrics, frameColors)}${surface}${layerBlurs}`;
+}
+
 function frame(id: string, cx: number, cy: number, size: number): string {
   return `<clipPath id="clip-${id}"><circle cx="${cx}" cy="${cy}" r="${size / 2}"/></clipPath>`;
 }
@@ -104,7 +261,7 @@ function frame(id: string, cx: number, cy: number, size: number): string {
 function defsFor(id: string, study: Study): string {
   const p = study.p;
   const gradients: string[] = [];
-  if (study.type === "flare" && "cream1" in p) {
+  if (study.type === "flare" && "hot1" in p) {
     gradients.push(`
       <linearGradient id="cream-${id}" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="${p.cream1}"/><stop offset="100%" stop-color="${p.cream2}"/>
@@ -113,11 +270,25 @@ function defsFor(id: string, study: Study): string {
         <stop offset="0%" stop-color="${p.hot1}"/><stop offset="100%" stop-color="${p.hot2}"/>
       </linearGradient>`);
   }
-  if (study.type === "jade" && "grad1" in p) {
+  if (study.type === "silk" && "cream1" in p && p.cream1 && p.cream2) {
     gradients.push(`
-      <linearGradient id="jade-${id}" x1="0" y1="0" x2="1" y2="0">
+      <radialGradient id="silk-${id}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-0.03 -15.355) rotate(89.9503) scale(36.7093 41.0794)">
+        <stop offset="0%" stop-color="${p.cream1}"/><stop offset="100%" stop-color="${p.cream2}"/>
+      </radialGradient>`);
+  }
+  if (study.type === "jade" && "grad1" in p) {
+    const x1 = study.appearance === "dark" ? "1" : "0";
+    const x2 = study.appearance === "dark" ? "0" : "1";
+    gradients.push(`
+      <linearGradient id="jade-${id}" x1="${x1}" y1="0" x2="${x2}" y2="0">
         <stop offset="0%" stop-color="${p.grad1}"/><stop offset="100%" stop-color="${p.grad2}"/>
       </linearGradient>`);
+    if (p.base1 && p.base2) {
+      gradients.push(`
+        <linearGradient id="jade-base-${id}" x1="${x1}" y1="0" x2="${x2}" y2="0">
+          <stop offset="0%" stop-color="${p.base1}"/><stop offset="100%" stop-color="${p.base2}"/>
+        </linearGradient>`);
+    }
   }
   if (study.type === "bloom" && "hot" in p) {
     gradients.push(`
@@ -126,7 +297,7 @@ function defsFor(id: string, study: Study): string {
         <stop offset="100%" stop-color="${p.hot}" stop-opacity="0"/>
       </radialGradient>`);
   }
-  return gradients.join("");
+  return `${gradients.join("")}${darkEffectDefs(id, study)}`;
 }
 
 function rect(cx: number, cy: number, w: number, h: number, rx: number, fill: string, options: RectOptions, scale: number, tweak: (key: string) => Tweak, key: string): string {
@@ -137,14 +308,13 @@ function rect(cx: number, cy: number, w: number, h: number, rx: number, fill: st
   const height = h * t.sy * scale;
   const radius = rx * Math.min(t.sx, t.sy) * scale;
   const rotate = (options.rotate ?? 0) + t.rotate;
-  const opacity = clamp((options.opacity ?? 1) * t.opacity, 0.05, 1);
-  const filter = options.blur ? ` filter="url(#${options.blur})"` : "";
+  const opacity = clamp((options.opacity ?? 1) * (options.opacity === 1 ? 1 : t.opacity), 0.05, 1);
+  const filter = options.filterId ? ` filter="url(#${options.filterId})"` : options.blur ? ` filter="url(#${options.blur})"` : "";
   const blend = options.blend ? ` style="mix-blend-mode:${options.blend}"` : "";
   return `<g transform="translate(${x.toFixed(3)} ${y.toFixed(3)}) rotate(${rotate.toFixed(3)})"><rect x="${(-width / 2).toFixed(3)}" y="${(-height / 2).toFixed(3)}" width="${width.toFixed(3)}" height="${height.toFixed(3)}" rx="${radius.toFixed(3)}" fill="${fill}" opacity="${opacity.toFixed(3)}"${filter}${blend}/></g>`;
 }
 
-function softInset(cx: number, cy: number, w: number, h: number, rx: number, key: keyof typeof baseGlows, options: RectOptions, scale: number): string {
-  const glow = baseGlows[key];
+function softInset(cx: number, cy: number, w: number, h: number, rx: number, glow: GlowPalette, options: RectOptions, scale: number): string {
   const rotate = options.rotate ?? 0;
   const opacity = options.opacity ?? 0.6;
   const width = w * scale;
@@ -165,107 +335,122 @@ function r(cx: number, cy: number, dx: number, dy: number, w: number, h: number,
   return rect(cx + dx * scale, cy + dy * scale, w, h, rx, fill, options, scale, tweak, key);
 }
 
-function renderBloom(id: string, p: Extract<LayerPalette, { bg: string }>, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
+function renderBloom(id: string, p: Extract<LayerPalette, { bg: string }>, glow: GlowPalette, dark: boolean, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
   return `
     ${r(cx, cy, 0, 0, 75.25, 75.25, 16.27, p.bg, { rotate: -90, fixed: true }, scale, tweak, "base")}
-    ${softInset(cx, cy, 75.25, 75.25, 16.27, "bloom", { rotate: -90, opacity: 0.48 }, scale)}
-    ${r(cx, cy, 33.13, 33.19, 91.37, 91.15, 46, p.blob, { rotate: 45, blur: "blur-3", opacity: 0.86 }, scale, tweak, "blob-a")}
-    ${r(cx, cy, -33.07, -33.02, 91.37, 91.15, 46, p.blob, { rotate: 45, blur: "blur-3", opacity: 0.86 }, scale, tweak, "blob-b")}
-    ${r(cx, cy, 31.16, 31.21, 76.1, 76.53, 38, `url(#hot-${id})`, { rotate: -135, blur: "blur-1", opacity: 0.9 }, scale, tweak, "hot-a")}
-    ${r(cx, cy, -31.47, -31.42, 76.53, 76.53, 38, `url(#hot-${id})`, { rotate: 45, blur: "blur-1", opacity: 0.9 }, scale, tweak, "hot-b")}`;
+    ${dark ? "" : softInset(cx, cy, 75.25, 75.25, 16.27, glow, { rotate: -90, opacity: 0.48 }, scale)}
+    ${r(cx, cy, 33.13, 33.19, 91.37, 91.15, 46, p.blob, { rotate: 45, blur: dark ? undefined : "blur-3", filterId: dark ? `dark-layer-1-${id}` : undefined, opacity: dark ? 1 : 0.86 }, scale, tweak, "blob-a")}
+    ${r(cx, cy, -33.07, -33.02, 91.37, 91.15, 46, p.blob, { rotate: 45, blur: dark ? undefined : "blur-3", filterId: dark ? `dark-layer-1-${id}` : undefined, opacity: dark ? 1 : 0.86 }, scale, tweak, "blob-b")}
+    ${r(cx, cy, 31.16, 31.21, 76.1, 76.53, 38, `url(#hot-${id})`, { rotate: -135, blur: dark ? undefined : "blur-1", filterId: dark ? `dark-layer-2-${id}` : undefined, opacity: dark ? 1 : 0.9 }, scale, tweak, "hot-a")}
+    ${r(cx, cy, -31.47, -31.42, 76.53, 76.53, 38, `url(#hot-${id})`, { rotate: 45, blur: dark ? undefined : "blur-1", filterId: dark ? `dark-layer-2-${id}` : undefined, opacity: dark ? 1 : 0.9 }, scale, tweak, "hot-b")}`;
 }
 
-function renderSilk(_id: string, p: Extract<LayerPalette, { warm: string }>, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
+function renderSilk(id: string, p: Extract<LayerPalette, { warm: string }>, glow: GlowPalette, innerGlow: GlowPalette | undefined, dark: boolean, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
+  const cream = p.cream1 && p.cream2 ? `url(#silk-${id})` : p.cream;
   return `
-    ${r(cx, cy, 0, 0, 64, 64, 16.25, p.dark, { fixed: true }, scale, tweak, "dark")}
-    ${softInset(cx, cy, 64, 64, 16.25, "silk", { opacity: 0.58 }, scale)}
+    ${r(cx, cy, 0, 0, 64, 64, 16.25, p.dark, { fixed: true, filterId: dark ? `dark-surface-${id}` : undefined }, scale, tweak, "dark")}
+    ${dark ? "" : softInset(cx, cy, 64, 64, 16.25, innerGlow ?? glow, { opacity: 0.58 }, scale)}
     ${r(cx, cy, 0, 2.29, 70.1, 74.67, 16.25, p.base, { fixed: true }, scale, tweak, "base")}
-    ${softInset(cx, cy + 2.29 * scale, 70.1, 74.67, 16.25, "silk", { opacity: 0.42 }, scale)}
-    ${r(cx, cy, 0, -25.75, 93.63, 79.59, 50.79, p.warm, { blur: "blur-10", opacity: 0.9 }, scale, tweak, "warm")}
-    ${r(cx, cy, 0.03, -13.65, 47.79, 42.71, 50.84, p.cream, { blur: "blur-8", opacity: 0.92 }, scale, tweak, "cream")}`;
+    ${dark ? "" : softInset(cx, cy + 2.29 * scale, 70.1, 74.67, 16.25, glow, { opacity: 0.42 }, scale)}
+    ${r(cx, cy, 0, -25.75, 93.63, 79.59, 50.79, p.warm, { blur: dark ? undefined : "blur-10", filterId: dark ? `dark-layer-1-${id}` : undefined, opacity: dark ? 1 : 0.9 }, scale, tweak, "warm")}
+    ${r(cx, cy, 0.03, -13.65, 47.79, 42.71, 50.84, cream, { blur: dark ? undefined : "blur-8", filterId: dark ? `dark-layer-2-${id}` : undefined, opacity: dark ? 1 : 0.92 }, scale, tweak, "cream")}`;
 }
 
-function renderFlare(id: string, p: Extract<LayerPalette, { cream1: string }>, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
+function renderFlare(id: string, p: Extract<LayerPalette, { cream1: string }>, glow: GlowPalette, innerGlow: GlowPalette | undefined, dark: boolean, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
   return `
-    ${r(cx, cy, 0.03, 0.03, 64.06, 64.06, 16.27, p.dark, { fixed: true }, scale, tweak, "dark")}
-    ${softInset(cx, cy, 64.06, 64.06, 16.27, "flare", { opacity: 0.42 }, scale)}
+    ${r(cx, cy, 0.03, 0.03, 64.06, 64.06, 16.27, p.dark, { fixed: true, filterId: dark ? `dark-surface-${id}` : undefined }, scale, tweak, "dark")}
+    ${dark ? "" : softInset(cx, cy, 64.06, 64.06, 16.27, innerGlow ?? glow, { opacity: 0.42 }, scale)}
     ${r(cx, cy, 0.03, 2.32, 70.17, 74.74, 16.27, p.base, { fixed: true }, scale, tweak, "base")}
-    ${softInset(cx, cy + 2.32 * scale, 70.17, 74.74, 16.27, "flare", { opacity: 0.36 }, scale)}
-    ${r(cx, cy, 0, -0.5, 70, 65, 120, `url(#cream-${id})`, { blur: "blur-5", opacity: 0.92 }, scale, tweak, "cream")}
-    ${r(cx, cy, 7, 10, 44, 44, 120, `url(#hot-${id})`, { blur: "blur-8", opacity: 0.84 }, scale, tweak, "hot")}`;
+    ${dark ? "" : softInset(cx, cy + 2.32 * scale, 70.17, 74.74, 16.27, glow, { opacity: 0.36 }, scale)}
+    ${r(cx, cy, 0, -0.5, 70, 65, 120, `url(#cream-${id})`, { blur: dark ? undefined : "blur-5", filterId: dark ? `dark-layer-1-${id}` : undefined, opacity: dark ? 1 : 0.92 }, scale, tweak, "cream")}
+    ${r(cx, cy, 7, 10, 44, 44, 120, `url(#hot-${id})`, { blur: dark ? undefined : "blur-8", filterId: dark ? `dark-layer-2-${id}` : undefined, opacity: dark ? 1 : 0.84 }, scale, tweak, "hot")}`;
 }
 
-function renderNova(_id: string, p: Extract<LayerPalette, { white: string }>, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
+function renderNova(id: string, p: Extract<LayerPalette, { white: string }>, glow: GlowPalette, dark: boolean, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
   return `
     ${r(cx, cy, 0.03, 0.03, 75.25, 75.25, 16.27, p.base, { rotate: -90, fixed: true }, scale, tweak, "base")}
-    ${softInset(cx, cy, 75.25, 75.25, 16.27, "nova", { rotate: -90, opacity: 0.42 }, scale)}
-    ${r(cx, cy, 0, -17.12, 71.3, 83.65, 33.68, p.white, { rotate: 180, blur: "blur-6", opacity: 0.92 }, scale, tweak, "white")}
-    ${r(cx, cy, 0, -28.35, 58.39, 64, 25.26, p.hot, { rotate: 180, blur: "blur-8", opacity: 0.86 }, scale, tweak, "hot")}`;
+    ${dark ? "" : softInset(cx, cy, 75.25, 75.25, 16.27, glow, { rotate: -90, opacity: 0.42 }, scale)}
+    ${r(cx, cy, 0, -17.12, 71.3, 83.65, 33.68, p.white, { rotate: 180, blur: dark ? undefined : "blur-6", filterId: dark ? `dark-layer-1-${id}` : undefined, opacity: dark ? 1 : 0.92 }, scale, tweak, "white")}
+    ${r(cx, cy, 0, -28.35, 58.39, 64, 25.26, p.hot, { rotate: 180, blur: dark ? undefined : "blur-8", filterId: dark ? `dark-layer-2-${id}` : undefined, opacity: dark ? 1 : 0.86 }, scale, tweak, "hot")}`;
 }
 
-function renderVoid(_id: string, p: Extract<LayerPalette, { blue: string }>, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
+function renderVoid(id: string, p: Extract<LayerPalette, { blue: string }>, glow: GlowPalette, dark: boolean, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
   return `
     ${r(cx, cy, 0, 0, 75.18, 75.18, 16.25, p.base, { rotate: -90, fixed: true }, scale, tweak, "base")}
-    ${softInset(cx, cy, 75.18, 75.18, 16.25, "void", { rotate: -90, opacity: 0.36 }, scale)}
-    ${r(cx, cy, 0, 0.11, 64, 37.58, 10.16, p.blue, { rotate: 180, blur: "blur-14", opacity: 0.98 }, scale, tweak, "blue")}
-    ${r(cx, cy, -0.11, -0.11, 44.89, 18.26, 5.08, p.green, { rotate: 180, blur: "blur-5", opacity: 0.9, blend: "plus-lighter" }, scale, tweak, "green")}`;
+    ${dark ? "" : softInset(cx, cy, 75.18, 75.18, 16.25, glow, { rotate: -90, opacity: 0.36 }, scale)}
+    ${r(cx, cy, 0, 0.11, 64, 37.58, 10.16, p.blue, { rotate: 180, blur: dark ? undefined : "blur-14", filterId: dark ? `dark-layer-1-${id}` : undefined, opacity: dark ? 1 : 0.98 }, scale, tweak, "blue")}
+    ${r(cx, cy, -0.11, -0.11, 44.89, 18.26, 5.08, p.green, { rotate: 180, blur: dark ? undefined : "blur-5", filterId: dark ? `dark-layer-2-${id}` : undefined, opacity: dark ? 1 : 0.9, blend: "plus-lighter" }, scale, tweak, "green")}`;
 }
 
-function renderJade(id: string, p: Extract<LayerPalette, { milk: string }>, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
+function renderJade(id: string, p: Extract<LayerPalette, { milk: string }>, glow: GlowPalette, dark: boolean, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
+  const base = p.base1 && p.base2 ? `url(#jade-base-${id})` : p.base;
   return `
-    ${r(cx, cy, 0.03, 0.03, 75.25, 75.25, 16.27, p.base, { rotate: -90, fixed: true }, scale, tweak, "base")}
-    ${softInset(cx, cy, 75.25, 75.25, 16.27, "jade", { rotate: -90, opacity: 0.36 }, scale)}
-    ${r(cx, cy, 0.03, 28.5, 56.95, 54.91, 10.17, p.milk, { rotate: -90, blur: "blur-14", opacity: 0.9 }, scale, tweak, "milk")}
-    ${r(cx, cy, 1, 26, 52, 52, 120, `url(#jade-${id})`, { rotate: -90, blur: "blur-5", opacity: 0.92 }, scale, tweak, "glow")}`;
+    ${r(cx, cy, 0.03, 0.03, 75.25, 75.25, 16.27, base, { rotate: -90, fixed: true }, scale, tweak, "base")}
+    ${dark ? "" : softInset(cx, cy, 75.25, 75.25, 16.27, glow, { rotate: -90, opacity: 0.36 }, scale)}
+    ${r(cx, cy, 0.03, 28.5, 56.95, 54.91, 10.17, p.milk, { rotate: -90, blur: dark ? undefined : "blur-14", filterId: dark ? `dark-layer-1-${id}` : undefined, opacity: dark ? 1 : 0.9 }, scale, tweak, "milk")}
+    ${r(cx, cy, 1, 26, 52, 52, 120, `url(#jade-${id})`, { rotate: -90, blur: dark ? undefined : "blur-5", filterId: dark ? `dark-layer-2-${id}` : undefined, opacity: dark ? 1 : 0.92 }, scale, tweak, "glow")}`;
 }
 
 function renderBody(study: Study, id: string, cx: number, cy: number, scale: number, tweak: (key: string) => Tweak): string {
-  if (study.type === "bloom") return renderBloom(id, study.p as Extract<LayerPalette, { bg: string }>, cx, cy, scale, tweak);
-  if (study.type === "silk") return renderSilk(id, study.p as Extract<LayerPalette, { warm: string }>, cx, cy, scale, tweak);
-  if (study.type === "flare") return renderFlare(id, study.p as Extract<LayerPalette, { cream1: string }>, cx, cy, scale, tweak);
-  if (study.type === "nova") return renderNova(id, study.p as Extract<LayerPalette, { white: string }>, cx, cy, scale, tweak);
-  if (study.type === "void") return renderVoid(id, study.p as Extract<LayerPalette, { blue: string }>, cx, cy, scale, tweak);
-  return renderJade(id, study.p as Extract<LayerPalette, { milk: string }>, cx, cy, scale, tweak);
+  const dark = study.appearance === "dark";
+  if (study.type === "bloom") return renderBloom(id, study.p as Extract<LayerPalette, { bg: string }>, study.glow, dark, cx, cy, scale, tweak);
+  if (study.type === "silk") return renderSilk(id, study.p as Extract<LayerPalette, { warm: string }>, study.glow, study.innerGlow, dark, cx, cy, scale, tweak);
+  if (study.type === "flare") return renderFlare(id, study.p as Extract<LayerPalette, { cream1: string }>, study.glow, study.innerGlow, dark, cx, cy, scale, tweak);
+  if (study.type === "nova") return renderNova(id, study.p as Extract<LayerPalette, { white: string }>, study.glow, dark, cx, cy, scale, tweak);
+  if (study.type === "void") return renderVoid(id, study.p as Extract<LayerPalette, { blue: string }>, study.glow, dark, cx, cy, scale, tweak);
+  return renderJade(id, study.p as Extract<LayerPalette, { milk: string }>, study.glow, dark, cx, cy, scale, tweak);
 }
 
 function renderSvg(study: Study, options: Required<Pick<AvatarOptions, "variantId" | "drift" | "size">> & Pick<AvatarOptions, "background" | "title">): string {
-  const canvasSize = options.size;
-  const iconSize = options.size;
-  const cx = canvasSize / 2;
-  const cy = canvasSize / 2;
-  const scale = iconSize / 64;
-  const id = "oreo-avatar";
+  const displaySize = options.size;
+  const coordinateSize = 64;
+  const cx = coordinateSize / 2;
+  const cy = coordinateSize / 2;
+  const scale = 1;
+  const idSeed = `${study.type}:${study.paletteName}:${study.appearance}:${options.variantId}:${JSON.stringify(study.p)}`;
+  const id = `oreo-${hashString(idSeed).toString(36)}`;
   const tweak = makeTweaker(`${options.variantId}:${study.geometryKey}:${study.type}`, options.drift);
   const body = renderBody(study, id, cx, cy, scale, tweak);
   const title = options.title ? `<title>${escapeHtml(options.title)}</title>` : "";
   const background = options.background === null ? "" : `<rect width="100%" height="100%" fill="${options.background ?? "#ffffff"}"/>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${canvasSize}" height="${canvasSize}" viewBox="0 0 ${canvasSize} ${canvasSize}" role="img">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${displaySize}" height="${displaySize}" viewBox="0 0 ${coordinateSize} ${coordinateSize}" role="img" shape-rendering="geometricPrecision">
     ${title}
-    <defs>${sharedDefs()}${frame(id, cx, cy, iconSize)}${defsFor(id, study)}</defs>
+    <defs>${sharedDefs()}${frame(id, cx, cy, coordinateSize)}${defsFor(id, study)}</defs>
     ${background}
-    <g clip-path="url(#clip-${id})">${body}</g>
+    ${study.appearance === "dark" ? `<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>` : `<g clip-path="url(#clip-${id})">${body}</g>`}
   </svg>`;
 }
 
 export function createAvatar(options: AvatarOptions = {}): AvatarResult {
   const shape = getShape(options.shape ?? "bloom");
   const palette = getPalette(options.palette);
-  const colors = derivePalette(palette, options.tone);
+  const appearance = options.appearance ?? "light";
+  const darkReference = getPalette(darkShapeAnchors[shape.id].lightReference);
+  const hasDarkToneAdjustment = options.tone != null && (
+    (options.tone.hue != null && Math.round(options.tone.hue) !== getPaletteMainHue(palette))
+    || (options.tone.chroma != null && options.tone.chroma !== 1)
+    || (options.tone.lightness != null && options.tone.lightness !== 0)
+  );
+  const sourceColors = appearance === "dark" && !hasDarkToneAdjustment ? { ...palette.colors } : derivePalette(palette, options.tone);
+  const colors = deriveAppearancePalette(sourceColors, appearance, darkReference);
   const size = options.size ?? 64;
   const study: Study = {
     type: shape.id,
+    appearance,
     name: `${shape.name} / ${palette.name}`,
     shapeName: shape.name,
     paletteName: palette.name,
     geometryKey: shape.name,
-    p: paletteForType(shape.id, colors),
+    p: paletteForType(shape.id, sourceColors, appearance, darkReference.colors),
+    glow: glowForAppearance(shape.id, appearance, sourceColors, darkReference.colors),
+    innerGlow: innerGlowForAppearance(shape.id, appearance, sourceColors, darkReference.colors),
   };
   const svg = renderSvg(study, {
     variantId: options.variantId ?? "default",
     drift: options.drift ?? 0,
     size,
-    background: options.background,
+    background: options.background === undefined && appearance === "dark" ? "#0b0b0d" : options.background,
     title: options.title ?? `${shape.name} avatar`,
   });
 
@@ -273,6 +458,7 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     shape,
     palette,
     colors,
+    appearance,
     size,
     svg,
     toSvg: () => svg,

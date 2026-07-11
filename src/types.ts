@@ -1,5 +1,7 @@
 export type ShapeId = "bloom" | "silk" | "flare" | "nova" | "void" | "jade";
 
+export type AvatarAppearance = "light" | "dark";
+
 export type PaletteToken =
   | "base"
   | "lobe"
@@ -44,6 +46,11 @@ export interface AvatarOptions {
   shape?: ShapeId;
   palette?: string | PalettePreset | PaletteColors;
   tone?: ToneOptions;
+  /**
+   * Palette appearance. Dark mode starts from the Figma dark anchors for
+   * each shape, then applies the selected palette's OKLCH token deltas.
+   */
+  appearance?: AvatarAppearance;
   variantId?: string;
   drift?: number;
   size?: number;
@@ -55,6 +62,7 @@ export interface AvatarResult {
   shape: ShapePreset;
   palette: PalettePreset;
   colors: PaletteColors;
+  appearance: AvatarAppearance;
   size: number;
   svg: string;
   toSvg(): string;

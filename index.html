@@ -4,24 +4,26 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>@oreo-ui/avatar — avatar studio</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://rsms.me/" />
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 <style>
   :root {
-    --bg: #ffffff; --bg-weak: #f5f5f3; --surface: #ffffff;
-    --fg: #1c1c1e; --muted: #57575c; --muted-soft: #6f6f77; --faint: #74747c;
+    --bg: #ffffff; --bg-weak: #f5f5f5; --surface: #ffffff;
+    --fg: #1c1c1c; --muted: #5a5a5a; --muted-soft: #707070; --faint: #757575;
     --border: rgba(0,0,0,.1); --border-strong: rgba(0,0,0,.16);
-    --ring: #1c1c1e; --shadow: 0 1px 2px rgba(0,0,0,.05);
-    --kw: #8a6fe0; --str: #3f8f5e;
+    --ring: #1c1c1c; --shadow: 0 1px 2px rgba(0,0,0,.05);
+    --kw: #4a4a4a; --str: #666666;
+    --motion-fast: 90ms; --motion-medium: 150ms; --ease-out: cubic-bezier(.2,.8,.2,1);
     --sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
     --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
   }
   :root[data-theme="dark"] {
-    --bg: #0b0b0d; --bg-weak: #161619; --surface: #131316;
-    --fg: #f1f1f4; --muted: #a8a8af; --muted-soft: #98989f; --faint: #85858d;
+    --bg: #0b0b0b; --bg-weak: #161616; --surface: #131313;
+    --fg: #f1f1f1; --muted: #a8a8a8; --muted-soft: #989898; --faint: #858585;
     --border: rgba(255,255,255,.12); --border-strong: rgba(255,255,255,.2);
-    --ring: #f1f1f4; --shadow: 0 1px 2px rgba(0,0,0,.4);
-    --kw: #b6a4f0; --str: #6cc695;
+    --ring: #f1f1f1; --shadow: 0 1px 2px rgba(0,0,0,.4);
+    --kw: #d0d0d0; --str: #a0a0a0;
   }
   @supports (font-variation-settings: normal) { :root { --sans: "Inter var", -apple-system, system-ui, sans-serif; } }
 
@@ -33,12 +35,12 @@
     -webkit-font-smoothing: antialiased; letter-spacing: -0.005em; overflow: hidden;
   }
   a { color: inherit; text-decoration: none; }
-  ::selection { background: rgba(138,111,224,.22); }
+  ::selection { background: rgba(0,0,0,.14); }
+  :root[data-theme="dark"] ::selection { background: rgba(255,255,255,.18); }
   .mono { font-family: var(--mono); }
   button { font-family: inherit; }
-  button:focus-visible, a:focus-visible, summary:focus-visible, input:focus-visible {
-    outline: 2px solid var(--ring); outline-offset: 2px;
-  }
+  button:focus-visible, a:focus-visible, summary:focus-visible { outline: none; background-color: var(--bg-weak); text-decoration: underline; text-underline-offset: 3px; }
+  input:focus-visible { outline: none; }
 
   .app { display: grid; grid-template-columns: 384px minmax(0,1fr); height: 100%; }
 
@@ -47,7 +49,7 @@
   .sidebar::-webkit-scrollbar { width: 0; height: 0; display: none; }
   .sb-head {
     position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 10px;
-    height: 56px; padding: 0 20px; background: var(--bg); border-bottom: .5px solid var(--border);
+    flex: 0 0 56px; height: 56px; padding: 0 20px; background: var(--bg); border-bottom: .5px solid var(--border);
   }
   .mark { display: flex; align-items: center; gap: 9px; font-weight: 540; font-size: 13.5px; }
   .mark .dot { width: 19px; height: 19px; border-radius: 50%; flex: none; overflow: hidden; }
@@ -57,7 +59,7 @@
   .icon-btn {
     width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
     border: .5px solid var(--border); border-radius: 9px; background: var(--surface);
-    color: var(--muted); cursor: pointer; transition: .15s;
+    color: var(--muted); cursor: pointer; transition: color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out);
   }
   .icon-btn:hover { color: var(--fg); border-color: var(--border-strong); }
   .icon-btn svg { width: 15px; height: 15px; }
@@ -74,18 +76,20 @@
   .cmd {
     display: flex; align-items: center; gap: 10px; cursor: pointer; width: 100%;
     font-family: var(--mono); font-size: 12.5px; color: var(--fg); text-align: left;
-    background: var(--bg-weak); border: .5px solid var(--border); padding: 10px 12px; border-radius: 10px; transition: .15s;
+    background: var(--bg-weak); border: .5px solid var(--border); padding: 10px 12px; border-radius: 10px; transition: border-color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out);
   }
   .cmd:hover { border-color: var(--border-strong); }
   .cmd .sel { color: var(--faint); }
   .cmd .pkg { flex: 1; }
-  .cmd .ico { color: var(--faint); display: inline-flex; transition: color .15s; }
+  .cmd .ico { color: var(--faint); display: inline-flex; transition: color var(--motion-fast) var(--ease-out); }
   .cmd:hover .ico { color: var(--muted); }
   .cmd.copied .ico { color: var(--str); }
   .field { display: flex; flex-direction: column; gap: 11px; }
   .label { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: .02em; display: flex; justify-content: space-between; align-items: baseline; }
   .label .v { font-family: var(--mono); font-weight: 400; color: var(--muted-soft); font-size: 11px; }
-  .label a { color: var(--muted-soft); font-weight: 500; cursor: pointer; }
+  .label-action { padding: 0; border: 0; background: none; color: var(--muted-soft); font-size: 11px; font-weight: 500; cursor: pointer; transition: color var(--motion-fast) var(--ease-out); }
+  .label-action:hover { color: var(--fg); }
+  .label a { color: var(--muted-soft); font-weight: 500; cursor: pointer; transition: color var(--motion-fast) var(--ease-out); }
   .label a:hover { color: var(--fg); }
 
   /* preview */
@@ -98,13 +102,13 @@
   .preview .pname { font-size: 15px; font-weight: 560; letter-spacing: -0.01em; }
   .preview .psub { font-size: 12.5px; color: var(--muted); margin-top: 1px; }
   .preview .pid { font-family: var(--mono); font-size: 10.5px; color: var(--faint); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
-  .reroll { cursor: pointer; color: var(--muted-soft); display: inline-flex; padding: 0; border: 0; background: none; }
+  .reroll { cursor: pointer; color: var(--muted-soft); display: inline-flex; padding: 0; border: 0; background: none; transition: color var(--motion-fast) var(--ease-out); }
   .reroll:hover { color: var(--fg); }
   .reroll svg { width: 12px; height: 12px; }
   .surprise {
     display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; padding: 5px 8px;
     border: .5px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--muted);
-    font-size: 10.5px; font-weight: 550; cursor: pointer; transition: .15s;
+    font-size: 10.5px; font-weight: 550; cursor: pointer; transition: color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out);
   }
   .surprise:hover { color: var(--fg); border-color: var(--border-strong); }
   .surprise svg { width: 11px; height: 11px; }
@@ -114,10 +118,10 @@
   .shape-btn {
     display: flex; flex-direction: column; align-items: center; gap: 7px; cursor: pointer;
     padding: 11px 6px 9px; border: .5px solid var(--border); border-radius: 11px; background: var(--surface);
-    transition: .14s;
+    transition: border-color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out), transform var(--motion-fast) var(--ease-out);
   }
   .shape-btn:hover { border-color: var(--border-strong); background: var(--bg-weak); }
-  .shape-btn.active { border-color: var(--ring); box-shadow: inset 0 0 0 1px var(--ring); }
+  .shape-btn.active { border-color: var(--border); box-shadow: none; background: var(--bg-weak); }
   .shape-btn .av { width: 34px; height: 34px; }
   .shape-btn span { font-size: 11.5px; color: var(--fg); font-weight: 500; }
 
@@ -135,7 +139,7 @@
   .panel summary::-webkit-details-marker { display: none; }
   .panel summary::after {
     content: ""; width: 6px; height: 6px; margin-left: auto; border-right: 1px solid var(--muted-soft);
-    border-bottom: 1px solid var(--muted-soft); transform: rotate(45deg); transition: transform .18s ease;
+    border-bottom: 1px solid var(--muted-soft); transform: rotate(45deg); transition: transform var(--motion-medium) var(--ease-out);
   }
   .panel[open] summary::after { transform: rotate(225deg); }
   .panel summary .summary-meta { color: var(--muted-soft); font-size: 10.5px; font-weight: 450; }
@@ -145,7 +149,7 @@
     display: inline-flex; align-items: center; justify-content: center; gap: 7px;
     font-size: 12.5px; font-weight: 500; cursor: pointer;
     border: .5px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--fg);
-    padding: 9px 13px; transition: .15s;
+    padding: 9px 13px; transition: color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out), opacity var(--motion-fast) var(--ease-out);
   }
   .btn:hover { border-color: var(--border-strong); background: var(--bg-weak); }
   .btn svg { width: 14px; height: 14px; }
@@ -166,27 +170,28 @@
   .tone { display: flex; flex-direction: column; gap: 14px; }
   .text-in {
     width: 100%; height: 34px; border: .5px solid var(--border); border-radius: 9px; background: var(--surface);
-    color: var(--fg); font-family: var(--mono); font-size: 12px; padding: 0 11px; outline: none; transition: .15s;
+    color: var(--fg); font-family: var(--mono); font-size: 12px; padding: 0 11px; outline: none; transition: border-color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
   }
-  .text-in:focus { border-color: var(--ring); }
+  .text-in:focus { border-color: var(--border); box-shadow: inset 0 -2px 0 var(--fg); }
 
   /* output code */
   .seg { position: relative; display: flex; padding: 3px; background: var(--bg-weak); border: .5px solid var(--border); border-radius: 10px; margin-bottom: 10px; }
-  .seg-ind { position: absolute; top: 3px; bottom: 3px; left: 3px; width: 0; background: var(--surface); border: .5px solid var(--border-strong); border-radius: 8px; box-shadow: var(--shadow); transition: transform .3s cubic-bezier(.34,1.3,.5,1), width .3s cubic-bezier(.34,1.3,.5,1); }
-  :root[data-theme="dark"] .seg-ind { background: #26262b; }
-  .seg-btn { position: relative; z-index: 1; flex: 1; border: 0; background: none; cursor: pointer; font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 6px 4px; transition: color .2s; }
+  .seg-ind { position: absolute; top: 3px; bottom: 3px; left: 3px; width: 0; background: var(--surface); border: .5px solid var(--border-strong); border-radius: 8px; box-shadow: var(--shadow); transition: transform var(--motion-medium) var(--ease-out), width var(--motion-medium) var(--ease-out); }
+  :root[data-theme="dark"] .seg-ind { background: #262626; }
+  .seg-btn { position: relative; z-index: 1; flex: 1; border: 0; background: none; cursor: pointer; font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 6px 4px; transition: color var(--motion-fast) var(--ease-out); }
   .seg-btn.active { color: var(--fg); }
   .code-body { position: relative; background: var(--bg-weak); border: .5px solid var(--border); border-radius: 11px; padding: 14px; overflow-x: auto; }
   .code-body::-webkit-scrollbar { height: 7px; }
   .code-body::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 7px; }
   .code-body pre { margin: 0; font-family: var(--mono); font-size: 11.5px; line-height: 1.7; color: var(--fg); white-space: pre; }
   .tok-kw { color: var(--kw); } .tok-str { color: var(--str); } .tok-com { color: var(--faint); } .tok-punc { color: var(--muted); }
-  .copy-btn { position: absolute; top: 9px; right: 9px; display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; color: var(--muted); cursor: pointer; border: .5px solid var(--border); border-radius: 8px; background: var(--surface); padding: 5px 8px; transition: .15s; }
+  .copy-btn { position: absolute; top: 9px; right: 9px; display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; color: var(--muted); cursor: pointer; border: .5px solid var(--border); border-radius: 8px; background: var(--surface); padding: 5px 8px; transition: color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out); }
   .copy-btn:hover { color: var(--fg); border-color: var(--border-strong); }
   .copy-btn.copied { color: var(--str); border-color: var(--str); }
   .copy-btn svg { width: 12px; height: 12px; }
   .out-actions { display: flex; gap: 8px; margin-top: 10px; }
   .sb-foot { margin-top: 4px; padding: 16px 20px; border-top: .5px solid var(--border); font-size: 11.5px; color: var(--muted-soft); display: flex; justify-content: space-between; }
+  .sb-foot a { transition: color var(--motion-fast) var(--ease-out); }
   .sb-foot a:hover { color: var(--fg); }
 
   /* ---------- main ---------- */
@@ -195,20 +200,20 @@
   .main::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 11px; border: 3px solid var(--bg); }
   .toolbar {
     position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 10px; flex-wrap: nowrap;
-    padding: 13px 28px; background: color-mix(in srgb, var(--bg) 86%, transparent);
+    flex: 0 0 56px; height: 56px; padding: 0 28px; background: color-mix(in srgb, var(--bg) 86%, transparent);
     backdrop-filter: blur(10px); border-bottom: .5px solid var(--border);
   }
   .chips { display: flex; gap: 4px; flex-wrap: nowrap; min-width: 0; }
   .chip {
     font-size: 12.5px; font-weight: 500; color: var(--muted); cursor: pointer;
-    border: .5px solid var(--border); background: var(--surface); padding: 6px 13px; border-radius: 999px; transition: .14s;
+    border: .5px solid var(--border); background: var(--surface); padding: 6px 13px; border-radius: 999px; transition: color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out), transform var(--motion-fast) var(--ease-out);
   }
   .chip:hover { color: var(--fg); border-color: var(--border-strong); }
   .chip.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
   .shuffle-grid {
     display: inline-flex; align-items: center; gap: 6px; margin-left: auto; flex: none; padding: 6px 9px;
     border: .5px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--muted);
-    font-size: 11.5px; font-weight: 550; cursor: pointer; transition: .14s;
+    font-size: 11.5px; font-weight: 550; cursor: pointer; transition: color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out), transform var(--motion-fast) var(--ease-out);
   }
   .shuffle-grid:hover { color: var(--fg); border-color: var(--border-strong); }
   .shuffle-grid svg { width: 12px; height: 12px; }
@@ -223,12 +228,13 @@
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
   .cell {
     display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer;
-    padding: 14px 8px 10px; border: .5px solid transparent; border-radius: 13px; background: transparent; transition: .14s;
+    padding: 14px 8px 10px; border: .5px solid transparent; border-radius: 13px; background: transparent; transition: border-color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out);
   }
   .cell:hover { background: var(--bg-weak); border-color: var(--border); }
-  .cell.sel { border-color: var(--ring); box-shadow: inset 0 0 0 1px var(--ring); background: var(--bg-weak); }
-  .cell .av { width: 60px; height: 60px; transition: transform .3s cubic-bezier(.34,1.3,.5,1); }
-  .cell:hover .av { transform: scale(1.07); }
+  .cell.sel { border-color: transparent; box-shadow: none; background: var(--bg-weak); }
+  .cell .av { width: 60px; height: 60px; border-radius: 50%; transition: transform 110ms var(--ease-out); }
+  .cell.sel .shape-name, .cell.sel .cap { font-weight: 650; }
+  .cell:hover .av { transform: scale(1.05); }
   .cell .cap { font-size: 10.5px; color: var(--muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .cell .cap.mixed { display: grid; gap: 1px; width: 100%; text-align: center; line-height: 1.35; white-space: normal; }
   .cell .cap.mixed .shape-name { color: var(--fg); font-weight: 580; }
@@ -244,7 +250,7 @@
     .shape-field, .sb-foot { display: none; }
     .preview { padding: 13px; }
     .preview .av { width: 64px; height: 64px; }
-    .toolbar { top: 0; padding: 9px 16px; gap: 8px; }
+    .toolbar { top: 0; padding: 0 16px; gap: 8px; }
     .chips { flex: 1; overflow-x: auto; padding: 2px; scrollbar-width: none; }
     .chips::-webkit-scrollbar { display: none; }
     .chip { flex: none; padding: 6px 11px; }
@@ -303,7 +309,7 @@
       </div>
 
       <div class="field">
-        <div class="label"><span>Palette</span><span class="v">9 color tokens</span></div>
+        <div class="label"><span>Palette</span><button class="label-action" id="randomize-palette" type="button">Random</button></div>
         <div class="pal-cur">
           <span class="strip" id="strip"></span>
         </div>
@@ -402,6 +408,27 @@ function getPaletteMainHue(colors){return Math.round(hexToOklch(colors.accent).h
 function derivePalette(colors,tone){tone=tone||{};const baseHue=getPaletteMainHue(colors);const targetHue=tone.hue==null?baseHue:normalizeHue(tone.hue);const hueShift=normalizeHue(targetHue-baseHue);const chromaScale=tone.chroma??1;const lightShift=tone.lightness??0;const next={};
   for(const key of paletteTokenOrder){const color=hexToOklch(colors[key]);const hue=color.c<0.006?targetHue:color.h+hueShift;const chroma=clamp(color.c*chromaScale,0,0.37);const light=clamp(color.l+lightShift,0.04,0.98);next[key]=oklchToHex({l:light,c:chroma,h:hue});}
   return next;}
+function oklchToLinearRgb(o){const h=normalizeHue(o.h)*Math.PI/180,a=Math.cos(h)*o.c,b=Math.sin(h)*o.c;
+  const lR=o.l+0.3963377774*a+0.2158037573*b,mR=o.l-0.1055613458*a-0.0638541728*b,sR=o.l-0.0894841775*a-1.291485548*b;
+  const l=lR**3,m=mR**3,s=sR**3;return{r:4.0767416621*l-3.3077115913*m+0.2309699292*s,g:-1.2684380046*l+2.6097574011*m-0.3413193965*s,b:-0.0041960863*l-0.7034186147*m+1.707614701*s};}
+function isInSrgb(o){return Object.values(oklchToLinearRgb(o)).every(v=>v>=-0.000001&&v<=1.000001);}
+function maxSrgbChroma(lightness,hue){const l=clamp(lightness,0,1);if(l<=.000001||l>=.999999)return 0;let low=0,high=.4;while(high<1&&isInSrgb({l,c:high,h:hue}))high*=2;for(let pass=0;pass<24;pass++){const c=(low+high)/2;if(isInSrgb({l,c,h:hue}))low=c;else high=c;}return low;}
+function relativeSrgbChroma(o){if(o.c<.0001)return 0;const maximum=maxSrgbChroma(o.l,o.h);return maximum<.0001?0:clamp(o.c/maximum,0,1);}
+function oklchToHexInGamut(o){if(isInSrgb(o))return oklchToHex(o);let low=0,high=Math.max(0,o.c);for(let pass=0;pass<24;pass++){const c=(low+high)/2;if(isInSrgb({...o,c}))low=c;else high=c;}return oklchToHex({...o,c:low});}
+const A=(color,token)=>({color,token}),G=(narrow,medium,wide)=>({narrow,medium,wide});
+const darkShapeAnchors={
+  nova:{lightReference:"aurora-pink",layers:{base:A("#6550b9","cool"),light:A("#ffffff","light"),hot:A("#ff0084","accent")},frameGlow:G(A("#ffffff","light"),A("#0958ca","cool"),A("#6aa7ff","cool"))},
+  void:{lightReference:"rose-milk",layers:{base:A("#031a05","dark"),core:A("#4229ff","cool"),beam:A("#57b565","beam")},frameGlow:G(A("#000000","dark"),A("#71abff","cool"),A("#71abff","cool"))},
+  jade:{lightReference:"mint-milk",layers:{base1:A("#031a05","dark"),base2:A("#08b98d","lobe"),milk:A("#0f9a73","pale"),glow1:A("#5fec83","beam"),glow2:A("#ffffff","light")},frameGlow:G(A("#ffffff","light"),A("#00c48c","beam"),A("#5fec83","beam"))},
+  bloom:{lightReference:"rose-milk",layers:{base:A("#b1e7ff","base"),blob:A("#58e0ff","lobe"),hot:A("#ff5ad5","accent")},frameGlow:G(A("#ffffff","light"),A("#0e82a3","pale"),A("#008ce3","pale"))},
+  silk:{lightReference:"rose-milk",layers:{dark:A("#0047c3","dark"),base:A("#6e4eff","base"),warm:A("#1e0af6","warm"),cream1:A("#00133e","dark"),cream2:A("#0047c3","cool")},frameGlow:G(A("#b58aff","accent"),A("#1a00df","cool"),A("#4430ff","cool")),innerGlow:G(A("#ff9de7","accent"),A("#0047c3","dark"),A("#0047c3","dark"))},
+  flare:{lightReference:"peach-cream",layers:{dark:A("#000000","dark"),base:A("#ff9a44","lobe"),cream1:A("#ff9a44","lobe"),cream2:A("#f62b0a","accent"),hot1:A("#f62b0a","accent"),hot2:A("#170312","dark")},frameGlow:G(A("#ffffff","light"),A("#ff8774","warm"),A("#ff8c79","warm")),innerGlow:G(A("#ff9de7","accent"),A("#ed66cb","accent"),A("#ed66cb","accent"))},
+};
+const darkReferencePalette={base:"#b1e7ff",lobe:"#58e0ff",accent:"#ff5ad5",pale:"#0e82a3",light:"#ffffff",warm:"#1e0af6",cool:"#6aa7ff",dark:"#031a05",beam:"#57b565"};
+function hueDelta(target,source){const d=normalizeHue(target-source);return d>180?d-360:d;}
+function deriveDarkAnchorColor(anchor,colors,referenceColors=palettes[0].colors){const base=hexToOklch(anchor.color),reference=hexToOklch(referenceColors[anchor.token]),target=hexToOklch(colors[anchor.token]),referenceAccent=hexToOklch(referenceColors.accent),targetAccent=hexToOklch(colors.accent);const shift=reference.c>=.006&&target.c>=.006?hueDelta(target.h,reference.h):hueDelta(targetAccent.h,referenceAccent.h),referenceRelative=relativeSrgbChroma(reference),targetRelative=relativeSrgbChroma(target),baseRelative=relativeSrgbChroma(base),chromaScale=referenceRelative>=.006?clamp(targetRelative/referenceRelative,.55,1.45):1,lightnessShift=clamp((target.l-reference.l)*.35,-.12,.12),lightness=clamp(base.l+lightnessShift*(base.c<.006?.5:1),.03,.999999),hue=base.h+shift,relative=base.c<.006?0:clamp(baseRelative*chromaScale,0,1);return oklchToHexInGamut({l:lightness,c:relative*maxSrgbChroma(lightness,hue),h:hue});}
+function deriveDarkGlow(anchors,colors,referenceColors=palettes[0].colors){return{white:deriveDarkAnchorColor(anchors.narrow,colors,referenceColors),glow1:deriveDarkAnchorColor(anchors.medium,colors,referenceColors),glow2:deriveDarkAnchorColor(anchors.wide,colors,referenceColors)};}
+function deriveAppearancePalette(colors,appearance,referenceColors=palettes[0].colors){if(appearance!=="dark")return{...colors};const next={};for(const token of paletteTokenOrder)next[token]=deriveDarkAnchorColor(A(darkReferencePalette[token],token),colors,referenceColors);return next;}
 /* --- data: shapes --- */
 const shapes=[
   {id:"bloom",name:"Bloom",description:"Diagonal paired ribbon with hot radial glows."},
@@ -463,9 +490,20 @@ const baseGlows={
   flare:{white:"#ffffff",glow1:"#ffdfda",glow2:"#ffbe74"},nova:{white:"#ffffff",glow1:"#88b9ff",glow2:"#7cb2ff"},
   void:{white:"#ffffff",glow1:"#71abff",glow2:"#71abff"},jade:{white:"#ffffff",glow1:"#42cba9",glow2:"#42cba9"},
 };
+function glowForAppearance(key,appearance,colors,referenceColors){const glow=baseGlows[key];return appearance!=="dark"?glow:deriveDarkGlow(darkShapeAnchors[key].frameGlow,colors,referenceColors);}
+function innerGlowForAppearance(key,appearance,colors,referenceColors){if(appearance!=="dark"||!darkShapeAnchors[key].innerGlow)return null;return deriveDarkGlow(darkShapeAnchors[key].innerGlow,colors,referenceColors);}
 function makeTweaker(seed,drift){const v=clamp(drift,0,24)/100;return function(key){const r=s=>randomFromString(`${seed}:${key}:${s}`)*2-1;return{dx:r("dx")*2.8*v,dy:r("dy")*2.8*v,sx:1+r("sx")*0.035*v,sy:1+r("sy")*0.035*v,rotate:r("rot")*2.8*v,opacity:1+r("op")*0.05*v};};}
 function escapeHtml(v){return v.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");}
-function paletteForType(type,p){
+function paletteForType(type,p,appearance,referenceColors){
+  if(appearance==="dark"){
+    const anchors=darkShapeAnchors[type].layers,color=name=>deriveDarkAnchorColor(anchors[name],p,referenceColors);
+    if(type==="bloom")return{bg:color("base"),blob:color("blob"),hot:color("hot"),pale:color("base")};
+    if(type==="silk")return{dark:color("dark"),base:color("base"),warm:color("warm"),cream:"",cream1:color("cream1"),cream2:color("cream2"),cool:color("cream2")};
+    if(type==="flare")return{dark:color("dark"),base:color("base"),cream1:color("cream1"),cream2:color("cream2"),hot1:color("hot1"),hot2:color("hot2")};
+    if(type==="nova")return{base:color("base"),white:color("light"),hot:color("hot"),cool:color("base")};
+    if(type==="void")return{base:color("base"),blue:color("core"),green:color("beam"),glow:color("beam")};
+    return{base:"",base1:color("base1"),base2:color("base2"),milk:color("milk"),grad1:color("glow1"),grad2:color("glow2"),glow:color("glow1")};
+  }
   if(type==="bloom")return{bg:p.base,blob:p.lobe,hot:p.accent,pale:p.pale};
   if(type==="silk")return{dark:p.dark,base:p.base,warm:p.warm,cream:p.light,cool:p.cool};
   if(type==="flare")return{dark:p.dark,base:p.lobe,cream1:p.pale,cream2:p.light,hot1:p.warm,hot2:p.accent};
@@ -481,31 +519,57 @@ function sharedDefs(){return`
     <filter id="blur-8" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
     <filter id="blur-10" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
     <filter id="blur-14" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter>`;}
+const darkEffectProfiles={
+  nova:{frame:[{blur:5.052632,dy:-1.122807},{blur:1.122807,spread:1.016887},{blur:1.122807,spread:1.015873}],noiseFrequency:3.9335744380950928,layerBlurs:[5.614035,8.421053]},
+  void:{frame:[{blur:5.614035},{blur:2.245614,spread:1.015873},{blur:1.122807,spread:1.015873}],noiseFrequency:3.9335744380950928,layerBlurs:[13.714285,5.079366]},
+  jade:{frame:[{blur:5.614035},{blur:1.684211,spread:1.016887},{blur:1.122807,spread:1.015873}],noiseFrequency:3.9335744380950928,layerBlurs:[13.727973,5.084435]},
+  bloom:{frame:[{blur:5.614035},{blur:2.245614,spread:1.016887},{blur:1.122807,spread:1.015873}],noiseFrequency:3.9335744380950928,layerBlurs:[3.224692,1.074898]},
+  silk:{frame:[{blur:5.925926},{blur:1.481482,spread:1.015873},{blur:1.122807,spread:1.015873}],noiseFrequency:3.937499761581421,surface:[{blur:12.698412,spread:2.539683,alpha:.5},{blur:5.079365},{blur:1.269841,spread:1.015873}],layerBlurs:[10.370371,7.626652]},
+  flare:{frame:[{blur:5.614035},{blur:2.245614,spread:1.016887},{blur:1.122807,spread:1.015873}],noiseFrequency:3.9335744380950928,surface:[{blur:12.711087,spread:2.542217,alpha:.5},{blur:5.084435},{blur:1.271109,spread:1.016887}],layerBlurs:[4.830213,7.626652]},
+};
+const noiseAlphaTable=`${"1 ".repeat(51)}${"0 ".repeat(49)}`.trim();
+function innerShadowFilter(id,metrics,colors,noiseFrequency){let previous="shape";const shadows=metrics.map((metric,index)=>{const step=index+1,hardAlpha=`hard-alpha-${step}-${id}`,source=metric.spread?`<feMorphology in="SourceAlpha" operator="erode" radius="${metric.spread}" result="spread-${step}-${id}"/>`:`<feComposite in="SourceAlpha" in2="SourceAlpha" operator="in" result="spread-${step}-${id}"/>`,offset=metric.dx||metric.dy?`<feOffset in="spread-${step}-${id}" dx="${metric.dx??0}" dy="${metric.dy??0}" result="offset-${step}-${id}"/>`:`<feOffset in="spread-${step}-${id}" result="offset-${step}-${id}"/>`,current=`shadow-${step}-${id}`,result=`
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="${hardAlpha}"/>
+      ${source}${offset}<feGaussianBlur in="offset-${step}-${id}" stdDeviation="${metric.blur}" result="blur-${step}-${id}"/>
+      <feComposite in="blur-${step}-${id}" in2="${hardAlpha}" operator="arithmetic" k2="-1" k3="1" result="alpha-${step}-${id}"/>
+      <feFlood flood-color="${colors[index]}" flood-opacity="${metric.alpha??1}" result="flood-${step}-${id}"/>
+      <feComposite in="flood-${step}-${id}" in2="alpha-${step}-${id}" operator="in" result="color-${step}-${id}"/>
+      <feBlend mode="normal" in="color-${step}-${id}" in2="${previous}" result="${current}"/>`;previous=current;return result;}).join("");
+  const noise=noiseFrequency==null?"":`<feTurbulence type="fractalNoise" baseFrequency="${noiseFrequency} ${noiseFrequency}" stitchTiles="stitch" numOctaves="3" seed="2560" result="noise-${id}"/><feColorMatrix in="noise-${id}" type="luminanceToAlpha" result="alpha-noise-${id}"/><feComponentTransfer in="alpha-noise-${id}" result="threshold-noise-${id}"><feFuncA type="discrete" tableValues="${noiseAlphaTable}"/></feComponentTransfer><feComposite in="threshold-noise-${id}" in2="${previous}" operator="in" result="clipped-noise-${id}"/><feFlood flood-color="#000000" flood-opacity="0.15" result="noise-color-${id}"/><feComposite in="noise-color-${id}" in2="clipped-noise-${id}" operator="in" result="colored-noise-${id}"/><feMerge><feMergeNode in="${previous}"/><feMergeNode in="colored-noise-${id}"/></feMerge>`;
+  return`<filter id="${id}" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>${shadows}${noise}</filter>`;}
+function darkEffectDefs(id,study){if(study.appearance!=="dark")return"";const profile=darkEffectProfiles[study.type],frameMetrics=profile.frame.map((metric,index)=>index===2?{...metric,alpha:metric.alpha??.58}:metric),frameColors=[study.glow.glow2,study.glow.glow1,study.glow.white],surface=profile.surface&&study.innerGlow?innerShadowFilter(`dark-surface-${id}`,profile.surface,[study.innerGlow.glow2,study.innerGlow.glow1,study.innerGlow.white]):"",layerBlurs=profile.layerBlurs.map((blur,index)=>`<filter id="dark-layer-${index+1}-${id}" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${blur}"/></filter>`).join("");return innerShadowFilter(`dark-frame-${id}`,frameMetrics,frameColors)+surface+layerBlurs;}
 function frame(id,cx,cy,size){return`<clipPath id="clip-${id}"><circle cx="${cx}" cy="${cy}" r="${size/2}"/></clipPath>`;}
 function defsFor(id,study){const p=study.p;const g=[];
-  if(study.type==="flare"&&"cream1"in p){g.push(`
+  if(study.type==="flare"&&"hot1"in p){g.push(`
       <linearGradient id="cream-${id}" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="${p.cream1}"/><stop offset="100%" stop-color="${p.cream2}"/>
       </linearGradient>
       <linearGradient id="hot-${id}" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="${p.hot1}"/><stop offset="100%" stop-color="${p.hot2}"/>
       </linearGradient>`);}
-  if(study.type==="jade"&&"grad1"in p){g.push(`
-      <linearGradient id="jade-${id}" x1="0" y1="0" x2="1" y2="0">
+  if(study.type==="silk"&&p.cream1&&p.cream2){g.push(`
+      <radialGradient id="silk-${id}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-0.03 -15.355) rotate(89.9503) scale(36.7093 41.0794)">
+        <stop offset="0%" stop-color="${p.cream1}"/><stop offset="100%" stop-color="${p.cream2}"/>
+      </radialGradient>`);}
+  if(study.type==="jade"&&"grad1"in p){const x1=study.appearance==="dark"?"1":"0",x2=study.appearance==="dark"?"0":"1";g.push(`
+      <linearGradient id="jade-${id}" x1="${x1}" y1="0" x2="${x2}" y2="0">
         <stop offset="0%" stop-color="${p.grad1}"/><stop offset="100%" stop-color="${p.grad2}"/>
+      </linearGradient>`);if(p.base1&&p.base2)g.push(`
+      <linearGradient id="jade-base-${id}" x1="${x1}" y1="0" x2="${x2}" y2="0">
+        <stop offset="0%" stop-color="${p.base1}"/><stop offset="100%" stop-color="${p.base2}"/>
       </linearGradient>`);}
   if(study.type==="bloom"&&"hot"in p){g.push(`
       <radialGradient id="hot-${id}" cx="102%" cy="50%" r="58%">
         <stop offset="0%" stop-color="${p.hot}" stop-opacity="1"/>
         <stop offset="100%" stop-color="${p.hot}" stop-opacity="0"/>
       </radialGradient>`);}
-  return g.join("");}
+  return g.join("")+darkEffectDefs(id,study);}
 function rectEl(cx,cy,w,h,rx,fill,o,scale,tweak,key){const t=o.fixed?{dx:0,dy:0,sx:1,sy:1,rotate:0,opacity:1}:tweak(key);
   const x=cx+t.dx*scale,y=cy+t.dy*scale,width=w*t.sx*scale,height=h*t.sy*scale,radius=rx*Math.min(t.sx,t.sy)*scale;
-  const rotate=(o.rotate??0)+t.rotate,opacity=clamp((o.opacity??1)*t.opacity,0.05,1);
-  const filter=o.blur?` filter="url(#${o.blur})"`:"",blend=o.blend?` style="mix-blend-mode:${o.blend}"`:"";
+  const rotate=(o.rotate??0)+t.rotate,opacity=clamp((o.opacity??1)*(o.opacity===1?1:t.opacity),0.05,1);
+  const filter=o.filterId?` filter="url(#${o.filterId})"`:o.blur?` filter="url(#${o.blur})"`:"",blend=o.blend?` style="mix-blend-mode:${o.blend}"`:"";
   return`<g transform="translate(${x.toFixed(3)} ${y.toFixed(3)}) rotate(${rotate.toFixed(3)})"><rect x="${(-width/2).toFixed(3)}" y="${(-height/2).toFixed(3)}" width="${width.toFixed(3)}" height="${height.toFixed(3)}" rx="${radius.toFixed(3)}" fill="${fill}" opacity="${opacity.toFixed(3)}"${filter}${blend}/></g>`;}
-function softInset(cx,cy,w,h,rx,key,o,scale){const glow=baseGlows[key];const rotate=o.rotate??0,opacity=o.opacity??0.6;const width=w*scale,height=h*scale,radius=rx*scale,i1=1.2*scale,i2=2*scale,i4=4*scale;
+function softInset(cx,cy,w,h,rx,glow,o,scale){const rotate=o.rotate??0,opacity=o.opacity??0.6;const width=w*scale,height=h*scale,radius=rx*scale,i1=1.2*scale,i2=2*scale,i4=4*scale;
   return`
     <g transform="translate(${cx} ${cy}) rotate(${rotate})" opacity="${opacity}">
       <rect x="${(-width/2+i1).toFixed(3)}" y="${(-height/2+i1).toFixed(3)}" width="${(width-i1*2).toFixed(3)}" height="${(height-i1*2).toFixed(3)}" rx="${Math.max(0,radius-i1).toFixed(3)}" fill="none" stroke="${glow.white}" stroke-width="${(1.4*scale).toFixed(3)}" opacity="0.38" filter="url(#blur-1)"/>
@@ -513,72 +577,73 @@ function softInset(cx,cy,w,h,rx,key,o,scale){const glow=baseGlows[key];const rot
       <rect x="${(-width/2+i4).toFixed(3)}" y="${(-height/2+i4).toFixed(3)}" width="${(width-i4*2).toFixed(3)}" height="${(height-i4*2).toFixed(3)}" rx="${Math.max(0,radius-i4).toFixed(3)}" fill="none" stroke="${glow.glow2}" stroke-width="${(4*scale).toFixed(3)}" opacity="0.18" filter="url(#blur-5)"/>
     </g>`;}
 function rr(cx,cy,dx,dy,w,h,rx,fill,o,scale,tweak,key){return rectEl(cx+dx*scale,cy+dy*scale,w,h,rx,fill,o,scale,tweak,key);}
-function renderBloom(id,p,cx,cy,scale,tw){return`
+function renderBloom(id,p,glow,dark,cx,cy,scale,tw){return`
     ${rr(cx,cy,0,0,75.25,75.25,16.27,p.bg,{rotate:-90,fixed:true},scale,tw,"base")}
-    ${softInset(cx,cy,75.25,75.25,16.27,"bloom",{rotate:-90,opacity:0.48},scale)}
-    ${rr(cx,cy,33.13,33.19,91.37,91.15,46,p.blob,{rotate:45,blur:"blur-3",opacity:0.86},scale,tw,"blob-a")}
-    ${rr(cx,cy,-33.07,-33.02,91.37,91.15,46,p.blob,{rotate:45,blur:"blur-3",opacity:0.86},scale,tw,"blob-b")}
-    ${rr(cx,cy,31.16,31.21,76.1,76.53,38,`url(#hot-${id})`,{rotate:-135,blur:"blur-1",opacity:0.9},scale,tw,"hot-a")}
-    ${rr(cx,cy,-31.47,-31.42,76.53,76.53,38,`url(#hot-${id})`,{rotate:45,blur:"blur-1",opacity:0.9},scale,tw,"hot-b")}`;}
-function renderSilk(id,p,cx,cy,scale,tw){return`
-    ${rr(cx,cy,0,0,64,64,16.25,p.dark,{fixed:true},scale,tw,"dark")}
-    ${softInset(cx,cy,64,64,16.25,"silk",{opacity:0.58},scale)}
+    ${dark?"":softInset(cx,cy,75.25,75.25,16.27,glow,{rotate:-90,opacity:0.48},scale)}
+    ${rr(cx,cy,33.13,33.19,91.37,91.15,46,p.blob,{rotate:45,blur:dark?undefined:"blur-3",filterId:dark?`dark-layer-1-${id}`:undefined,opacity:dark?1:0.86},scale,tw,"blob-a")}
+    ${rr(cx,cy,-33.07,-33.02,91.37,91.15,46,p.blob,{rotate:45,blur:dark?undefined:"blur-3",filterId:dark?`dark-layer-1-${id}`:undefined,opacity:dark?1:0.86},scale,tw,"blob-b")}
+    ${rr(cx,cy,31.16,31.21,76.1,76.53,38,`url(#hot-${id})`,{rotate:-135,blur:dark?undefined:"blur-1",filterId:dark?`dark-layer-2-${id}`:undefined,opacity:dark?1:0.9},scale,tw,"hot-a")}
+    ${rr(cx,cy,-31.47,-31.42,76.53,76.53,38,`url(#hot-${id})`,{rotate:45,blur:dark?undefined:"blur-1",filterId:dark?`dark-layer-2-${id}`:undefined,opacity:dark?1:0.9},scale,tw,"hot-b")}`;}
+function renderSilk(id,p,glow,innerGlow,dark,cx,cy,scale,tw){const cream=p.cream1&&p.cream2?`url(#silk-${id})`:p.cream;return`
+    ${rr(cx,cy,0,0,64,64,16.25,p.dark,{fixed:true,filterId:dark?`dark-surface-${id}`:undefined},scale,tw,"dark")}
+    ${dark?"":softInset(cx,cy,64,64,16.25,innerGlow||glow,{opacity:0.58},scale)}
     ${rr(cx,cy,0,2.29,70.1,74.67,16.25,p.base,{fixed:true},scale,tw,"base")}
-    ${softInset(cx,cy+2.29*scale,70.1,74.67,16.25,"silk",{opacity:0.42},scale)}
-    ${rr(cx,cy,0,-25.75,93.63,79.59,50.79,p.warm,{blur:"blur-10",opacity:0.9},scale,tw,"warm")}
-    ${rr(cx,cy,0.03,-13.65,47.79,42.71,50.84,p.cream,{blur:"blur-8",opacity:0.92},scale,tw,"cream")}`;}
-function renderFlare(id,p,cx,cy,scale,tw){return`
-    ${rr(cx,cy,0.03,0.03,64.06,64.06,16.27,p.dark,{fixed:true},scale,tw,"dark")}
-    ${softInset(cx,cy,64.06,64.06,16.27,"flare",{opacity:0.42},scale)}
+    ${dark?"":softInset(cx,cy+2.29*scale,70.1,74.67,16.25,glow,{opacity:0.42},scale)}
+    ${rr(cx,cy,0,-25.75,93.63,79.59,50.79,p.warm,{blur:dark?undefined:"blur-10",filterId:dark?`dark-layer-1-${id}`:undefined,opacity:dark?1:0.9},scale,tw,"warm")}
+    ${rr(cx,cy,0.03,-13.65,47.79,42.71,50.84,cream,{blur:dark?undefined:"blur-8",filterId:dark?`dark-layer-2-${id}`:undefined,opacity:dark?1:0.92},scale,tw,"cream")}`;}
+function renderFlare(id,p,glow,innerGlow,dark,cx,cy,scale,tw){return`
+    ${rr(cx,cy,0.03,0.03,64.06,64.06,16.27,p.dark,{fixed:true,filterId:dark?`dark-surface-${id}`:undefined},scale,tw,"dark")}
+    ${dark?"":softInset(cx,cy,64.06,64.06,16.27,innerGlow||glow,{opacity:0.42},scale)}
     ${rr(cx,cy,0.03,2.32,70.17,74.74,16.27,p.base,{fixed:true},scale,tw,"base")}
-    ${softInset(cx,cy+2.32*scale,70.17,74.74,16.27,"flare",{opacity:0.36},scale)}
-    ${rr(cx,cy,0,-0.5,70,65,120,`url(#cream-${id})`,{blur:"blur-5",opacity:0.92},scale,tw,"cream")}
-    ${rr(cx,cy,7,10,44,44,120,`url(#hot-${id})`,{blur:"blur-8",opacity:0.84},scale,tw,"hot")}`;}
-function renderNova(id,p,cx,cy,scale,tw){return`
+    ${dark?"":softInset(cx,cy+2.32*scale,70.17,74.74,16.27,glow,{opacity:0.36},scale)}
+    ${rr(cx,cy,0,-0.5,70,65,120,`url(#cream-${id})`,{blur:dark?undefined:"blur-5",filterId:dark?`dark-layer-1-${id}`:undefined,opacity:dark?1:0.92},scale,tw,"cream")}
+    ${rr(cx,cy,7,10,44,44,120,`url(#hot-${id})`,{blur:dark?undefined:"blur-8",filterId:dark?`dark-layer-2-${id}`:undefined,opacity:dark?1:0.84},scale,tw,"hot")}`;}
+function renderNova(id,p,glow,dark,cx,cy,scale,tw){return`
     ${rr(cx,cy,0.03,0.03,75.25,75.25,16.27,p.base,{rotate:-90,fixed:true},scale,tw,"base")}
-    ${softInset(cx,cy,75.25,75.25,16.27,"nova",{rotate:-90,opacity:0.42},scale)}
-    ${rr(cx,cy,0,-17.12,71.3,83.65,33.68,p.white,{rotate:180,blur:"blur-6",opacity:0.92},scale,tw,"white")}
-    ${rr(cx,cy,0,-28.35,58.39,64,25.26,p.hot,{rotate:180,blur:"blur-8",opacity:0.86},scale,tw,"hot")}`;}
-function renderVoid(id,p,cx,cy,scale,tw){return`
+    ${dark?"":softInset(cx,cy,75.25,75.25,16.27,glow,{rotate:-90,opacity:0.42},scale)}
+    ${rr(cx,cy,0,-17.12,71.3,83.65,33.68,p.white,{rotate:180,blur:dark?undefined:"blur-6",filterId:dark?`dark-layer-1-${id}`:undefined,opacity:dark?1:0.92},scale,tw,"white")}
+    ${rr(cx,cy,0,-28.35,58.39,64,25.26,p.hot,{rotate:180,blur:dark?undefined:"blur-8",filterId:dark?`dark-layer-2-${id}`:undefined,opacity:dark?1:0.86},scale,tw,"hot")}`;}
+function renderVoid(id,p,glow,dark,cx,cy,scale,tw){return`
     ${rr(cx,cy,0,0,75.18,75.18,16.25,p.base,{rotate:-90,fixed:true},scale,tw,"base")}
-    ${softInset(cx,cy,75.18,75.18,16.25,"void",{rotate:-90,opacity:0.36},scale)}
-    ${rr(cx,cy,0,0.11,64,37.58,10.16,p.blue,{rotate:180,blur:"blur-14",opacity:0.98},scale,tw,"blue")}
-    ${rr(cx,cy,-0.11,-0.11,44.89,18.26,5.08,p.green,{rotate:180,blur:"blur-5",opacity:0.9,blend:"plus-lighter"},scale,tw,"green")}`;}
-function renderJade(id,p,cx,cy,scale,tw){return`
-    ${rr(cx,cy,0.03,0.03,75.25,75.25,16.27,p.base,{rotate:-90,fixed:true},scale,tw,"base")}
-    ${softInset(cx,cy,75.25,75.25,16.27,"jade",{rotate:-90,opacity:0.36},scale)}
-    ${rr(cx,cy,0.03,28.5,56.95,54.91,10.17,p.milk,{rotate:-90,blur:"blur-14",opacity:0.9},scale,tw,"milk")}
-    ${rr(cx,cy,1,26,52,52,120,`url(#jade-${id})`,{rotate:-90,blur:"blur-5",opacity:0.92},scale,tw,"glow")}`;}
-function renderBody(study,id,cx,cy,scale,tw){const t=study.type;
-  if(t==="bloom")return renderBloom(id,study.p,cx,cy,scale,tw);
-  if(t==="silk")return renderSilk(id,study.p,cx,cy,scale,tw);
-  if(t==="flare")return renderFlare(id,study.p,cx,cy,scale,tw);
-  if(t==="nova")return renderNova(id,study.p,cx,cy,scale,tw);
-  if(t==="void")return renderVoid(id,study.p,cx,cy,scale,tw);
-  return renderJade(id,study.p,cx,cy,scale,tw);}
+    ${dark?"":softInset(cx,cy,75.18,75.18,16.25,glow,{rotate:-90,opacity:0.36},scale)}
+    ${rr(cx,cy,0,0.11,64,37.58,10.16,p.blue,{rotate:180,blur:dark?undefined:"blur-14",filterId:dark?`dark-layer-1-${id}`:undefined,opacity:dark?1:0.98},scale,tw,"blue")}
+    ${rr(cx,cy,-0.11,-0.11,44.89,18.26,5.08,p.green,{rotate:180,blur:dark?undefined:"blur-5",filterId:dark?`dark-layer-2-${id}`:undefined,opacity:dark?1:0.9,blend:"plus-lighter"},scale,tw,"green")}`;}
+function renderJade(id,p,glow,dark,cx,cy,scale,tw){const base=p.base1&&p.base2?`url(#jade-base-${id})`:p.base;return`
+    ${rr(cx,cy,0.03,0.03,75.25,75.25,16.27,base,{rotate:-90,fixed:true},scale,tw,"base")}
+    ${dark?"":softInset(cx,cy,75.25,75.25,16.27,glow,{rotate:-90,opacity:0.36},scale)}
+    ${rr(cx,cy,0.03,28.5,56.95,54.91,10.17,p.milk,{rotate:-90,blur:dark?undefined:"blur-14",filterId:dark?`dark-layer-1-${id}`:undefined,opacity:dark?1:0.9},scale,tw,"milk")}
+    ${rr(cx,cy,1,26,52,52,120,`url(#jade-${id})`,{rotate:-90,blur:dark?undefined:"blur-5",filterId:dark?`dark-layer-2-${id}`:undefined,opacity:dark?1:0.92},scale,tw,"glow")}`;}
+function renderBody(study,id,cx,cy,scale,tw){const t=study.type,dark=study.appearance==="dark";
+  if(t==="bloom")return renderBloom(id,study.p,study.glow,dark,cx,cy,scale,tw);
+  if(t==="silk")return renderSilk(id,study.p,study.glow,study.innerGlow,dark,cx,cy,scale,tw);
+  if(t==="flare")return renderFlare(id,study.p,study.glow,study.innerGlow,dark,cx,cy,scale,tw);
+  if(t==="nova")return renderNova(id,study.p,study.glow,dark,cx,cy,scale,tw);
+  if(t==="void")return renderVoid(id,study.p,study.glow,dark,cx,cy,scale,tw);
+  return renderJade(id,study.p,study.glow,dark,cx,cy,scale,tw);}
 function createAvatar(options){options=options||{};
   const shape=getShape(options.shape??"bloom");const palette=getPalette(options.palette??"rose-milk");
-  const colors=derivePalette(palette.colors,options.tone);const size=options.size??64;
-  const study={type:shape.id,geometryKey:shape.name,p:paletteForType(shape.id,colors)};
+  const appearance=options.appearance??"light",hasDarkTone=options.tone&&((options.tone.hue!=null&&Math.round(options.tone.hue)!==getPaletteMainHue(palette.colors))||(options.tone.chroma!=null&&options.tone.chroma!==1)||(options.tone.lightness!=null&&options.tone.lightness!==0)),sourceColors=appearance==="dark"&&!hasDarkTone?{...palette.colors}:derivePalette(palette.colors,options.tone),referenceColors=getPalette(darkShapeAnchors[shape.id].lightReference).colors,colors=deriveAppearancePalette(sourceColors,appearance,referenceColors);const size=options.size??64;
+  const study={type:shape.id,appearance,geometryKey:shape.name,p:paletteForType(shape.id,sourceColors,appearance,referenceColors),glow:glowForAppearance(shape.id,appearance,sourceColors,referenceColors),innerGlow:innerGlowForAppearance(shape.id,appearance,sourceColors,referenceColors)};
   const variantId=options.variantId??"default",drift=options.drift??0;
-  const cx=size/2,cy=size/2,scale=size/64,id="oreo-avatar";
+  const coordinateSize=64,cx=32,cy=32,scale=1,id=`oreo-${hashString(`${study.type}:${palette.name}:${appearance}:${variantId}:${JSON.stringify(study.p)}`).toString(36)}`;
   const tw=makeTweaker(`${variantId}:${study.geometryKey}:${study.type}`,drift);
   const body=renderBody(study,id,cx,cy,scale,tw);
-  const background=options.background===null?"":`<rect width="100%" height="100%" fill="${options.background??"#ffffff"}"/>`;
+  const defaultBackground=appearance==="dark"?"#0b0b0d":"#ffffff";const background=options.background===null?"":`<rect width="100%" height="100%" fill="${options.background??defaultBackground}"/>`;
   const title=options.title?`<title>${escapeHtml(options.title)}</title>`:`<title>${shape.name} avatar</title>`;
-  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" role="img">
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${coordinateSize} ${coordinateSize}" role="img" shape-rendering="geometricPrecision">
     ${title}
-    <defs>${sharedDefs()}${frame(id,cx,cy,size)}${defsFor(id,study)}</defs>
+    <defs>${sharedDefs()}${frame(id,cx,cy,coordinateSize)}${defsFor(id,study)}</defs>
     ${background}
-    <g clip-path="url(#clip-${id})">${body}</g>
+    ${appearance==="dark"?`<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>`:`<g clip-path="url(#clip-${id})">${body}</g>`}
   </svg>`;
-  return{shape,palette,colors,size,svg,toDataUri:()=>`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`};
+  return{shape,palette,colors,appearance,size,svg,toDataUri:()=>`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`};
 }
 
 /* ===================== UI ===================== */
 const $=id=>document.getElementById(id);
 const root=document.documentElement;
-function imgFor(opts){return `<img src="${createAvatar({...opts,background:null}).toDataUri()}" alt="" draggable="false"/>`;}
+function currentAppearance(){return root.getAttribute("data-theme")==="dark"?"dark":"light";}
+function imgFor(opts){return `<img src="${createAvatar({...opts,appearance:currentAppearance(),background:null}).toDataUri()}" alt="" draggable="false"/>`;}
 
 /* theme */
 const savedTheme=localStorage.getItem("oa-theme");
@@ -586,7 +651,7 @@ if(savedTheme)root.setAttribute("data-theme",savedTheme);
 else if(matchMedia("(prefers-color-scheme: dark)").matches)root.setAttribute("data-theme","dark");
 function syncThemeToggle(){const isDark=root.getAttribute("data-theme")==="dark";$("theme-toggle").setAttribute("aria-pressed",String(isDark));$("theme-toggle").setAttribute("aria-label",isDark?"Switch to light theme":"Switch to dark theme");}
 syncThemeToggle();
-$("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);syncThemeToggle();});
+$("theme-toggle").addEventListener("click",()=>{const n=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",n);localStorage.setItem("oa-theme",n);syncThemeToggle();renderGrid();refreshShapeButtons();render();});
 
 /* state */
 const state={shape:"bloom",palette:"rose-milk",hue:getPaletteMainHue(getPalette("rose-milk").colors),chroma:1,lightness:0,drift:8,variantId:"a1f3"};
@@ -620,7 +685,12 @@ chipDefs.forEach(c=>{
   b.addEventListener("click",()=>{if(filter===c.id)return;filter=c.id;renderGrid();mainEl.scrollTop=0;});
   chipsEl.appendChild(b);
 });
-$("shuffle-grid").addEventListener("click",()=>{allOrderSeed=newGridSeed();allCombos=buildAllCombos(allOrderSeed);renderGrid();});
+function scrollToSelectedAvatar(){
+  const selected=gridScroll.querySelector(".cell.sel");
+  if(!selected)return;
+  selected.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center",inline:"nearest"});
+}
+$("shuffle-grid").addEventListener("click",()=>{allOrderSeed=newGridSeed();allCombos=buildAllCombos(allOrderSeed);renderGrid();requestAnimationFrame(scrollToSelectedAvatar);});
 
 function createGridCell(shape,pal,mixed){
   const cell=document.createElement("button");
@@ -670,6 +740,11 @@ $("randomize").addEventListener("click",()=>{
   state.variantId=Math.random().toString(36).slice(2,6);$("variant").value=state.variantId;
   selectCombo(s,p);
 });
+$("randomize-palette").addEventListener("click",()=>{
+  const choices=palettes.filter(palette=>palette.id!==state.palette);
+  const p=choices[Math.floor(Math.random()*choices.length)].id;
+  selectCombo(state.shape,p);
+});
 
 /* ---- tone controls ---- */
 function syncTone(){$("hue").value=Math.round(state.hue);$("hue-v").textContent=Math.round(state.hue)+"°";$("chroma").value=state.chroma;$("chroma-v").textContent=Math.round(state.chroma*100)+"%";$("light").value=state.lightness;$("light-v").textContent=state.lightness.toFixed(2);}
@@ -705,22 +780,26 @@ let tab="react";
 const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 function codeFor(t){
   const tone=curTone();const hasTone=Object.keys(tone).length>0;
-  const shape=state.shape,pal=state.palette;
-  if(t==="svg"){const svg=createAvatar({shape,palette:pal,tone:fullTone(),variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;return{plain:svg,html:esc(svg).replace(/&lt;(\/?[a-zA-Z]+)/g,'<span class="tok-punc">&lt;$1</span>')};}
+  const shape=state.shape,pal=state.palette,appearance=currentAppearance();
+  if(t==="svg"){const svg=createAvatar({shape,palette:pal,tone:fullTone(),appearance,variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;return{plain:svg,html:esc(svg).replace(/&lt;(\/?[a-zA-Z]+)/g,'<span class="tok-punc">&lt;$1</span>')};}
+  const appearanceStr=appearance==="dark"?' appearance="dark"':"";
+  const appearanceStrH=appearance==="dark"?' <span class="tok-punc">appearance</span>=<span class="tok-str">"dark"</span>':"";
   const toneStr=hasTone?` tone={{ ${Object.entries(tone).map(([k,v])=>`${k}: ${k==="hue"?Math.round(v):v}`).join(", ")} }}`:"";
   const toneStrH=hasTone?` <span class="tok-punc">tone</span>={{ ${Object.entries(tone).map(([k,v])=>`${k}: <span class="tok-str">${k==="hue"?Math.round(v):v}</span>`).join(", ")} }}`:"";
   const drift=state.drift>0?` variantId="${state.variantId}" drift={${state.drift}}`:"";
   const driftH=state.drift>0?` <span class="tok-punc">variantId</span>=<span class="tok-str">"${state.variantId}"</span> <span class="tok-punc">drift</span>={<span class="tok-str">${state.drift}</span>}`:"";
   if(t==="react")return{
-    plain:`import { Avatar } from "@oreo-ui/avatar/react";\n\n<Avatar shape="${shape}" palette="${pal}"${toneStr}${drift} size={64} />`,
-    html:`<span class="tok-kw">import</span> { Avatar } <span class="tok-kw">from</span> <span class="tok-str">"@oreo-ui/avatar/react"</span>;\n\n<span class="tok-punc">&lt;</span>Avatar <span class="tok-punc">shape</span>=<span class="tok-str">"${shape}"</span> <span class="tok-punc">palette</span>=<span class="tok-str">"${pal}"</span>${toneStrH}${driftH} <span class="tok-punc">size</span>={<span class="tok-str">64</span>} <span class="tok-punc">/&gt;</span>`};
+    plain:`import { Avatar } from "@oreo-ui/avatar/react";\n\n<Avatar shape="${shape}" palette="${pal}"${toneStr}${appearanceStr}${drift} size={64} />`,
+    html:`<span class="tok-kw">import</span> { Avatar } <span class="tok-kw">from</span> <span class="tok-str">"@oreo-ui/avatar/react"</span>;\n\n<span class="tok-punc">&lt;</span>Avatar <span class="tok-punc">shape</span>=<span class="tok-str">"${shape}"</span> <span class="tok-punc">palette</span>=<span class="tok-str">"${pal}"</span>${toneStrH}${appearanceStrH}${driftH} <span class="tok-punc">size</span>={<span class="tok-str">64</span>} <span class="tok-punc">/&gt;</span>`};
   const toneCore=hasTone?`\n  tone: { ${Object.entries(tone).map(([k,v])=>`${k}: ${k==="hue"?Math.round(v):v}`).join(", ")} },`:"";
   const toneCoreH=hasTone?`\n  <span class="tok-punc">tone</span>: { ${Object.entries(tone).map(([k,v])=>`${k}: <span class="tok-str">${k==="hue"?Math.round(v):v}</span>`).join(", ")} },`:"";
   const driftCore=state.drift>0?`\n  variantId: "${state.variantId}",\n  drift: ${state.drift},`:"";
   const driftCoreH=state.drift>0?`\n  <span class="tok-punc">variantId</span>: <span class="tok-str">"${state.variantId}"</span>,\n  <span class="tok-punc">drift</span>: <span class="tok-str">${state.drift}</span>,`:"";
+  const appearanceCore=appearance==="dark"?'\n  appearance: "dark",':"";
+  const appearanceCoreH=appearance==="dark"?'\n  <span class="tok-punc">appearance</span>: <span class="tok-str">"dark"</span>,':"";
   return{
-    plain:`import { createAvatar } from "@oreo-ui/avatar";\n\nconst { svg } = createAvatar({\n  shape: "${shape}",\n  palette: "${pal}",${toneCore}${driftCore}\n  size: 64,\n});`,
-    html:`<span class="tok-kw">import</span> { createAvatar } <span class="tok-kw">from</span> <span class="tok-str">"@oreo-ui/avatar"</span>;\n\n<span class="tok-kw">const</span> { svg } <span class="tok-punc">=</span> <span class="tok-kw">createAvatar</span>({\n  <span class="tok-punc">shape</span>: <span class="tok-str">"${shape}"</span>,\n  <span class="tok-punc">palette</span>: <span class="tok-str">"${pal}"</span>,${toneCoreH}${driftCoreH}\n  <span class="tok-punc">size</span>: <span class="tok-str">64</span>,\n});`};
+    plain:`import { createAvatar } from "@oreo-ui/avatar";\n\nconst { svg } = createAvatar({\n  shape: "${shape}",\n  palette: "${pal}",${toneCore}${appearanceCore}${driftCore}\n  size: 64,\n});`,
+    html:`<span class="tok-kw">import</span> { createAvatar } <span class="tok-kw">from</span> <span class="tok-str">"@oreo-ui/avatar"</span>;\n\n<span class="tok-kw">const</span> { svg } <span class="tok-punc">=</span> <span class="tok-kw">createAvatar</span>({\n  <span class="tok-punc">shape</span>: <span class="tok-str">"${shape}"</span>,\n  <span class="tok-punc">palette</span>: <span class="tok-str">"${pal}"</span>,${toneCoreH}${appearanceCoreH}${driftCoreH}\n  <span class="tok-punc">size</span>: <span class="tok-str">64</span>,\n});`};
 }
 
 /* ---- render ---- */
@@ -731,7 +810,8 @@ function render(){
   $("preview-pal").textContent=getPalette(state.palette).name;
   $("preview-id").textContent="variant "+state.variantId;
   $("mark-dot").innerHTML=imgFor({shape:state.shape,palette:state.palette,size:64});
-  const colors=getPalette(state.palette).colors;
+  const referenceColors=getPalette(darkShapeAnchors[state.shape].lightReference).colors;
+  const colors=deriveAppearancePalette(getPalette(state.palette).colors,currentAppearance(),referenceColors);
   $("strip").innerHTML=paletteTokenOrder.map(k=>`<i style="background:${colors[k]}"></i>`).join("");
   const out=codeFor(tab);$("code-out").innerHTML=out.html;$("code-out").dataset.plain=out.plain;
 }
@@ -742,7 +822,7 @@ const CHECK='<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke=
 $("code-copy").addEventListener("click",()=>{navigator.clipboard.writeText($("code-out").dataset.plain);flash($("code-copy"),CHECK+"Copied");});
 $("cmd").addEventListener("click",()=>{navigator.clipboard.writeText("npm i @oreo-ui/avatar");$("cmd").classList.add("copied");setTimeout(()=>$("cmd").classList.remove("copied"),1300);});
 $("download").addEventListener("click",()=>{
-  const svg=createAvatar({shape:state.shape,palette:state.palette,tone:fullTone(),variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;
+  const svg=createAvatar({shape:state.shape,palette:state.palette,tone:fullTone(),appearance:currentAppearance(),variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;
   const blob=new Blob([svg],{type:"image/svg+xml"});const url=URL.createObjectURL(blob);
   const a=document.createElement("a");a.href=url;a.download=`${state.shape}-${state.palette}.svg`;a.click();URL.revokeObjectURL(url);
 });

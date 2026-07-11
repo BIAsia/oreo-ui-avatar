@@ -7,7 +7,9 @@ This package renders the 64x64 circular gradient avatars from a stable design gr
 - 6 shape families: Bloom, Silk, Flare, Nova, Void, Jade
 - 40 palette presets
 - OKLCH tone controls for global hue, chroma, and lightness shifts
+- Figma-authored dark anchors with OKLCH palette derivatives
 - deterministic, constrained geometry drift through `variantId`
+- fixed 64×64 internal geometry; `size` scales the complete SVG uniformly
 - SVG output with no runtime dependencies
 - optional React component
 
@@ -30,6 +32,7 @@ const avatar = createAvatar({
     chroma: 1.05,
     lightness: 0,
   },
+  appearance: "dark",
   variantId: "user-123",
   drift: 8,
   size: 64,
@@ -75,10 +78,39 @@ const colors = derivePalette(palettes[0], {
 });
 ```
 
+## Dark Appearance
+
+Dark mode uses a separate Figma-authored color grammar and light reference for each shape:
+
+| Shape | Light reference |
+| --- | --- |
+| Bloom | Rose Milk |
+| Silk | Rose Milk |
+| Flare | Peach Cream |
+| Nova | Aurora Pink |
+| Void | Rose Milk |
+| Jade | Mint Milk |
+
+Those reference pairs reproduce the Figma dark color anchors exactly. Other presets preserve the same per-layer relationships by transferring each token's OKLCH deltas from the corresponding light reference.
+
+Chroma transfer is relative to the available sRGB gamut, not an absolute OKLCH `C` ratio. For each color, `Cr = C / Cmax(L, H)`. The derivative scales the dark anchor's `Cr` by `Cr(target) / Cr(reference)`, then resolves the result back to an in-gamut `C` at the derived lightness and hue. This keeps perceived saturation comparable across hues and lightness levels.
+
+```ts
+const avatar = createAvatar({
+  shape: "flare",
+  palette: "sunset-punch",
+  appearance: "dark",
+  background: null,
+});
+```
+
+The transform is deterministic. Shape geometry and layer placement stay fixed; Silk, Flare, and Jade use the gradient fill modes defined by the Figma dark masters.
+
 ## CLI
 
 ```bash
 npx oreo-avatar svg --shape bloom --palette rose-milk --out avatar.svg
+npx oreo-avatar svg --shape bloom --palette rose-milk --appearance dark --out avatar-dark.svg
 npx oreo-avatar grid --out presets.html
 ```
 
