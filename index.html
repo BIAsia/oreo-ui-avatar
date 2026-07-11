@@ -537,7 +537,7 @@ function innerShadowFilter(id,metrics,colors,noiseFrequency){let previous="shape
   const browserNoiseFrequency=noiseFrequency==null?null:Math.min(noiseFrequency,.9),noise=browserNoiseFrequency==null?"":`<feTurbulence type="fractalNoise" baseFrequency="${browserNoiseFrequency} ${browserNoiseFrequency}" stitchTiles="stitch" numOctaves="1" seed="2560" result="noise-${id}"/><feColorMatrix in="noise-${id}" type="luminanceToAlpha" result="alpha-noise-${id}"/><feComposite in="alpha-noise-${id}" in2="${previous}" operator="in" result="clipped-noise-${id}"/><feFlood flood-color="#000000" flood-opacity="0.15" result="noise-color-${id}"/><feComposite in="noise-color-${id}" in2="clipped-noise-${id}" operator="in" result="colored-noise-${id}"/><feMerge><feMergeNode in="${previous}"/><feMergeNode in="colored-noise-${id}"/></feMerge>`;
   return`<filter id="${id}" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>${shadows}${noise}</filter>`;}
 function darkEffectDefs(id,study){if(study.appearance!=="dark")return"";const profile=darkEffectProfiles[study.type],frameColors=[study.glow.glow2,study.glow.glow1,study.glow.white],surface=profile.surface&&study.innerGlow?innerShadowFilter(`dark-surface-${id}`,profile.surface,[study.innerGlow.glow2,study.innerGlow.glow1,study.innerGlow.white]):"",layerBlurs=profile.layerBlurs.map((blur,index)=>`<filter id="dark-layer-${index+1}-${id}" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${blur}"/></filter>`).join("");return innerShadowFilter(`dark-frame-${id}`,profile.frame,frameColors,profile.noiseFrequency)+surface+layerBlurs;}
-function frame(id,cx,cy,size){return`<clipPath id="clip-${id}"><rect width="${size}" height="${size}" rx="${size/2}" fill="#ffffff"/></clipPath>`;}
+function frame(id,cx,cy,size){const radius=size/2,featherStart=(radius-.5)/radius*100;return`<clipPath id="clip-${id}"><rect width="${size}" height="${size}" rx="${radius}" fill="#ffffff"/></clipPath><radialGradient id="edge-${id}" gradientUnits="userSpaceOnUse" cx="${cx}" cy="${cy}" r="${radius}"><stop offset="${featherStart}%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient><mask id="edge-mask-${id}" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="${size}" height="${size}" style="mask-type:alpha"><rect width="${size}" height="${size}" fill="url(#edge-${id})"/></mask>`;}
 function defsFor(id,study){const p=study.p;const g=[];
   if(study.type==="flare"&&"hot1"in p){g.push(`
       <linearGradient id="cream-${id}" x1="0" y1="0" x2="0" y2="1">
@@ -633,7 +633,7 @@ function createAvatar(options){options=options||{};
     ${title}
     <defs>${sharedDefs()}${frame(id,cx,cy,coordinateSize)}${defsFor(id,study)}</defs>
     ${background}
-    ${appearance==="dark"?`<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>`:`<g clip-path="url(#clip-${id})">${body}</g>`}
+    <g mask="url(#edge-mask-${id})">${appearance==="dark"?`<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>`:`<g clip-path="url(#clip-${id})">${body}</g>`}</g>
   </svg>`;
   return{shape,palette,colors,appearance,size,svg,toDataUri:()=>`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`};
 }

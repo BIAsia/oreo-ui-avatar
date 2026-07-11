@@ -114,6 +114,8 @@ describe("@oreo-ui/avatar", () => {
     expect(bloom).toContain('flood-color="#ffffff" flood-opacity="1"');
     expect(bloom).not.toContain('opacity="0.860"');
     expect(bloom).toContain('<rect width="64" height="64" rx="32" fill="#ffffff"/>');
+    expect(bloom).toContain('mask="url(#edge-mask-');
+    expect(bloom).toContain('stop-opacity="0"');
     expect(bloom).not.toContain('shape-rendering="geometricPrecision"');
     expect(flare).toContain('flood-color="#ff8c79" flood-opacity="1"');
     expect(flare).toContain('flood-color="#ff8774" flood-opacity="1"');

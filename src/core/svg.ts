@@ -246,7 +246,16 @@ function darkEffectDefs(id: string, study: Study): string {
 }
 
 function frame(id: string, cx: number, cy: number, size: number): string {
-  return `<clipPath id="clip-${id}"><rect width="${size}" height="${size}" rx="${size / 2}" fill="#ffffff"/></clipPath>`;
+  const radius = size / 2;
+  const featherStart = ((radius - 0.5) / radius) * 100;
+  return `<clipPath id="clip-${id}"><rect width="${size}" height="${size}" rx="${radius}" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-${id}" gradientUnits="userSpaceOnUse" cx="${cx}" cy="${cy}" r="${radius}">
+      <stop offset="${featherStart}%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-${id}" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="${size}" height="${size}" style="mask-type:alpha">
+      <rect width="${size}" height="${size}" fill="url(#edge-${id})"/>
+    </mask>`;
 }
 
 function defsFor(id: string, study: Study): string {
@@ -409,7 +418,9 @@ function renderSvg(study: Study, options: Required<Pick<AvatarOptions, "variantI
     ${title}
     <defs>${sharedDefs()}${frame(id, cx, cy, coordinateSize)}${defsFor(id, study)}</defs>
     ${background}
-    ${study.appearance === "dark" ? `<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>` : `<g clip-path="url(#clip-${id})">${body}</g>`}
+    <g mask="url(#edge-mask-${id})">
+      ${study.appearance === "dark" ? `<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>` : `<g clip-path="url(#clip-${id})">${body}</g>`}
+    </g>
   </svg>`;
 }
 
