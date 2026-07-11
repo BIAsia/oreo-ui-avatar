@@ -69,7 +69,7 @@ describe("@oreo-ui/avatar", () => {
       jade: "mint-milk",
     };
     const expected: Record<string, string[]> = {
-      bloom: ["#a6a1f5", "#8c88f7", "#b51b87", "#5900f1", "#bc8cff", "#000000"],
+      bloom: ["#ff7a7c", "#df1c77", "#421d11", "#e22775", "#ff25a1", "#ffb58e"],
       silk: ["#0047c3", "#b4a3ff", "#9086ff", "#1400ae", "#6d56ff", "#4430ff"],
       flare: ["#000000", "#ff9a44", "#f62b0a", "#170312", "#ff8c79"],
       nova: ["#6550b9", "#ffffff", "#ff0084", "#6aa7ff"],
@@ -111,7 +111,9 @@ describe("@oreo-ui/avatar", () => {
     expect(bloom).toMatch(/filter="url\(#dark-frame-oreo-[a-z0-9]+\)"/);
     expect(bloom).not.toContain("feTurbulence");
     expect(bloom).toContain('stdDeviation="3.224692"');
-    expect(bloom).toContain('flood-color="#000000" flood-opacity="0.45"');
+    expect(bloom).toContain('flood-color="#ffb58e" flood-opacity="1"');
+    expect(bloom).toContain('flood-color="#ff25a1" flood-opacity="1"');
+    expect(bloom).toContain('flood-color="#e22775" flood-opacity="1"');
     expect(bloom).not.toContain('opacity="0.860"');
     expect(bloom).toContain('<rect width="64" height="64" rx="32" fill="#ffffff"/>');
     expect(bloom).toContain('mask="url(#edge-mask-');

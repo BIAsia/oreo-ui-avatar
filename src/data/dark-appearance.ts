@@ -56,11 +56,11 @@ export const darkShapeAnchors: Record<ShapeId, DarkShapeAnchors> = {
   bloom: {
     lightReference: "rose-milk",
     layers: {
-      base: a("#a6a1f5", "base"),
-      blob: a("#8c88f7", "lobe"),
-      hot: a("#b51b87", "accent"),
+      base: a("#ff7a7c", "base"),
+      blob: a("#df1c77", "lobe"),
+      hot: a("#421d11", "accent"),
     },
-    frameGlow: glow(a("#000000", "light"), a("#5900f1", "pale"), a("#bc8cff", "pale")),
+    frameGlow: glow(a("#e22775", "accent"), a("#ff25a1", "accent"), a("#ffb58e", "warm")),
   },
   silk: {
     lightReference: "rose-milk",

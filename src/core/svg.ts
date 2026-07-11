@@ -95,7 +95,7 @@ const darkEffectProfiles: Record<ShapeId, DarkEffectProfile> = {
     layerBlurs: [13.727973, 5.084435],
   },
   bloom: {
-    frame: [{ blur: 5.614035 }, { blur: 2.245614, spread: 1.016887 }, { blur: 1.122807, spread: 1.015873 }],
+    frame: [{ blur: 5.614035, alpha: 1 }, { blur: 2.245614, spread: 1.016887, alpha: 1 }, { blur: 1.122807, spread: 1.015873, alpha: 1 }],
     layerBlurs: [3.224692, 1.074898],
   },
   silk: {
