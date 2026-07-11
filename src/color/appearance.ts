@@ -63,21 +63,18 @@ export function deriveDarkAnchorColor(
 
 /**
  * Flare is derived layer-for-layer from its rendered light palette. The Figma
- * Peach Cream supplies each layer's darkening ratio, applied to the selected
- * light layer without transferring Peach's hue movement. This prevents unrelated
- * colors from being introduced while preserving the authored palette hierarchy.
+ * Peach Cream supplies each layer's OKLCH L and relative-chroma adjustment.
+ * The selected light layer remains the source of truth and keeps its hue.
  */
 export function deriveDarkFlareLayerColor(
   anchor: DarkColorAnchor,
   palette: PaletteColors,
   referencePalette: PaletteColors,
   chromaFloorScale = 1,
-  hueToken: PaletteToken = anchor.token,
 ): string {
   const dark = hexToOklch(anchor.color);
   const referenceLight = hexToOklch(referencePalette[anchor.token]);
   const targetLight = hexToOklch(palette[anchor.token]);
-  const hueOwner = hexToOklch(palette[hueToken]);
   const isReferencePalette = paletteTokenOrder.every(
     token => palette[token].toLowerCase() === referencePalette[token].toLowerCase(),
   );
@@ -85,17 +82,23 @@ export function deriveDarkFlareLayerColor(
   if (isReferencePalette) return anchor.color.toLowerCase();
 
   const toneChroma = clamp(chromaFloorScale, 0, 1);
-  const lightnessRatio = referenceLight.l > 0.0001 ? dark.l / referenceLight.l : 1;
-  const lightness = clamp(targetLight.l * lightnessRatio, 0.03, 0.999999);
-  const hue = hueOwner.h;
-  const sourceChroma = targetLight.c >= 0.006 ? targetLight.c : hueOwner.c * 0.35;
-  const chromaRatio = dark.c < 0.006 ? 0 : clamp(dark.c / Math.max(referenceLight.c, 0.01), 0.15, 3.5);
-  const chroma = Math.min(sourceChroma * chromaRatio, maxSrgbChroma(lightness, hue)) * toneChroma;
+  const lightness = clamp(targetLight.l + (dark.l - referenceLight.l) * darkLightnessDelta, 0.03, 0.999999);
+  const referenceRelativeChroma = relativeSrgbChroma(referenceLight);
+  const darkRelativeChroma = relativeSrgbChroma(dark);
+  const targetRelativeChroma = relativeSrgbChroma(targetLight);
+  const referenceMultiplier = referenceRelativeChroma > 0.0001
+    ? darkRelativeChroma / referenceRelativeChroma
+    : 1;
+  const transferredMultiplier = 1 + (referenceMultiplier - 1) * darkChromaDelta;
+  const minimumMultiplier = darkRelativeChromaFloor[anchor.token];
+  const relativeChroma = targetLight.c < 0.006
+    ? 0
+    : clamp(targetRelativeChroma * Math.max(transferredMultiplier, minimumMultiplier) * toneChroma, 0, 1);
 
   return oklchToHexInGamut({
     l: lightness,
-    c: chroma,
-    h: hue,
+    c: relativeChroma * maxSrgbChroma(lightness, targetLight.h),
+    h: targetLight.h,
   });
 }
 

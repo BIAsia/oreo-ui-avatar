@@ -99,7 +99,7 @@ Every derived chromatic role currently uses a `Cr` floor of `1`. The tone chroma
 
 Each dark layer transfers the semantic palette direction of the matching light Figma layer. Flare maps its four gradient stops through `pale`, `light`, `warm`, and `accent` in structural order, while its solid base follows `lobe` and its dark endpoint follows `dark`.
 
-Flare derives its painted layers directly from the matching Light Flare layers. The Peach Cream light/dark pair supplies each layer's lightness and chroma change. Hue ownership follows the visible groups: `base` and both `cream` stops follow `lobe`, while both `hot` stops follow `accent`. Frame and inner glow derivation remain independent.
+Flare derives every painted layer directly from the matching Light Flare layer. The Peach Cream light/dark pair supplies only that layer's OKLCH lightness and relative-chroma adjustment; the selected light color's hue is preserved exactly. Frame and inner glow derivation remain independent.
 
 Dark derivatives take hue directly from the selected palette token, so one palette keeps the same color identity across all shapes; the dark anchors provide layer lightness, relative chroma, and effect structure. Flare adds a shape-level `lightness: -0.04` adjustment and Bloom adds `lightness: -0.10`; both preserve full relative chroma by default. Reference palettes bypass derivative adjustments and remain exact. The preview's lightness control spans `-0.35` to `0.35`.
 
