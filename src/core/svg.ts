@@ -1,6 +1,7 @@
 import { getPalette } from "../data/palettes";
 import { getShape } from "../data/shapes";
 import { darkShapeAnchors } from "../data/dark-appearance";
+import { darkFlarePaletteOverrides } from "../data/dark-flare-palettes";
 import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId, ToneOptions } from "../types";
 import { derivePalette, getPaletteMainHue } from "../color/tone";
 import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkFlareLayerColor, deriveDarkGlow } from "../color/appearance";
@@ -144,13 +145,16 @@ function escapeHtml(value: string): string {
   return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
-function paletteForType(type: ShapeId, palette: PaletteColors, appearance: AvatarAppearance, referencePalette: PaletteColors, chromaFloorScale: number): LayerPalette {
+function paletteForType(type: ShapeId, palette: PaletteColors, appearance: AvatarAppearance, referencePalette: PaletteColors, chromaFloorScale: number, manualFlarePalette?: PaletteColors): LayerPalette {
   if (appearance === "dark") {
     const anchors = darkShapeAnchors[type].layers;
     const color = (name: string): string => deriveDarkAnchorColor(anchors[name]!, palette, referencePalette, chromaFloorScale);
     if (type === "bloom") return { bg: color("base"), blob: color("blob"), hot: color("hot"), pale: color("base") };
     if (type === "silk") return { dark: color("dark"), base: color("base"), warm: color("warm"), cream: "", cream1: color("cream1"), cream2: color("cream2"), cool: color("cream2") };
     if (type === "flare") {
+      if (manualFlarePalette) {
+        return { dark: manualFlarePalette.dark, base: manualFlarePalette.lobe, cream1: manualFlarePalette.pale, cream2: manualFlarePalette.light, hot1: manualFlarePalette.warm, hot2: manualFlarePalette.accent };
+      }
       const flareColor = (name: string): string => deriveDarkFlareLayerColor(anchors[name]!, palette, referencePalette, chromaFloorScale);
       return { dark: flareColor("dark"), base: flareColor("base"), cream1: flareColor("cream1"), cream2: flareColor("cream2"), hot1: flareColor("hot1"), hot2: flareColor("hot2") };
     }
@@ -470,6 +474,12 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     || (effectiveTone.lightness != null && effectiveTone.lightness !== 0)
   );
   const sourceColors = appearance === "dark" && !hasDarkToneAdjustment ? { ...palette.colors } : derivePalette(palette, effectiveTone);
+  const manualFlareOverride = appearance === "dark" && shape.id === "flare" ? darkFlarePaletteOverrides[palette.id] : undefined;
+  const manualFlarePalette = manualFlareOverride
+    ? options.tone
+      ? derivePalette({ ...palette, colors: { ...palette.colors, ...manualFlareOverride } }, options.tone)
+      : { ...palette.colors, ...manualFlareOverride }
+    : undefined;
   const chromaFloorScale = clamp(effectiveTone?.chroma ?? 1, 0, 1);
   const colors = deriveAppearancePalette(sourceColors, appearance, darkReference, chromaFloorScale);
   const size = options.size ?? 64;
@@ -480,7 +490,7 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     shapeName: shape.name,
     paletteName: palette.name,
     geometryKey: shape.name,
-    p: paletteForType(shape.id, sourceColors, appearance, darkReference.colors, chromaFloorScale),
+    p: paletteForType(shape.id, sourceColors, appearance, darkReference.colors, chromaFloorScale, manualFlarePalette),
     glow: glowForAppearance(shape.id, appearance, sourceColors, darkReference.colors, chromaFloorScale),
     innerGlow: innerGlowForAppearance(shape.id, appearance, sourceColors, darkReference.colors, chromaFloorScale),
   };

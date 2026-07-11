@@ -10,6 +10,7 @@ import {
   shapes,
 } from "../src";
 import { darkShapeAnchors } from "../src/data/dark-appearance";
+import { darkFlarePaletteOverrides } from "../src/data/dark-flare-palettes";
 import { deriveDarkAnchorColor } from "../src/color/appearance";
 
 function layerGeometry(svg: string): string[] {
@@ -184,10 +185,24 @@ describe("@oreo-ui/avatar", () => {
         const lightColor = hexToOklch(light.usedColors[index]!);
         const darkColor = hexToOklch(dark.usedColors[index]!);
         expect(darkColor.l).toBeLessThan(lightColor.l);
-        if (palette.id !== "peach-cream" && lightColor.c >= 0.006 && darkColor.c >= 0.03 && darkColor.l > 0.06) {
+        if (palette.id !== "peach-cream" && !darkFlarePaletteOverrides[palette.id] && lightColor.c >= 0.006 && darkColor.c >= 0.03 && darkColor.l > 0.06) {
           expect(hueDistance(darkColor.h, lightColor.h)).toBeLessThan(4);
         }
       }
+    }
+  });
+
+  it("uses hand-authored dark Flare palettes for collapsed color directions", () => {
+    for (const [palette, colors] of Object.entries(darkFlarePaletteOverrides)) {
+      const flare = createAvatar({ shape: "flare", palette, appearance: "dark", background: null, drift: 0 });
+      expect(flare.usedColors.slice(0, 6)).toEqual([
+        colors!.dark,
+        colors!.lobe,
+        colors!.pale,
+        colors!.light,
+        colors!.warm,
+        colors!.accent,
+      ]);
     }
   });
 
@@ -227,12 +242,12 @@ describe("@oreo-ui/avatar", () => {
   });
 
   it("preserves light palette contrast in matching dark layers", () => {
-    const lemonMint = palettes.find(palette => palette.id === "lemon-mint")!;
+    const lavenderLime = palettes.find(palette => palette.id === "lavender-lime")!;
     const magentaVoid = palettes.find(palette => palette.id === "magenta-void")!;
-    const lightDelta = Math.abs(hexToOklch(lemonMint.colors.lobe).l - hexToOklch(magentaVoid.colors.lobe).l);
-    const lemonDark = createAvatar({ shape: "flare", palette: lemonMint, appearance: "dark", background: null });
+    const lightDelta = Math.abs(hexToOklch(lavenderLime.colors.lobe).l - hexToOklch(magentaVoid.colors.lobe).l);
+    const lavenderDark = createAvatar({ shape: "flare", palette: lavenderLime, appearance: "dark", background: null });
     const magentaDark = createAvatar({ shape: "flare", palette: magentaVoid, appearance: "dark", background: null });
-    const darkDelta = Math.abs(hexToOklch(lemonDark.usedColors[1]!).l - hexToOklch(magentaDark.usedColors[1]!).l);
+    const darkDelta = Math.abs(hexToOklch(lavenderDark.usedColors[1]!).l - hexToOklch(magentaDark.usedColors[1]!).l);
 
     expect(darkDelta / lightDelta).toBeGreaterThan(0.85);
   });

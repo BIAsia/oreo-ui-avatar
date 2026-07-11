@@ -475,6 +475,11 @@ const darkShapeAnchors={
   silk:{lightReference:"rose-milk",layers:{dark:A("#0047c3","dark"),base:A("#b4a3ff","base"),warm:A("#9086ff","warm"),cream1:A("#1400ae","light"),cream2:A("#6d56ff","cool")},frameGlow:G(A("#b58aff","accent"),A("#1a00df","cool"),A("#4430ff","cool")),innerGlow:G(A("#ff9de7","accent"),A("#0047c3","dark"),A("#0047c3","dark"))},
   flare:{lightReference:"peach-cream",layers:{dark:A("#000000","dark"),base:A("#ff7700","lobe"),cream1:A("#ff9d47","pale"),cream2:A("#ffa200","light"),hot1:A("#f12809","warm"),hot2:A("#170312","accent")},frameGlow:G(A("#ffffff","light"),A("#c4321c","pale"),A("#ff8c79","beam")),innerGlow:G(A("#f5f5f5","accent"),A("#eeb463","accent"),A("#ee6363","accent"))},
 };
+const darkFlarePaletteOverrides={
+  "mint-milk":{dark:"#021a16",lobe:"#36b99b",pale:"#83d9bf",light:"#b9f0dc",warm:"#32a88a",accent:"#073e34"},
+  "blue-cream":{dark:"#06152e",lobe:"#4a8fd1",pale:"#b9dfff",light:"#f3df9b",warm:"#5c83c7",accent:"#102957"},
+  "lemon-mint":{dark:"#08291d",lobe:"#70c95e",pale:"#c8eb66",light:"#efff9b",warm:"#d7b83e",accent:"#075f4d"},
+};
 const darkReferencePalette={base:"#b1e7ff",lobe:"#58e0ff",accent:"#ff5ad5",pale:"#0e82a3",light:"#ffffff",warm:"#1e0af6",cool:"#6aa7ff",dark:"#031a05",beam:"#57b565"};
 const darkRelativeChromaFloor={base:1,lobe:1,accent:1,pale:1,light:1,warm:1,cool:1,dark:1,beam:1};
 const darkShapeToneDefaults={flare:{lightness:-.04},bloom:{lightness:-.1}};
@@ -548,12 +553,12 @@ function glowForAppearance(key,appearance,colors,referenceColors,chromaFloorScal
 function innerGlowForAppearance(key,appearance,colors,referenceColors,chromaFloorScale){if(appearance!=="dark"||!darkShapeAnchors[key].innerGlow)return null;return deriveDarkGlow(darkShapeAnchors[key].innerGlow,colors,referenceColors,chromaFloorScale);}
 function makeTweaker(seed,drift){const v=clamp(drift,0,24)/100;return function(key){const r=s=>randomFromString(`${seed}:${key}:${s}`)*2-1;return{dx:r("dx")*2.8*v,dy:r("dy")*2.8*v,sx:1+r("sx")*0.035*v,sy:1+r("sy")*0.035*v,rotate:r("rot")*2.8*v,opacity:1+r("op")*0.05*v};};}
 function escapeHtml(v){return v.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");}
-function paletteForType(type,p,appearance,referenceColors,chromaFloorScale){
+function paletteForType(type,p,appearance,referenceColors,chromaFloorScale,manualFlarePalette){
   if(appearance==="dark"){
     const anchors=darkShapeAnchors[type].layers,color=name=>deriveDarkAnchorColor(anchors[name],p,referenceColors,chromaFloorScale);
     if(type==="bloom")return{bg:color("base"),blob:color("blob"),hot:color("hot"),pale:color("base")};
     if(type==="silk")return{dark:color("dark"),base:color("base"),warm:color("warm"),cream:"",cream1:color("cream1"),cream2:color("cream2"),cool:color("cream2")};
-    if(type==="flare"){const flareColor=name=>deriveDarkFlareLayerColor(anchors[name],p,referenceColors,chromaFloorScale);return{dark:flareColor("dark"),base:flareColor("base"),cream1:flareColor("cream1"),cream2:flareColor("cream2"),hot1:flareColor("hot1"),hot2:flareColor("hot2")};}
+    if(type==="flare"){if(manualFlarePalette)return{dark:manualFlarePalette.dark,base:manualFlarePalette.lobe,cream1:manualFlarePalette.pale,cream2:manualFlarePalette.light,hot1:manualFlarePalette.warm,hot2:manualFlarePalette.accent};const flareColor=name=>deriveDarkFlareLayerColor(anchors[name],p,referenceColors,chromaFloorScale);return{dark:flareColor("dark"),base:flareColor("base"),cream1:flareColor("cream1"),cream2:flareColor("cream2"),hot1:flareColor("hot1"),hot2:flareColor("hot2")};}
     if(type==="nova")return{base:color("base"),white:color("light"),hot:color("hot"),cool:color("base")};
     if(type==="void")return{base:color("base"),blue:color("core"),green:color("beam"),glow:color("beam")};
     return{base:"",base1:color("base1"),base2:color("base2"),milk:color("milk"),grad1:color("glow1"),grad2:color("glow2"),glow:color("glow1")};
@@ -676,8 +681,8 @@ function renderBody(study,id,cx,cy,scale,tw){const t=study.type,dark=study.appea
   return renderJade(id,study.p,study.glow,dark,cx,cy,scale,tw);}
 function createAvatar(options){options=options||{};
   const shape=getShape(options.shape??"bloom");const palette=getPalette(options.palette??"rose-milk");
-  const appearance=options.appearance??"light",darkReference=getPalette(darkShapeAnchors[shape.id].lightReference),shapeToneDefault=appearance==="dark"&&palette.id!==darkReference.id?darkShapeToneDefaults[shape.id]:null,darkShapeTone=shapeToneDefault?{chroma:shapeToneDefault.chroma,lightness:shapeToneDefault.lightness}:null,effectiveTone=darkShapeTone||options.tone?{...(darkShapeTone||{}),...(options.tone||{})}:null,hasDarkTone=effectiveTone&&((effectiveTone.hue!=null&&Math.round(effectiveTone.hue)!==getPaletteMainHue(palette.colors))||(effectiveTone.chroma!=null&&effectiveTone.chroma!==1)||(effectiveTone.lightness!=null&&effectiveTone.lightness!==0)),sourceColors=appearance==="dark"&&!hasDarkTone?{...palette.colors}:derivePalette(palette.colors,effectiveTone),referenceColors=darkReference.colors,chromaFloorScale=clamp(effectiveTone?.chroma??1,0,1),colors=deriveAppearancePalette(sourceColors,appearance,referenceColors,chromaFloorScale);const size=options.size??64;
-  const study={type:shape.id,appearance,geometryKey:shape.name,p:paletteForType(shape.id,sourceColors,appearance,referenceColors,chromaFloorScale),glow:glowForAppearance(shape.id,appearance,sourceColors,referenceColors,chromaFloorScale),innerGlow:innerGlowForAppearance(shape.id,appearance,sourceColors,referenceColors,chromaFloorScale)};
+  const appearance=options.appearance??"light",darkReference=getPalette(darkShapeAnchors[shape.id].lightReference),shapeToneDefault=appearance==="dark"&&palette.id!==darkReference.id?darkShapeToneDefaults[shape.id]:null,darkShapeTone=shapeToneDefault?{chroma:shapeToneDefault.chroma,lightness:shapeToneDefault.lightness}:null,effectiveTone=darkShapeTone||options.tone?{...(darkShapeTone||{}),...(options.tone||{})}:null,hasDarkTone=effectiveTone&&((effectiveTone.hue!=null&&Math.round(effectiveTone.hue)!==getPaletteMainHue(palette.colors))||(effectiveTone.chroma!=null&&effectiveTone.chroma!==1)||(effectiveTone.lightness!=null&&effectiveTone.lightness!==0)),sourceColors=appearance==="dark"&&!hasDarkTone?{...palette.colors}:derivePalette(palette.colors,effectiveTone),manualFlareOverride=appearance==="dark"&&shape.id==="flare"?darkFlarePaletteOverrides[palette.id]:null,manualFlarePalette=manualFlareOverride?(options.tone?derivePalette({...palette.colors,...manualFlareOverride},options.tone):{...palette.colors,...manualFlareOverride}):null,referenceColors=darkReference.colors,chromaFloorScale=clamp(effectiveTone?.chroma??1,0,1),colors=deriveAppearancePalette(sourceColors,appearance,referenceColors,chromaFloorScale);const size=options.size??64;
+  const study={type:shape.id,appearance,geometryKey:shape.name,p:paletteForType(shape.id,sourceColors,appearance,referenceColors,chromaFloorScale,manualFlarePalette),glow:glowForAppearance(shape.id,appearance,sourceColors,referenceColors,chromaFloorScale),innerGlow:innerGlowForAppearance(shape.id,appearance,sourceColors,referenceColors,chromaFloorScale)};
   const variantId=options.variantId??"default",drift=options.drift??0;
   const coordinateSize=64,cx=32,cy=32,scale=1,id=`oreo-${hashString(`${study.type}:${palette.name}:${appearance}:${variantId}:${JSON.stringify(study.p)}`).toString(36)}`;
   const tw=makeTweaker(`${variantId}:${study.geometryKey}:${study.type}`,drift);

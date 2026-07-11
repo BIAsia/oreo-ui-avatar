@@ -101,6 +101,8 @@ Each dark layer transfers the semantic palette direction of the matching light F
 
 Flare derives every painted layer directly from the matching Light Flare layer. The Peach Cream light/dark pair supplies only that layer's OKLCH lightness and relative-chroma adjustment; the selected light color's hue is preserved exactly. Frame and inner glow derivation remain independent.
 
+Color directions that lose their identity under generic transfer can opt into explicit, hand-authored Dark Flare palettes. Mint Milk, Blue Cream, and Lemon Mint currently use authored six-layer presets; tone controls are applied on top of those presets, while effects continue to use the shared Flare effect system.
+
 Dark derivatives take hue directly from the selected palette token, so one palette keeps the same color identity across all shapes; the dark anchors provide layer lightness, relative chroma, and effect structure. Flare adds a shape-level `lightness: -0.04` adjustment and Bloom adds `lightness: -0.10`; both preserve full relative chroma by default. Reference palettes bypass derivative adjustments and remain exact. The preview's lightness control spans `-0.35` to `0.35`.
 
 ```ts
