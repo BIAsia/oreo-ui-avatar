@@ -288,6 +288,9 @@
   .gradient-lab-color-row .slot { overflow: hidden; color: var(--muted); font: 9.5px var(--mono); text-overflow: ellipsis; white-space: nowrap; }
   .gradient-lab-swatch { width: 36px; height: 24px; border: .5px solid rgba(127,127,127,.28); border-radius: 6px; }
   .gradient-lab-swatch[title] { cursor: help; }
+  button.gradient-lab-swatch { padding: 0; appearance: none; cursor: pointer; transition: border-color .15s ease, transform .15s ease; }
+  button.gradient-lab-swatch:hover { border-color: var(--fg); transform: scale(1.06); }
+  button.gradient-lab-swatch.pinned { border-color: var(--fg); box-shadow: 0 0 0 1px var(--surface),0 0 0 2px var(--fg); }
 
   @media (max-width: 860px) {
     body { overflow: auto; }
@@ -964,7 +967,7 @@ function render(){
 
 /* ---- temporary bidirectional gradient color editor ---- */
 const gradientEditorDefaults={hueShift:0,lightnessShift:0,chromaScale:1,hueDelta:1,lightnessDelta:1,chromaDelta:1};
-let gradientEditorParams={...gradientEditorDefaults},gradientEditorSelection="",gradientEditorResult=null;
+let gradientEditorParams={...gradientEditorDefaults},gradientEditorSelection="",gradientEditorResult=null,gradientEditorSlotOverrides={};
 function editorRange(key,label,min,max,step){const value=gradientEditorParams[key];return`<div class="dark-lab-range"><label><span>${label}<output>${Number(value).toFixed(2)}</output></span><input type="range" min="${min}" max="${max}" step="${step}" value="${value}" data-editor-range="${key}"></label><input class="dark-lab-number" type="number" min="${min}" max="${max}" step="${step}" value="${Number(value).toFixed(2)}" data-editor-number="${key}"></div>`;}
 function editorColorInfo(color){const value=hexToOklch(color),relative=relativeSrgbChroma(value);return`${color} · L ${value.l.toFixed(3)} · Cr ${relative.toFixed(3)} · H ${value.h.toFixed(1)}°`;}
 function editorCenter(colors){
@@ -984,15 +987,15 @@ function transformEditorColors(sourceSlots,targetSlots){
 }
 function gradientEditorData(){
   const targetAppearance=currentAppearance(),sourceAppearance=targetAppearance==="dark"?"light":"dark",options={shape:state.shape,palette:state.palette,tone:activeTone(),variantId:state.variantId,drift:state.drift,size:56,background:null,__ignorePreview:true};
-  const sourceAvatar=createAvatar({...options,appearance:sourceAppearance}),currentAvatar=createAvatar({...options,appearance:targetAppearance}),key=gradientOverrideKey(state.shape,state.palette,targetAppearance),result=transformEditorColors(sourceAvatar.colorSlots,currentAvatar.colorSlots);
+  const sourceAvatar=createAvatar({...options,appearance:sourceAppearance}),currentAvatar=createAvatar({...options,appearance:targetAppearance}),key=gradientOverrideKey(state.shape,state.palette,targetAppearance),result={...transformEditorColors(sourceAvatar.colorSlots,currentAvatar.colorSlots),...gradientEditorSlotOverrides};
   gradientPreviewOverride={key,colors:result};
   const resultAvatar=createAvatar({...options,appearance:targetAppearance,__ignorePreview:false});
   gradientEditorResult={key,sourceAppearance,targetAppearance,source:sourceAvatar.colorSlots,current:currentAvatar.colorSlots,result,sourceSvg:sourceAvatar.svg,currentSvg:currentAvatar.svg,resultSvg:resultAvatar.svg};return gradientEditorResult;
 }
-function renderGradientColorRows(data){const keys=[...new Set([...Object.keys(data.current),...Object.keys(data.source),...Object.keys(data.result)])];return`<div class="gradient-lab-color-head"><span>Slot</span><span>Source</span><span>Current</span><span>Result</span></div><div class="gradient-lab-colors">${keys.map(key=>{const frameKey=key.startsWith("inner.")?key.replace("inner.","frame."):key,source=data.source[key]??data.source[frameKey]??data.current[key],current=data.current[key]??source,result=data.result[key]??current;return`<div class="gradient-lab-color-row"><span class="slot" title="${key}">${key}</span><i class="gradient-lab-swatch" style="background:${source}" title="${editorColorInfo(source)}"></i><i class="gradient-lab-swatch" style="background:${current}" title="${editorColorInfo(current)}"></i><i class="gradient-lab-swatch" style="background:${result}" title="${editorColorInfo(result)}"></i></div>`;}).join("")}</div>`;}
+function renderGradientColorRows(data){const keys=[...new Set([...Object.keys(data.current),...Object.keys(data.source),...Object.keys(data.result)])];return`<div class="gradient-lab-color-head"><span>Slot</span><span>Source</span><span>Current</span><span>Result</span></div><div class="gradient-lab-colors">${keys.map(key=>{const frameKey=key.startsWith("inner.")?key.replace("inner.","frame."):key,source=data.source[key]??data.source[frameKey]??data.current[key],current=data.current[key]??source,result=data.result[key]??current,pinned=key in gradientEditorSlotOverrides;return`<div class="gradient-lab-color-row"><span class="slot" title="${key}">${key}</span><i class="gradient-lab-swatch" style="background:${source}" title="${editorColorInfo(source)}"></i><button class="gradient-lab-swatch${pinned?" pinned":""}" type="button" style="background:${current}" data-use-current="${key}" aria-label="Use current color for ${key} result" title="Use Current for Result · ${editorColorInfo(current)}"></button><i class="gradient-lab-swatch" style="background:${result}" title="${editorColorInfo(result)}"></i></div>`;}).join("")}</div>`;}
 function refreshGradientPreview(){render();refreshShapeButtons();}
 function renderDarkLab(){
-  const body=$("dark-lab-body");if(!body)return;const selection=`${state.shape}:${state.palette}:${currentAppearance()}`;if(selection!==gradientEditorSelection){gradientEditorSelection=selection;gradientEditorParams={...gradientEditorDefaults};gradientPreviewOverride=null;}
+  const body=$("dark-lab-body");if(!body)return;const selection=`${state.shape}:${state.palette}:${currentAppearance()}`;if(selection!==gradientEditorSelection){gradientEditorSelection=selection;gradientEditorParams={...gradientEditorDefaults};gradientEditorSlotOverrides={};gradientPreviewOverride=null;}
   const data=gradientEditorData(),shape=getShape(state.shape),palette=getPalette(state.palette);$("dark-lab-shape").textContent=`${shape.name} · ${palette.name} · ${data.sourceAppearance} → ${data.targetAppearance}`;
   body.innerHTML=`<section class="dark-lab-section"><div class="gradient-lab-previews"><div class="gradient-lab-preview"><div class="av">${data.sourceSvg}</div><span>Source · ${data.sourceAppearance}</span></div><div class="gradient-lab-preview"><div class="av">${data.currentSvg}</div><span>Current · ${data.targetAppearance}</span></div><div class="gradient-lab-preview"><div class="av">${data.resultSvg}</div><span>Result</span></div></div><div class="gradient-lab-direction">${data.sourceAppearance} → ${data.targetAppearance} · body + frame + inner</div></section>
     <section class="dark-lab-section"><h3>Common OKLCH transform</h3>${editorRange("hueShift","Hue shift",-360,360,1)}${editorRange("lightnessShift","Lightness shift",-1,1,.01)}${editorRange("chromaScale","Relative chroma scale",0,3,.01)}</section>
@@ -1000,16 +1003,17 @@ function renderDarkLab(){
     <section class="dark-lab-section"><h3>Actual painted colors</h3>${renderGradientColorRows(data)}</section>`;
   body.querySelectorAll("[data-editor-range]").forEach(input=>input.addEventListener("input",event=>setGradientEditorParam(event.target.dataset.editorRange,+event.target.value)));
   body.querySelectorAll("[data-editor-number]").forEach(input=>input.addEventListener("change",event=>setGradientEditorParam(event.target.dataset.editorNumber,+event.target.value)));
+  body.querySelectorAll("[data-use-current]").forEach(button=>button.addEventListener("click",event=>{const key=event.currentTarget.dataset.useCurrent,current=gradientEditorResult?.current[key];if(current){gradientEditorSlotOverrides[key]=current;renderDarkLab();}}));
   refreshGradientPreview();
 }
 function setGradientEditorParam(key,value){if(!Number.isFinite(value))return;gradientEditorParams[key]=value;renderDarkLab();}
 function setDarkLabOpen(open){$("dark-lab").hidden=!open;localStorage.setItem("oreo-avatar-dark-lab-open",open?"1":"0");if(open)renderDarkLab();else{gradientPreviewOverride=null;render();refreshShapeButtons();}}
 $("dark-lab-toggle").addEventListener("click",()=>setDarkLabOpen(true));
 $("dark-lab-close").addEventListener("click",()=>setDarkLabOpen(false));
-$("dark-lab-reset").addEventListener("click",()=>{gradientEditorParams={...gradientEditorDefaults};renderDarkLab();});
-$("dark-lab-revert").addEventListener("click",()=>{const key=gradientOverrideKey(state.shape,state.palette,currentAppearance());delete gradientOverrides[key];localStorage.setItem(GRADIENT_OVERRIDES_KEY,JSON.stringify(gradientOverrides));gradientEditorParams={...gradientEditorDefaults};gradientPreviewOverride=null;renderDarkLab();renderGrid();});
+$("dark-lab-reset").addEventListener("click",()=>{gradientEditorParams={...gradientEditorDefaults};gradientEditorSlotOverrides={};renderDarkLab();});
+$("dark-lab-revert").addEventListener("click",()=>{const key=gradientOverrideKey(state.shape,state.palette,currentAppearance());delete gradientOverrides[key];localStorage.setItem(GRADIENT_OVERRIDES_KEY,JSON.stringify(gradientOverrides));gradientEditorParams={...gradientEditorDefaults};gradientEditorSlotOverrides={};gradientPreviewOverride=null;renderDarkLab();renderGrid();});
 $("dark-lab-apply").addEventListener("click",event=>{if(!gradientEditorResult)return;gradientOverrides[gradientEditorResult.key]={...gradientEditorResult.result};localStorage.setItem(GRADIENT_OVERRIDES_KEY,JSON.stringify(gradientOverrides));gradientPreviewOverride=null;const button=event.currentTarget,old=button.textContent;button.textContent="Applied";setTimeout(()=>button.textContent=old,1000);renderDarkLab();renderGrid();});
-$("dark-lab-copy").addEventListener("click",async event=>{if(!gradientEditorResult)return;await navigator.clipboard.writeText(JSON.stringify({shape:state.shape,palette:state.palette,sourceAppearance:gradientEditorResult.sourceAppearance,targetAppearance:gradientEditorResult.targetAppearance,params:gradientEditorParams,colors:gradientEditorResult.result},null,2));const button=event.currentTarget,old=button.textContent;button.textContent="Copied";setTimeout(()=>button.textContent=old,1200);});
+$("dark-lab-copy").addEventListener("click",async event=>{if(!gradientEditorResult)return;await navigator.clipboard.writeText(JSON.stringify({shape:state.shape,palette:state.palette,sourceAppearance:gradientEditorResult.sourceAppearance,targetAppearance:gradientEditorResult.targetAppearance,params:gradientEditorParams,slotOverrides:gradientEditorSlotOverrides,colors:gradientEditorResult.result},null,2));const button=event.currentTarget,old=button.textContent;button.textContent="Copied";setTimeout(()=>button.textContent=old,1200);});
 if(localStorage.getItem("oreo-avatar-dark-lab-open")==="1")setDarkLabOpen(true);
 
 /* ---- copy / download ---- */
