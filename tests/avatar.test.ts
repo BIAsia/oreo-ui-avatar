@@ -11,6 +11,7 @@ import {
 } from "../src";
 import { darkShapeAnchors } from "../src/data/dark-appearance";
 import { darkFlarePaletteOverrides } from "../src/data/dark-flare-palettes";
+import { appearanceColorOverrides } from "../src/data/appearance-overrides";
 import { deriveDarkAnchorColor } from "../src/color/appearance";
 
 function layerGeometry(svg: string): string[] {
@@ -90,7 +91,7 @@ describe("@oreo-ui/avatar", () => {
       jade: "jade-cream",
     };
     const expected: Record<string, string[]> = {
-      bloom: ["#ff7a7c", "#df1c77", "#421d11", "#e22775", "#ff25a1", "#ffb58e"],
+      bloom: ["#ffeaeb", "#ffa0a0", "#eb00a9", "#e22775", "#ff25a1", "#ffb58e"],
       silk: ["#0047c3", "#b4a3ff", "#9086ff", "#1400ae", "#6d56ff", "#4430ff"],
       flare: ["#000000", "#ff7700", "#ff9d47", "#ffa200", "#f12809", "#170312", "#ff8c79"],
       nova: ["#6550b9", "#ffffff", "#ff0084", "#6aa7ff"],
@@ -204,6 +205,20 @@ describe("@oreo-ui/avatar", () => {
         colors!.light,
         colors!.warm,
         colors!.accent,
+      ]);
+    }
+  });
+
+  it("applies promoted appearance overrides to their exact painted slots", () => {
+    expect(Object.keys(appearanceColorOverrides)).toHaveLength(14);
+    for (const [key, override] of Object.entries(appearanceColorOverrides)) {
+      const [shape, palette, appearance] = key.split(":");
+      const avatar = createAvatar({ shape: shape as "bloom", palette, appearance: appearance as "dark", background: null, drift: 0 });
+      const colors = override.colors;
+      expect(avatar.usedColors).toEqual([
+        colors["layer.1"], colors["layer.2"], colors["layer.3"],
+        colors["layer.1"], colors["layer.2"], colors["layer.3"],
+        colors["frame.wide"], colors["frame.medium"], colors["frame.narrow"],
       ]);
     }
   });

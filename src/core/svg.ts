@@ -2,6 +2,7 @@ import { getPalette } from "../data/palettes";
 import { getShape } from "../data/shapes";
 import { darkShapeAnchors } from "../data/dark-appearance";
 import { darkFlarePaletteOverrides } from "../data/dark-flare-palettes";
+import { appearanceColorOverrides } from "../data/appearance-overrides";
 import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId, ToneOptions } from "../types";
 import { derivePalette, getPaletteMainHue } from "../color/tone";
 import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkFlareLayerColor, deriveDarkGlow } from "../color/appearance";
@@ -272,6 +273,20 @@ function usedColors(study: Study): string[] {
   ];
 }
 
+function applyBuiltInAppearanceOverride(study: Study, colors: Record<string, string> | undefined): void {
+  if (!colors) return;
+  if (study.type === "bloom" && "bg" in study.p) {
+    study.p.bg = colors["layer.1"] ?? study.p.bg;
+    study.p.blob = colors["layer.2"] ?? study.p.blob;
+    study.p.hot = colors["layer.3"] ?? study.p.hot;
+  }
+  study.glow = {
+    glow2: colors["frame.wide"] ?? study.glow.glow2,
+    glow1: colors["frame.medium"] ?? study.glow.glow1,
+    white: colors["frame.narrow"] ?? study.glow.white,
+  };
+}
+
 function frame(id: string, cx: number, cy: number, size: number): string {
   const radius = size / 2;
   const featherStart = ((radius - 0.5) / radius) * 100;
@@ -494,6 +509,7 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     glow: glowForAppearance(shape.id, appearance, sourceColors, darkReference.colors, chromaFloorScale),
     innerGlow: innerGlowForAppearance(shape.id, appearance, sourceColors, darkReference.colors, chromaFloorScale),
   };
+  applyBuiltInAppearanceOverride(study, appearanceColorOverrides[`${shape.id}:${palette.id}:${appearance}`]?.colors);
   const svg = renderSvg(study, {
     variantId: options.variantId ?? "default",
     drift: options.drift ?? 0,
