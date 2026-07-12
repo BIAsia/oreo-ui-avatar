@@ -288,12 +288,12 @@
   .gradient-lab-color-row .slot { overflow: hidden; color: var(--muted); font: 9.5px var(--mono); text-overflow: ellipsis; white-space: nowrap; }
   .gradient-lab-swatch { width: 36px; height: 24px; border: .5px solid rgba(127,127,127,.28); border-radius: 6px; }
   .gradient-lab-swatch[title] { cursor: help; }
-  input.gradient-lab-swatch { padding: 0; overflow: hidden; appearance: none; cursor: pointer; transition: border-color .15s ease, transform .15s ease; }
+  button.gradient-lab-swatch,input.gradient-lab-swatch { padding: 0; overflow: hidden; appearance: none; cursor: pointer; transition: border-color .15s ease, transform .15s ease; }
   input.gradient-lab-swatch::-webkit-color-swatch-wrapper { padding: 0; }
   input.gradient-lab-swatch::-webkit-color-swatch { border: 0; border-radius: 5px; }
   input.gradient-lab-swatch::-moz-color-swatch { border: 0; border-radius: 5px; }
-  input.gradient-lab-swatch:hover { border-color: var(--fg); transform: scale(1.06); }
-  input.gradient-lab-swatch.pinned { border-color: var(--fg); box-shadow: 0 0 0 1px var(--surface),0 0 0 2px var(--fg); }
+  button.gradient-lab-swatch:hover,input.gradient-lab-swatch:hover { border-color: var(--fg); transform: scale(1.06); }
+  button.gradient-lab-swatch.pinned,input.gradient-lab-swatch.pinned { border-color: var(--fg); box-shadow: 0 0 0 1px var(--surface),0 0 0 2px var(--fg); }
 
   @media (max-width: 860px) {
     body { overflow: auto; }
@@ -995,7 +995,7 @@ function gradientEditorData(){
   const resultAvatar=createAvatar({...options,appearance:targetAppearance,__ignorePreview:false});
   gradientEditorResult={key,sourceAppearance,targetAppearance,source:sourceAvatar.colorSlots,current:currentAvatar.colorSlots,result,sourceSvg:sourceAvatar.svg,currentSvg:currentAvatar.svg,resultSvg:resultAvatar.svg};return gradientEditorResult;
 }
-function renderGradientColorRows(data){const keys=[...new Set([...Object.keys(data.current),...Object.keys(data.source),...Object.keys(data.result)])];return`<div class="gradient-lab-color-head"><span>Slot</span><span>Source</span><span>Current</span><span>Result</span></div><div class="gradient-lab-colors">${keys.map(key=>{const frameKey=key.startsWith("inner.")?key.replace("inner.","frame."):key,source=data.source[key]??data.source[frameKey]??data.current[key],current=data.current[key]??source,result=data.result[key]??current,pinned=key in gradientEditorSlotOverrides;return`<div class="gradient-lab-color-row"><span class="slot" title="${key}">${key}</span><i class="gradient-lab-swatch" style="background:${source}" title="${editorColorInfo(source)}"></i><input class="gradient-lab-swatch${pinned?" pinned":""}" type="color" value="${current}" data-current-picker="${key}" aria-label="Pick result color for ${key}" title="Pick Result color · Current ${editorColorInfo(current)}"><i class="gradient-lab-swatch" style="background:${result}" title="${editorColorInfo(result)}"></i></div>`;}).join("")}</div>`;}
+function renderGradientColorRows(data){const keys=[...new Set([...Object.keys(data.current),...Object.keys(data.source),...Object.keys(data.result)])];return`<div class="gradient-lab-color-head"><span>Slot</span><span>Source</span><span>Current</span><span>Result</span></div><div class="gradient-lab-colors">${keys.map(key=>{const frameKey=key.startsWith("inner.")?key.replace("inner.","frame."):key,source=data.source[key]??data.source[frameKey]??data.current[key],current=data.current[key]??source,result=data.result[key]??current,pinned=key in gradientEditorSlotOverrides;return`<div class="gradient-lab-color-row"><span class="slot" title="${key}">${key}</span><i class="gradient-lab-swatch" style="background:${source}" title="${editorColorInfo(source)}"></i><button class="gradient-lab-swatch" type="button" style="background:${current}" data-use-current="${key}" aria-label="Use current color for ${key} result" title="Use Current for Result · ${editorColorInfo(current)}"></button><input class="gradient-lab-swatch${pinned?" pinned":""}" type="color" value="${result}" data-result-picker="${key}" aria-label="Pick result color for ${key}" title="Pick Result color · ${editorColorInfo(result)}"></div>`;}).join("")}</div>`;}
 function refreshGradientPreview(){render();refreshShapeButtons();}
 function renderDarkLab(){
   const body=$("dark-lab-body");if(!body)return;const selection=`${state.shape}:${state.palette}:${currentAppearance()}`;if(selection!==gradientEditorSelection){gradientEditorSelection=selection;gradientEditorParams={...gradientEditorDefaults};gradientEditorSlotOverrides={};gradientPreviewOverride=null;}
@@ -1006,10 +1006,8 @@ function renderDarkLab(){
     <section class="dark-lab-section"><h3>Actual painted colors</h3>${renderGradientColorRows(data)}</section>`;
   body.querySelectorAll("[data-editor-range]").forEach(input=>input.addEventListener("input",event=>setGradientEditorParam(event.target.dataset.editorRange,+event.target.value)));
   body.querySelectorAll("[data-editor-number]").forEach(input=>input.addEventListener("change",event=>setGradientEditorParam(event.target.dataset.editorNumber,+event.target.value)));
-  body.querySelectorAll("[data-current-picker]").forEach(input=>{
-    input.addEventListener("click",event=>{const key=event.currentTarget.dataset.currentPicker,current=gradientEditorResult?.current[key];if(current)gradientEditorSlotOverrides[key]=current;});
-    input.addEventListener("input",event=>{gradientEditorSlotOverrides[event.currentTarget.dataset.currentPicker]=event.currentTarget.value.toLowerCase();renderDarkLab();});
-  });
+  body.querySelectorAll("[data-use-current]").forEach(button=>button.addEventListener("click",event=>{const key=event.currentTarget.dataset.useCurrent,current=gradientEditorResult?.current[key];if(current){gradientEditorSlotOverrides[key]=current;renderDarkLab();}}));
+  body.querySelectorAll("[data-result-picker]").forEach(input=>input.addEventListener("input",event=>{gradientEditorSlotOverrides[event.currentTarget.dataset.resultPicker]=event.currentTarget.value.toLowerCase();renderDarkLab();}));
   refreshGradientPreview();
 }
 function setGradientEditorParam(key,value){if(!Number.isFinite(value))return;gradientEditorParams[key]=value;renderDarkLab();}
