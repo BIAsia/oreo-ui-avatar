@@ -207,7 +207,7 @@ describe("@oreo-ui/avatar", () => {
   });
 
   it("applies promoted appearance overrides to their exact painted slots", () => {
-    expect(Object.keys(appearanceColorOverrides)).toHaveLength(56);
+    expect(Object.keys(appearanceColorOverrides)).toHaveLength(76);
     for (const [key, override] of Object.entries(appearanceColorOverrides)) {
       const [shape, palette, appearance] = key.split(":");
       const avatar = createAvatar({ shape: shape as "bloom" | "flare", palette, appearance: appearance as "dark", background: null, drift: 0 });
