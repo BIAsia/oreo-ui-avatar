@@ -207,7 +207,7 @@ describe("@oreo-ui/avatar", () => {
   });
 
   it("applies promoted appearance overrides to their exact painted slots", () => {
-    expect(Object.keys(appearanceColorOverrides)).toHaveLength(25);
+    expect(Object.keys(appearanceColorOverrides)).toHaveLength(38);
     for (const [key, override] of Object.entries(appearanceColorOverrides)) {
       const [shape, palette, appearance] = key.split(":");
       const avatar = createAvatar({ shape: shape as "bloom" | "flare", palette, appearance: appearance as "dark", background: null, drift: 0 });
@@ -261,19 +261,19 @@ describe("@oreo-ui/avatar", () => {
   });
 
   it("preserves light palette contrast in matching dark layers", () => {
-    const lavenderLime = palettes.find(palette => palette.id === "lavender-lime")!;
-    const magentaVoid = palettes.find(palette => palette.id === "magenta-void")!;
-    const lightDelta = Math.abs(hexToOklch(lavenderLime.colors.lobe).l - hexToOklch(magentaVoid.colors.lobe).l);
-    const lavenderDark = createAvatar({ shape: "flare", palette: lavenderLime, appearance: "dark", background: null });
-    const magentaDark = createAvatar({ shape: "flare", palette: magentaVoid, appearance: "dark", background: null });
-    const darkDelta = Math.abs(hexToOklch(lavenderDark.usedColors[1]!).l - hexToOklch(magentaDark.usedColors[1]!).l);
+    const blueCream = palettes.find(palette => palette.id === "blue-cream")!;
+    const cottonCandy = palettes.find(palette => palette.id === "cotton-candy")!;
+    const lightDelta = Math.abs(hexToOklch(blueCream.colors.lobe).l - hexToOklch(cottonCandy.colors.lobe).l);
+    const blueCreamDark = createAvatar({ shape: "flare", palette: blueCream, appearance: "dark", background: null });
+    const cottonCandyDark = createAvatar({ shape: "flare", palette: cottonCandy, appearance: "dark", background: null });
+    const darkDelta = Math.abs(hexToOklch(blueCreamDark.usedColors[1]!).l - hexToOklch(cottonCandyDark.usedColors[1]!).l);
 
     expect(darkDelta / lightDelta).toBeGreaterThan(0.8);
   });
 
   it("uses the authored dark Flare preset as its default", () => {
-    const flare = createAvatar({ shape: "flare", palette: "lavender-lime", appearance: "dark", background: null });
-    const colors = darkFlarePaletteOverrides["lavender-lime"]!;
+    const flare = createAvatar({ shape: "flare", palette: "blue-cream", appearance: "dark", background: null });
+    const colors = darkFlarePaletteOverrides["blue-cream"]!;
     expect(flare.usedColors.slice(0, 6)).toEqual([colors.dark, colors.lobe, colors.pale, colors.light, colors.warm, colors.accent]);
   });
 
