@@ -1,6 +1,17 @@
-# @oreo-ui/avatar
+# @oreo-design/avatar
+
+[![npm](https://img.shields.io/npm/v/%40oreo-design%2Favatar)](https://www.npmjs.com/package/@oreo-design/avatar)
+[![CI](https://github.com/BIAsia/oreo-design-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/BIAsia/oreo-design-avatar/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
 Figma-method soft gradient avatar generator.
+
+**[Try the live playground →](https://oreo-design-avatar.vercel.app)**
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/BIAsia/oreo-design-avatar/main/assets/preview-dark.svg">
+  <img alt="Oreo Avatar previews: 6 shape families across 8 palette presets" src="https://raw.githubusercontent.com/BIAsia/oreo-design-avatar/main/assets/preview-light.svg" width="620">
+</picture>
 
 This package renders the 64x64 circular gradient avatars from a stable design grammar:
 
@@ -16,13 +27,13 @@ This package renders the 64x64 circular gradient avatars from a stable design gr
 ## Install
 
 ```bash
-npm install @oreo-ui/avatar
+npm install @oreo-design/avatar
 ```
 
 ## Core Usage
 
 ```ts
-import { createAvatar } from "@oreo-ui/avatar";
+import { createAvatar } from "@oreo-design/avatar";
 
 const avatar = createAvatar({
   shape: "bloom",
@@ -44,7 +55,7 @@ document.body.innerHTML = avatar.svg;
 ## React
 
 ```tsx
-import { Avatar } from "@oreo-ui/avatar/react";
+import { Avatar } from "@oreo-design/avatar/react";
 
 export function UserAvatar() {
   return (
@@ -69,7 +80,7 @@ Palette presets are not edited color-by-color. Pick a preset first, then shift t
 - `lightness`: OKLCH lightness delta, where `0` keeps the preset
 
 ```ts
-import { derivePalette, palettes } from "@oreo-ui/avatar";
+import { derivePalette, palettes } from "@oreo-design/avatar";
 
 const colors = derivePalette(palettes[0], {
   hue: 180,
@@ -136,6 +147,13 @@ npx oreo-avatar grid --out presets.html
 
 ```bash
 npm install
-npm run verify
-npm run dev
+npm run verify          # typecheck + tests + build + entry smoke checks
+npm run dev             # local playground
+npm run preview:assets  # regenerate the README preview SVGs (build first)
 ```
+
+Releases are automated: bump `version`, update `CHANGELOG.md`, then push a `v*` tag — see `.github/workflows/release.yml`.
+
+## License
+
+[MIT](./LICENSE) — part of the [Oreo UI](https://github.com/BIAsia/oreo-ui) family.

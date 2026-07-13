@@ -1,0 +1,1673 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="582" height="434" viewBox="0 0 582 434"><svg x="0" y="0" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Bloom avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1861c2l" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1861c2l" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1861c2l" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1861c2l" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1861c2l" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1861c2l" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1861c2l" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1861c2l"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1861c2l" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1861c2l" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1861c2l)"/>
+    </mask>
+      <radialGradient id="hot-oreo-1861c2l" cx="102%" cy="50%" r="58%">
+        <stop offset="0%" stop-color="#fb4fbc" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#fb4fbc" stop-opacity="0"/>
+      </radialGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1861c2l)">
+      <g clip-path="url(#clip-oreo-1861c2l)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#ffdedf" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.48">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1861c2l)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#fee9f5" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1861c2l)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#fee9f5" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1861c2l)"/>
+    </g>
+    <g transform="translate(64.923 65.215) rotate(44.827)"><rect x="-45.619" y="-45.694" width="91.238" height="91.389" rx="45.933" fill="#ffaaaa" opacity="0.863" filter="url(#blur-3-oreo-1861c2l)"/></g>
+    <g transform="translate(-0.961 -1.114) rotate(45.148)"><rect x="-45.800" y="-45.667" width="91.600" height="91.334" rx="46.093" fill="#ffaaaa" opacity="0.863" filter="url(#blur-3-oreo-1861c2l)"/></g>
+    <g transform="translate(63.262 63.396) rotate(-134.833)"><rect x="-37.951" y="-38.267" width="75.902" height="76.534" rx="37.901" fill="url(#hot-oreo-1861c2l)" opacity="0.899" filter="url(#blur-1-oreo-1861c2l)"/></g>
+    <g transform="translate(0.720 0.569) rotate(44.963)"><rect x="-38.361" y="-38.178" width="76.721" height="76.357" rx="37.914" fill="url(#hot-oreo-1861c2l)" opacity="0.897" filter="url(#blur-1-oreo-1861c2l)"/></g></g>
+    </g>
+  </svg></svg><svg x="74" y="0" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Bloom avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-t01hnm" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-t01hnm" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-t01hnm" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-t01hnm" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-t01hnm" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-t01hnm" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-t01hnm" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-t01hnm"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-t01hnm" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-t01hnm" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-t01hnm)"/>
+    </mask>
+      <radialGradient id="hot-oreo-t01hnm" cx="102%" cy="50%" r="58%">
+        <stop offset="0%" stop-color="#ff6044" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#ff6044" stop-opacity="0"/>
+      </radialGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-t01hnm)">
+      <g clip-path="url(#clip-oreo-t01hnm)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#ffe1bd" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.48">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-t01hnm)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#fee9f5" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-t01hnm)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#fee9f5" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-t01hnm)"/>
+    </g>
+    <g transform="translate(64.923 65.215) rotate(44.827)"><rect x="-45.619" y="-45.694" width="91.238" height="91.389" rx="45.933" fill="#ff9a44" opacity="0.863" filter="url(#blur-3-oreo-t01hnm)"/></g>
+    <g transform="translate(-0.961 -1.114) rotate(45.148)"><rect x="-45.800" y="-45.667" width="91.600" height="91.334" rx="46.093" fill="#ff9a44" opacity="0.863" filter="url(#blur-3-oreo-t01hnm)"/></g>
+    <g transform="translate(63.262 63.396) rotate(-134.833)"><rect x="-37.951" y="-38.267" width="75.902" height="76.534" rx="37.901" fill="url(#hot-oreo-t01hnm)" opacity="0.899" filter="url(#blur-1-oreo-t01hnm)"/></g>
+    <g transform="translate(0.720 0.569) rotate(44.963)"><rect x="-38.361" y="-38.178" width="76.721" height="76.357" rx="37.914" fill="url(#hot-oreo-t01hnm)" opacity="0.897" filter="url(#blur-1-oreo-t01hnm)"/></g></g>
+    </g>
+  </svg></svg><svg x="148" y="0" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Bloom avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1ih6oje" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1ih6oje" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1ih6oje" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1ih6oje" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1ih6oje" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1ih6oje" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1ih6oje" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1ih6oje"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1ih6oje" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1ih6oje" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1ih6oje)"/>
+    </mask>
+      <radialGradient id="hot-oreo-1ih6oje" cx="102%" cy="50%" r="58%">
+        <stop offset="0%" stop-color="#49cda9" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#49cda9" stop-opacity="0"/>
+      </radialGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1ih6oje)">
+      <g clip-path="url(#clip-oreo-1ih6oje)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#d7f5e9" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.48">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1ih6oje)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#fee9f5" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1ih6oje)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#fee9f5" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1ih6oje)"/>
+    </g>
+    <g transform="translate(64.923 65.215) rotate(44.827)"><rect x="-45.619" y="-45.694" width="91.238" height="91.389" rx="45.933" fill="#8be8cb" opacity="0.863" filter="url(#blur-3-oreo-1ih6oje)"/></g>
+    <g transform="translate(-0.961 -1.114) rotate(45.148)"><rect x="-45.800" y="-45.667" width="91.600" height="91.334" rx="46.093" fill="#8be8cb" opacity="0.863" filter="url(#blur-3-oreo-1ih6oje)"/></g>
+    <g transform="translate(63.262 63.396) rotate(-134.833)"><rect x="-37.951" y="-38.267" width="75.902" height="76.534" rx="37.901" fill="url(#hot-oreo-1ih6oje)" opacity="0.899" filter="url(#blur-1-oreo-1ih6oje)"/></g>
+    <g transform="translate(0.720 0.569) rotate(44.963)"><rect x="-38.361" y="-38.178" width="76.721" height="76.357" rx="37.914" fill="url(#hot-oreo-1ih6oje)" opacity="0.897" filter="url(#blur-1-oreo-1ih6oje)"/></g></g>
+    </g>
+  </svg></svg><svg x="222" y="0" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Bloom avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-gq53jq" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-gq53jq" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-gq53jq" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-gq53jq" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-gq53jq" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-gq53jq" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-gq53jq" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-gq53jq"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-gq53jq" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-gq53jq" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-gq53jq)"/>
+    </mask>
+      <radialGradient id="hot-oreo-gq53jq" cx="102%" cy="50%" r="58%">
+        <stop offset="0%" stop-color="#ff0084" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#ff0084" stop-opacity="0"/>
+      </radialGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-gq53jq)">
+      <g clip-path="url(#clip-oreo-gq53jq)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#bdd5ff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.48">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-gq53jq)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#fee9f5" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-gq53jq)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#fee9f5" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-gq53jq)"/>
+    </g>
+    <g transform="translate(64.923 65.215) rotate(44.827)"><rect x="-45.619" y="-45.694" width="91.238" height="91.389" rx="45.933" fill="#ff7ac1" opacity="0.863" filter="url(#blur-3-oreo-gq53jq)"/></g>
+    <g transform="translate(-0.961 -1.114) rotate(45.148)"><rect x="-45.800" y="-45.667" width="91.600" height="91.334" rx="46.093" fill="#ff7ac1" opacity="0.863" filter="url(#blur-3-oreo-gq53jq)"/></g>
+    <g transform="translate(63.262 63.396) rotate(-134.833)"><rect x="-37.951" y="-38.267" width="75.902" height="76.534" rx="37.901" fill="url(#hot-oreo-gq53jq)" opacity="0.899" filter="url(#blur-1-oreo-gq53jq)"/></g>
+    <g transform="translate(0.720 0.569) rotate(44.963)"><rect x="-38.361" y="-38.178" width="76.721" height="76.357" rx="37.914" fill="url(#hot-oreo-gq53jq)" opacity="0.897" filter="url(#blur-1-oreo-gq53jq)"/></g></g>
+    </g>
+  </svg></svg><svg x="296" y="0" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Bloom avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-z7uimh" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-z7uimh" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-z7uimh" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-z7uimh" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-z7uimh" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-z7uimh" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-z7uimh" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-z7uimh"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-z7uimh" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-z7uimh" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-z7uimh)"/>
+    </mask>
+      <radialGradient id="hot-oreo-z7uimh" cx="102%" cy="50%" r="58%">
+        <stop offset="0%" stop-color="#7258ff" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#7258ff" stop-opacity="0"/>
+      </radialGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-z7uimh)">
+      <g clip-path="url(#clip-oreo-z7uimh)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#d8c8ff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.48">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-z7uimh)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#fee9f5" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-z7uimh)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#fee9f5" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-z7uimh)"/>
+    </g>
+    <g transform="translate(64.923 65.215) rotate(44.827)"><rect x="-45.619" y="-45.694" width="91.238" height="91.389" rx="45.933" fill="#b7cfff" opacity="0.863" filter="url(#blur-3-oreo-z7uimh)"/></g>
+    <g transform="translate(-0.961 -1.114) rotate(45.148)"><rect x="-45.800" y="-45.667" width="91.600" height="91.334" rx="46.093" fill="#b7cfff" opacity="0.863" filter="url(#blur-3-oreo-z7uimh)"/></g>
+    <g transform="translate(63.262 63.396) rotate(-134.833)"><rect x="-37.951" y="-38.267" width="75.902" height="76.534" rx="37.901" fill="url(#hot-oreo-z7uimh)" opacity="0.899" filter="url(#blur-1-oreo-z7uimh)"/></g>
+    <g transform="translate(0.720 0.569) rotate(44.963)"><rect x="-38.361" y="-38.178" width="76.721" height="76.357" rx="37.914" fill="url(#hot-oreo-z7uimh)" opacity="0.897" filter="url(#blur-1-oreo-z7uimh)"/></g></g>
+    </g>
+  </svg></svg><svg x="370" y="0" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Bloom avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-17ngyrs" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-17ngyrs" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-17ngyrs" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-17ngyrs" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-17ngyrs" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-17ngyrs" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-17ngyrs" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-17ngyrs"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-17ngyrs" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-17ngyrs" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-17ngyrs)"/>
+    </mask>
+      <radialGradient id="hot-oreo-17ngyrs" cx="102%" cy="50%" r="58%">
+        <stop offset="0%" stop-color="#3158b8" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#3158b8" stop-opacity="0"/>
+      </radialGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-17ngyrs)">
+      <g clip-path="url(#clip-oreo-17ngyrs)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#c5d9ff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.48">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-17ngyrs)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#fee9f5" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-17ngyrs)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#fee9f5" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-17ngyrs)"/>
+    </g>
+    <g transform="translate(64.923 65.215) rotate(44.827)"><rect x="-45.619" y="-45.694" width="91.238" height="91.389" rx="45.933" fill="#7fcfff" opacity="0.863" filter="url(#blur-3-oreo-17ngyrs)"/></g>
+    <g transform="translate(-0.961 -1.114) rotate(45.148)"><rect x="-45.800" y="-45.667" width="91.600" height="91.334" rx="46.093" fill="#7fcfff" opacity="0.863" filter="url(#blur-3-oreo-17ngyrs)"/></g>
+    <g transform="translate(63.262 63.396) rotate(-134.833)"><rect x="-37.951" y="-38.267" width="75.902" height="76.534" rx="37.901" fill="url(#hot-oreo-17ngyrs)" opacity="0.899" filter="url(#blur-1-oreo-17ngyrs)"/></g>
+    <g transform="translate(0.720 0.569) rotate(44.963)"><rect x="-38.361" y="-38.178" width="76.721" height="76.357" rx="37.914" fill="url(#hot-oreo-17ngyrs)" opacity="0.897" filter="url(#blur-1-oreo-17ngyrs)"/></g></g>
+    </g>
+  </svg></svg><svg x="444" y="0" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Bloom avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-zxnae5" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-zxnae5" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-zxnae5" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-zxnae5" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-zxnae5" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-zxnae5" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-zxnae5" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-zxnae5"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-zxnae5" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-zxnae5" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-zxnae5)"/>
+    </mask>
+      <radialGradient id="hot-oreo-zxnae5" cx="102%" cy="50%" r="58%">
+        <stop offset="0%" stop-color="#ffcf87" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#ffcf87" stop-opacity="0"/>
+      </radialGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-zxnae5)">
+      <g clip-path="url(#clip-oreo-zxnae5)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#ffd29d" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.48">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-zxnae5)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#fee9f5" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-zxnae5)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#fee9f5" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-zxnae5)"/>
+    </g>
+    <g transform="translate(64.923 65.215) rotate(44.827)"><rect x="-45.619" y="-45.694" width="91.238" height="91.389" rx="45.933" fill="#ffb75d" opacity="0.863" filter="url(#blur-3-oreo-zxnae5)"/></g>
+    <g transform="translate(-0.961 -1.114) rotate(45.148)"><rect x="-45.800" y="-45.667" width="91.600" height="91.334" rx="46.093" fill="#ffb75d" opacity="0.863" filter="url(#blur-3-oreo-zxnae5)"/></g>
+    <g transform="translate(63.262 63.396) rotate(-134.833)"><rect x="-37.951" y="-38.267" width="75.902" height="76.534" rx="37.901" fill="url(#hot-oreo-zxnae5)" opacity="0.899" filter="url(#blur-1-oreo-zxnae5)"/></g>
+    <g transform="translate(0.720 0.569) rotate(44.963)"><rect x="-38.361" y="-38.178" width="76.721" height="76.357" rx="37.914" fill="url(#hot-oreo-zxnae5)" opacity="0.897" filter="url(#blur-1-oreo-zxnae5)"/></g></g>
+    </g>
+  </svg></svg><svg x="518" y="0" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Bloom avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-127r316" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-127r316" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-127r316" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-127r316" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-127r316" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-127r316" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-127r316" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-127r316"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-127r316" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-127r316" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-127r316)"/>
+    </mask>
+      <radialGradient id="hot-oreo-127r316" cx="102%" cy="50%" r="58%">
+        <stop offset="0%" stop-color="#ff43b8" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#ff43b8" stop-opacity="0"/>
+      </radialGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-127r316)">
+      <g clip-path="url(#clip-oreo-127r316)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#5531d8" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.48">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-127r316)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#fee9f5" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-127r316)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#fee9f5" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-127r316)"/>
+    </g>
+    <g transform="translate(64.923 65.215) rotate(44.827)"><rect x="-45.619" y="-45.694" width="91.238" height="91.389" rx="45.933" fill="#ff43b8" opacity="0.863" filter="url(#blur-3-oreo-127r316)"/></g>
+    <g transform="translate(-0.961 -1.114) rotate(45.148)"><rect x="-45.800" y="-45.667" width="91.600" height="91.334" rx="46.093" fill="#ff43b8" opacity="0.863" filter="url(#blur-3-oreo-127r316)"/></g>
+    <g transform="translate(63.262 63.396) rotate(-134.833)"><rect x="-37.951" y="-38.267" width="75.902" height="76.534" rx="37.901" fill="url(#hot-oreo-127r316)" opacity="0.899" filter="url(#blur-1-oreo-127r316)"/></g>
+    <g transform="translate(0.720 0.569) rotate(44.963)"><rect x="-38.361" y="-38.178" width="76.721" height="76.357" rx="37.914" fill="url(#hot-oreo-127r316)" opacity="0.897" filter="url(#blur-1-oreo-127r316)"/></g></g>
+    </g>
+  </svg></svg><svg x="0" y="74" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Silk avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1duetx6" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1duetx6" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1duetx6" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1duetx6" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1duetx6" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1duetx6" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1duetx6" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1duetx6"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1duetx6" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1duetx6" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1duetx6)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1duetx6)">
+      <g clip-path="url(#clip-oreo-1duetx6)">
+    <g transform="translate(32.000 32.000) rotate(0.000)"><rect x="-32.000" y="-32.000" width="64.000" height="64.000" rx="16.250" fill="#031a05" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.58">
+      <rect x="-30.800" y="-30.800" width="61.600" height="61.600" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1duetx6)"/>
+      <rect x="-30.000" y="-30.000" width="60.000" height="60.000" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1duetx6)"/>
+      <rect x="-28.000" y="-28.000" width="56.000" height="56.000" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1duetx6)"/>
+    </g>
+    <g transform="translate(32.000 34.290) rotate(0.000)"><rect x="-35.050" y="-37.335" width="70.100" height="74.670" rx="16.250" fill="#ffdedf" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.29) rotate(0)" opacity="0.42">
+      <rect x="-33.850" y="-36.135" width="67.700" height="72.270" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1duetx6)"/>
+      <rect x="-33.050" y="-35.335" width="66.100" height="70.670" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1duetx6)"/>
+      <rect x="-31.050" y="-33.335" width="62.100" height="66.670" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1duetx6)"/>
+    </g>
+    <g transform="translate(32.123 6.092) rotate(0.036)"><rect x="-46.804" y="-39.856" width="93.608" height="79.712" rx="50.778" fill="#ffd9b8" opacity="0.900" filter="url(#blur-10-oreo-1duetx6)"/></g>
+    <g transform="translate(32.018 18.442) rotate(0.030)"><rect x="-23.917" y="-21.302" width="47.834" height="42.604" rx="50.714" fill="#f8f8f8" opacity="0.923" filter="url(#blur-8-oreo-1duetx6)"/></g></g>
+    </g>
+  </svg></svg><svg x="74" y="74" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Silk avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1pxr4ox" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1pxr4ox" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1pxr4ox" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1pxr4ox" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1pxr4ox" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1pxr4ox" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1pxr4ox" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1pxr4ox"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1pxr4ox" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1pxr4ox" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1pxr4ox)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1pxr4ox)">
+      <g clip-path="url(#clip-oreo-1pxr4ox)">
+    <g transform="translate(32.000 32.000) rotate(0.000)"><rect x="-32.000" y="-32.000" width="64.000" height="64.000" rx="16.250" fill="#cc4e00" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.58">
+      <rect x="-30.800" y="-30.800" width="61.600" height="61.600" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1pxr4ox)"/>
+      <rect x="-30.000" y="-30.000" width="60.000" height="60.000" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1pxr4ox)"/>
+      <rect x="-28.000" y="-28.000" width="56.000" height="56.000" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1pxr4ox)"/>
+    </g>
+    <g transform="translate(32.000 34.290) rotate(0.000)"><rect x="-35.050" y="-37.335" width="70.100" height="74.670" rx="16.250" fill="#ffe1bd" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.29) rotate(0)" opacity="0.42">
+      <rect x="-33.850" y="-36.135" width="67.700" height="72.270" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1pxr4ox)"/>
+      <rect x="-33.050" y="-35.335" width="66.100" height="70.670" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1pxr4ox)"/>
+      <rect x="-31.050" y="-33.335" width="62.100" height="66.670" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1pxr4ox)"/>
+    </g>
+    <g transform="translate(32.123 6.092) rotate(0.036)"><rect x="-46.804" y="-39.856" width="93.608" height="79.712" rx="50.778" fill="#ffc744" opacity="0.900" filter="url(#blur-10-oreo-1pxr4ox)"/></g>
+    <g transform="translate(32.018 18.442) rotate(0.030)"><rect x="-23.917" y="-21.302" width="47.834" height="42.604" rx="50.714" fill="#fffad4" opacity="0.923" filter="url(#blur-8-oreo-1pxr4ox)"/></g></g>
+    </g>
+  </svg></svg><svg x="148" y="74" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Silk avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1ativl9" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1ativl9" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1ativl9" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1ativl9" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1ativl9" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1ativl9" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1ativl9" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1ativl9"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1ativl9" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1ativl9" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1ativl9)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1ativl9)">
+      <g clip-path="url(#clip-oreo-1ativl9)">
+    <g transform="translate(32.000 32.000) rotate(0.000)"><rect x="-32.000" y="-32.000" width="64.000" height="64.000" rx="16.250" fill="#063a3b" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.58">
+      <rect x="-30.800" y="-30.800" width="61.600" height="61.600" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1ativl9)"/>
+      <rect x="-30.000" y="-30.000" width="60.000" height="60.000" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1ativl9)"/>
+      <rect x="-28.000" y="-28.000" width="56.000" height="56.000" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1ativl9)"/>
+    </g>
+    <g transform="translate(32.000 34.290) rotate(0.000)"><rect x="-35.050" y="-37.335" width="70.100" height="74.670" rx="16.250" fill="#d7f5e9" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.29) rotate(0)" opacity="0.42">
+      <rect x="-33.850" y="-36.135" width="67.700" height="72.270" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1ativl9)"/>
+      <rect x="-33.050" y="-35.335" width="66.100" height="70.670" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1ativl9)"/>
+      <rect x="-31.050" y="-33.335" width="62.100" height="66.670" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1ativl9)"/>
+    </g>
+    <g transform="translate(32.123 6.092) rotate(0.036)"><rect x="-46.804" y="-39.856" width="93.608" height="79.712" rx="50.778" fill="#ffe1bd" opacity="0.900" filter="url(#blur-10-oreo-1ativl9)"/></g>
+    <g transform="translate(32.018 18.442) rotate(0.030)"><rect x="-23.917" y="-21.302" width="47.834" height="42.604" rx="50.714" fill="#f8f8f8" opacity="0.923" filter="url(#blur-8-oreo-1ativl9)"/></g></g>
+    </g>
+  </svg></svg><svg x="222" y="74" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Silk avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-bn3t3t" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-bn3t3t" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-bn3t3t" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-bn3t3t" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-bn3t3t" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-bn3t3t" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-bn3t3t" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-bn3t3t"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-bn3t3t" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-bn3t3t" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-bn3t3t)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-bn3t3t)">
+      <g clip-path="url(#clip-oreo-bn3t3t)">
+    <g transform="translate(32.000 32.000) rotate(0.000)"><rect x="-32.000" y="-32.000" width="64.000" height="64.000" rx="16.250" fill="#16052f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.58">
+      <rect x="-30.800" y="-30.800" width="61.600" height="61.600" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-bn3t3t)"/>
+      <rect x="-30.000" y="-30.000" width="60.000" height="60.000" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-bn3t3t)"/>
+      <rect x="-28.000" y="-28.000" width="56.000" height="56.000" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-bn3t3t)"/>
+    </g>
+    <g transform="translate(32.000 34.290) rotate(0.000)"><rect x="-35.050" y="-37.335" width="70.100" height="74.670" rx="16.250" fill="#bdd5ff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.29) rotate(0)" opacity="0.42">
+      <rect x="-33.850" y="-36.135" width="67.700" height="72.270" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-bn3t3t)"/>
+      <rect x="-33.050" y="-35.335" width="66.100" height="70.670" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-bn3t3t)"/>
+      <rect x="-31.050" y="-33.335" width="62.100" height="66.670" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-bn3t3t)"/>
+    </g>
+    <g transform="translate(32.123 6.092) rotate(0.036)"><rect x="-46.804" y="-39.856" width="93.608" height="79.712" rx="50.778" fill="#ffd6f1" opacity="0.900" filter="url(#blur-10-oreo-bn3t3t)"/></g>
+    <g transform="translate(32.018 18.442) rotate(0.030)"><rect x="-23.917" y="-21.302" width="47.834" height="42.604" rx="50.714" fill="#fff5ff" opacity="0.923" filter="url(#blur-8-oreo-bn3t3t)"/></g></g>
+    </g>
+  </svg></svg><svg x="296" y="74" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Silk avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-12g4293" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-12g4293" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-12g4293" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-12g4293" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-12g4293" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-12g4293" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-12g4293" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-12g4293"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-12g4293" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-12g4293" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-12g4293)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-12g4293)">
+      <g clip-path="url(#clip-oreo-12g4293)">
+    <g transform="translate(32.000 32.000) rotate(0.000)"><rect x="-32.000" y="-32.000" width="64.000" height="64.000" rx="16.250" fill="#6c55b8" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.58">
+      <rect x="-30.800" y="-30.800" width="61.600" height="61.600" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-12g4293)"/>
+      <rect x="-30.000" y="-30.000" width="60.000" height="60.000" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-12g4293)"/>
+      <rect x="-28.000" y="-28.000" width="56.000" height="56.000" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-12g4293)"/>
+    </g>
+    <g transform="translate(32.000 34.290) rotate(0.000)"><rect x="-35.050" y="-37.335" width="70.100" height="74.670" rx="16.250" fill="#d8c8ff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.29) rotate(0)" opacity="0.42">
+      <rect x="-33.850" y="-36.135" width="67.700" height="72.270" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-12g4293)"/>
+      <rect x="-33.050" y="-35.335" width="66.100" height="70.670" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-12g4293)"/>
+      <rect x="-31.050" y="-33.335" width="62.100" height="66.670" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-12g4293)"/>
+    </g>
+    <g transform="translate(32.123 6.092) rotate(0.036)"><rect x="-46.804" y="-39.856" width="93.608" height="79.712" rx="50.778" fill="#ffd6f1" opacity="0.900" filter="url(#blur-10-oreo-12g4293)"/></g>
+    <g transform="translate(32.018 18.442) rotate(0.030)"><rect x="-23.917" y="-21.302" width="47.834" height="42.604" rx="50.714" fill="#fff5ff" opacity="0.923" filter="url(#blur-8-oreo-12g4293)"/></g></g>
+    </g>
+  </svg></svg><svg x="370" y="74" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Silk avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-ao8r3j" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-ao8r3j" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-ao8r3j" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-ao8r3j" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-ao8r3j" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-ao8r3j" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-ao8r3j" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-ao8r3j"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-ao8r3j" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-ao8r3j" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-ao8r3j)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-ao8r3j)">
+      <g clip-path="url(#clip-oreo-ao8r3j)">
+    <g transform="translate(32.000 32.000) rotate(0.000)"><rect x="-32.000" y="-32.000" width="64.000" height="64.000" rx="16.250" fill="#17356f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.58">
+      <rect x="-30.800" y="-30.800" width="61.600" height="61.600" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-ao8r3j)"/>
+      <rect x="-30.000" y="-30.000" width="60.000" height="60.000" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-ao8r3j)"/>
+      <rect x="-28.000" y="-28.000" width="56.000" height="56.000" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-ao8r3j)"/>
+    </g>
+    <g transform="translate(32.000 34.290) rotate(0.000)"><rect x="-35.050" y="-37.335" width="70.100" height="74.670" rx="16.250" fill="#c5d9ff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.29) rotate(0)" opacity="0.42">
+      <rect x="-33.850" y="-36.135" width="67.700" height="72.270" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-ao8r3j)"/>
+      <rect x="-33.050" y="-35.335" width="66.100" height="70.670" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-ao8r3j)"/>
+      <rect x="-31.050" y="-33.335" width="62.100" height="66.670" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-ao8r3j)"/>
+    </g>
+    <g transform="translate(32.123 6.092) rotate(0.036)"><rect x="-46.804" y="-39.856" width="93.608" height="79.712" rx="50.778" fill="#fff1c8" opacity="0.900" filter="url(#blur-10-oreo-ao8r3j)"/></g>
+    <g transform="translate(32.018 18.442) rotate(0.030)"><rect x="-23.917" y="-21.302" width="47.834" height="42.604" rx="50.714" fill="#fff1c8" opacity="0.923" filter="url(#blur-8-oreo-ao8r3j)"/></g></g>
+    </g>
+  </svg></svg><svg x="444" y="74" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Silk avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-12dml3h" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-12dml3h" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-12dml3h" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-12dml3h" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-12dml3h" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-12dml3h" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-12dml3h" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-12dml3h"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-12dml3h" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-12dml3h" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-12dml3h)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-12dml3h)">
+      <g clip-path="url(#clip-oreo-12dml3h)">
+    <g transform="translate(32.000 32.000) rotate(0.000)"><rect x="-32.000" y="-32.000" width="64.000" height="64.000" rx="16.250" fill="#70478f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.58">
+      <rect x="-30.800" y="-30.800" width="61.600" height="61.600" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-12dml3h)"/>
+      <rect x="-30.000" y="-30.000" width="60.000" height="60.000" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-12dml3h)"/>
+      <rect x="-28.000" y="-28.000" width="56.000" height="56.000" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-12dml3h)"/>
+    </g>
+    <g transform="translate(32.000 34.290) rotate(0.000)"><rect x="-35.050" y="-37.335" width="70.100" height="74.670" rx="16.250" fill="#ffd29d" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.29) rotate(0)" opacity="0.42">
+      <rect x="-33.850" y="-36.135" width="67.700" height="72.270" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-12dml3h)"/>
+      <rect x="-33.050" y="-35.335" width="66.100" height="70.670" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-12dml3h)"/>
+      <rect x="-31.050" y="-33.335" width="62.100" height="66.670" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-12dml3h)"/>
+    </g>
+    <g transform="translate(32.123 6.092) rotate(0.036)"><rect x="-46.804" y="-39.856" width="93.608" height="79.712" rx="50.778" fill="#ff8f47" opacity="0.900" filter="url(#blur-10-oreo-12dml3h)"/></g>
+    <g transform="translate(32.018 18.442) rotate(0.030)"><rect x="-23.917" y="-21.302" width="47.834" height="42.604" rx="50.714" fill="#fff8e8" opacity="0.923" filter="url(#blur-8-oreo-12dml3h)"/></g></g>
+    </g>
+  </svg></svg><svg x="518" y="74" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Silk avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1m5fc7t" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1m5fc7t" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1m5fc7t" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1m5fc7t" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1m5fc7t" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1m5fc7t" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1m5fc7t" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1m5fc7t"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1m5fc7t" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1m5fc7t" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1m5fc7t)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1m5fc7t)">
+      <g clip-path="url(#clip-oreo-1m5fc7t)">
+    <g transform="translate(32.000 32.000) rotate(0.000)"><rect x="-32.000" y="-32.000" width="64.000" height="64.000" rx="16.250" fill="#16052f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.58">
+      <rect x="-30.800" y="-30.800" width="61.600" height="61.600" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1m5fc7t)"/>
+      <rect x="-30.000" y="-30.000" width="60.000" height="60.000" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1m5fc7t)"/>
+      <rect x="-28.000" y="-28.000" width="56.000" height="56.000" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1m5fc7t)"/>
+    </g>
+    <g transform="translate(32.000 34.290) rotate(0.000)"><rect x="-35.050" y="-37.335" width="70.100" height="74.670" rx="16.250" fill="#5531d8" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.29) rotate(0)" opacity="0.42">
+      <rect x="-33.850" y="-36.135" width="67.700" height="72.270" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1m5fc7t)"/>
+      <rect x="-33.050" y="-35.335" width="66.100" height="70.670" rx="14.250" fill="none" stroke="#aec6cf" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1m5fc7t)"/>
+      <rect x="-31.050" y="-33.335" width="62.100" height="66.670" rx="12.250" fill="none" stroke="#aec6cf" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1m5fc7t)"/>
+    </g>
+    <g transform="translate(32.123 6.092) rotate(0.036)"><rect x="-46.804" y="-39.856" width="93.608" height="79.712" rx="50.778" fill="#ff8ad6" opacity="0.900" filter="url(#blur-10-oreo-1m5fc7t)"/></g>
+    <g transform="translate(32.018 18.442) rotate(0.030)"><rect x="-23.917" y="-21.302" width="47.834" height="42.604" rx="50.714" fill="#fff5ff" opacity="0.923" filter="url(#blur-8-oreo-1m5fc7t)"/></g></g>
+    </g>
+  </svg></svg><svg x="0" y="148" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Flare avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-m4xh8c" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-m4xh8c" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-m4xh8c" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-m4xh8c" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-m4xh8c" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-m4xh8c" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-m4xh8c" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-m4xh8c"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-m4xh8c" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-m4xh8c" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-m4xh8c)"/>
+    </mask>
+      <linearGradient id="cream-oreo-m4xh8c" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#fee9f5"/><stop offset="100%" stop-color="#f8f8f8"/>
+      </linearGradient>
+      <linearGradient id="hot-oreo-m4xh8c" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffd9b8"/><stop offset="100%" stop-color="#fb4fbc"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-m4xh8c)">
+      <g clip-path="url(#clip-oreo-m4xh8c)">
+    <g transform="translate(32.030 32.030) rotate(0.000)"><rect x="-32.030" y="-32.030" width="64.060" height="64.060" rx="16.270" fill="#031a05" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.42">
+      <rect x="-30.830" y="-30.830" width="61.660" height="61.660" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-m4xh8c)"/>
+      <rect x="-30.030" y="-30.030" width="60.060" height="60.060" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-m4xh8c)"/>
+      <rect x="-28.030" y="-28.030" width="56.060" height="56.060" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-m4xh8c)"/>
+    </g>
+    <g transform="translate(32.030 34.320) rotate(0.000)"><rect x="-35.085" y="-37.370" width="70.170" height="74.740" rx="16.270" fill="#ffaaaa" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.32) rotate(0)" opacity="0.36">
+      <rect x="-33.885" y="-36.170" width="67.770" height="72.340" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-m4xh8c)"/>
+      <rect x="-33.085" y="-35.370" width="66.170" height="70.740" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-m4xh8c)"/>
+      <rect x="-31.085" y="-33.370" width="62.170" height="66.740" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-m4xh8c)"/>
+    </g>
+    <g transform="translate(31.835 31.653) rotate(-0.077)"><rect x="-34.913" y="-32.546" width="69.827" height="65.091" rx="119.703" fill="url(#cream-oreo-m4xh8c)" opacity="0.921" filter="url(#blur-5-oreo-m4xh8c)"/></g>
+    <g transform="translate(39.163 41.788) rotate(0.171)"><rect x="-22.048" y="-21.977" width="44.097" height="43.954" rx="119.874" fill="url(#hot-oreo-m4xh8c)" opacity="0.839" filter="url(#blur-8-oreo-m4xh8c)"/></g></g>
+    </g>
+  </svg></svg><svg x="74" y="148" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Flare avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1139q0r" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1139q0r" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1139q0r" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1139q0r" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1139q0r" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1139q0r" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1139q0r" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1139q0r"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1139q0r" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1139q0r" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1139q0r)"/>
+    </mask>
+      <linearGradient id="cream-oreo-1139q0r" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#fff2ce"/><stop offset="100%" stop-color="#fffad4"/>
+      </linearGradient>
+      <linearGradient id="hot-oreo-1139q0r" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffc744"/><stop offset="100%" stop-color="#ff6044"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1139q0r)">
+      <g clip-path="url(#clip-oreo-1139q0r)">
+    <g transform="translate(32.030 32.030) rotate(0.000)"><rect x="-32.030" y="-32.030" width="64.060" height="64.060" rx="16.270" fill="#cc4e00" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.42">
+      <rect x="-30.830" y="-30.830" width="61.660" height="61.660" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1139q0r)"/>
+      <rect x="-30.030" y="-30.030" width="60.060" height="60.060" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1139q0r)"/>
+      <rect x="-28.030" y="-28.030" width="56.060" height="56.060" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1139q0r)"/>
+    </g>
+    <g transform="translate(32.030 34.320) rotate(0.000)"><rect x="-35.085" y="-37.370" width="70.170" height="74.740" rx="16.270" fill="#ff9a44" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.32) rotate(0)" opacity="0.36">
+      <rect x="-33.885" y="-36.170" width="67.770" height="72.340" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1139q0r)"/>
+      <rect x="-33.085" y="-35.370" width="66.170" height="70.740" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1139q0r)"/>
+      <rect x="-31.085" y="-33.370" width="62.170" height="66.740" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1139q0r)"/>
+    </g>
+    <g transform="translate(31.835 31.653) rotate(-0.077)"><rect x="-34.913" y="-32.546" width="69.827" height="65.091" rx="119.703" fill="url(#cream-oreo-1139q0r)" opacity="0.921" filter="url(#blur-5-oreo-1139q0r)"/></g>
+    <g transform="translate(39.163 41.788) rotate(0.171)"><rect x="-22.048" y="-21.977" width="44.097" height="43.954" rx="119.874" fill="url(#hot-oreo-1139q0r)" opacity="0.839" filter="url(#blur-8-oreo-1139q0r)"/></g></g>
+    </g>
+  </svg></svg><svg x="148" y="148" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Flare avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-102t31y" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-102t31y" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-102t31y" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-102t31y" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-102t31y" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-102t31y" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-102t31y" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-102t31y"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-102t31y" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-102t31y" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-102t31y)"/>
+    </mask>
+      <linearGradient id="cream-oreo-102t31y" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f0ffdd"/><stop offset="100%" stop-color="#f8f8f8"/>
+      </linearGradient>
+      <linearGradient id="hot-oreo-102t31y" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffe1bd"/><stop offset="100%" stop-color="#49cda9"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-102t31y)">
+      <g clip-path="url(#clip-oreo-102t31y)">
+    <g transform="translate(32.030 32.030) rotate(0.000)"><rect x="-32.030" y="-32.030" width="64.060" height="64.060" rx="16.270" fill="#063a3b" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.42">
+      <rect x="-30.830" y="-30.830" width="61.660" height="61.660" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-102t31y)"/>
+      <rect x="-30.030" y="-30.030" width="60.060" height="60.060" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-102t31y)"/>
+      <rect x="-28.030" y="-28.030" width="56.060" height="56.060" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-102t31y)"/>
+    </g>
+    <g transform="translate(32.030 34.320) rotate(0.000)"><rect x="-35.085" y="-37.370" width="70.170" height="74.740" rx="16.270" fill="#8be8cb" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.32) rotate(0)" opacity="0.36">
+      <rect x="-33.885" y="-36.170" width="67.770" height="72.340" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-102t31y)"/>
+      <rect x="-33.085" y="-35.370" width="66.170" height="70.740" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-102t31y)"/>
+      <rect x="-31.085" y="-33.370" width="62.170" height="66.740" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-102t31y)"/>
+    </g>
+    <g transform="translate(31.835 31.653) rotate(-0.077)"><rect x="-34.913" y="-32.546" width="69.827" height="65.091" rx="119.703" fill="url(#cream-oreo-102t31y)" opacity="0.921" filter="url(#blur-5-oreo-102t31y)"/></g>
+    <g transform="translate(39.163 41.788) rotate(0.171)"><rect x="-22.048" y="-21.977" width="44.097" height="43.954" rx="119.874" fill="url(#hot-oreo-102t31y)" opacity="0.839" filter="url(#blur-8-oreo-102t31y)"/></g></g>
+    </g>
+  </svg></svg><svg x="222" y="148" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Flare avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-jox7q0" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-jox7q0" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-jox7q0" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-jox7q0" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-jox7q0" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-jox7q0" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-jox7q0" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-jox7q0"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-jox7q0" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-jox7q0" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-jox7q0)"/>
+    </mask>
+      <linearGradient id="cream-oreo-jox7q0" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#75ecff"/><stop offset="100%" stop-color="#fff5ff"/>
+      </linearGradient>
+      <linearGradient id="hot-oreo-jox7q0" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffd6f1"/><stop offset="100%" stop-color="#ff0084"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-jox7q0)">
+      <g clip-path="url(#clip-oreo-jox7q0)">
+    <g transform="translate(32.030 32.030) rotate(0.000)"><rect x="-32.030" y="-32.030" width="64.060" height="64.060" rx="16.270" fill="#16052f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.42">
+      <rect x="-30.830" y="-30.830" width="61.660" height="61.660" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-jox7q0)"/>
+      <rect x="-30.030" y="-30.030" width="60.060" height="60.060" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-jox7q0)"/>
+      <rect x="-28.030" y="-28.030" width="56.060" height="56.060" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-jox7q0)"/>
+    </g>
+    <g transform="translate(32.030 34.320) rotate(0.000)"><rect x="-35.085" y="-37.370" width="70.170" height="74.740" rx="16.270" fill="#ff7ac1" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.32) rotate(0)" opacity="0.36">
+      <rect x="-33.885" y="-36.170" width="67.770" height="72.340" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-jox7q0)"/>
+      <rect x="-33.085" y="-35.370" width="66.170" height="70.740" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-jox7q0)"/>
+      <rect x="-31.085" y="-33.370" width="62.170" height="66.740" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-jox7q0)"/>
+    </g>
+    <g transform="translate(31.835 31.653) rotate(-0.077)"><rect x="-34.913" y="-32.546" width="69.827" height="65.091" rx="119.703" fill="url(#cream-oreo-jox7q0)" opacity="0.921" filter="url(#blur-5-oreo-jox7q0)"/></g>
+    <g transform="translate(39.163 41.788) rotate(0.171)"><rect x="-22.048" y="-21.977" width="44.097" height="43.954" rx="119.874" fill="url(#hot-oreo-jox7q0)" opacity="0.839" filter="url(#blur-8-oreo-jox7q0)"/></g></g>
+    </g>
+  </svg></svg><svg x="296" y="148" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Flare avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-upvkrw" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-upvkrw" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-upvkrw" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-upvkrw" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-upvkrw" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-upvkrw" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-upvkrw" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-upvkrw"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-upvkrw" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-upvkrw" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-upvkrw)"/>
+    </mask>
+      <linearGradient id="cream-oreo-upvkrw" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#fffad4"/><stop offset="100%" stop-color="#fff5ff"/>
+      </linearGradient>
+      <linearGradient id="hot-oreo-upvkrw" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffd6f1"/><stop offset="100%" stop-color="#7258ff"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-upvkrw)">
+      <g clip-path="url(#clip-oreo-upvkrw)">
+    <g transform="translate(32.030 32.030) rotate(0.000)"><rect x="-32.030" y="-32.030" width="64.060" height="64.060" rx="16.270" fill="#6c55b8" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.42">
+      <rect x="-30.830" y="-30.830" width="61.660" height="61.660" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-upvkrw)"/>
+      <rect x="-30.030" y="-30.030" width="60.060" height="60.060" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-upvkrw)"/>
+      <rect x="-28.030" y="-28.030" width="56.060" height="56.060" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-upvkrw)"/>
+    </g>
+    <g transform="translate(32.030 34.320) rotate(0.000)"><rect x="-35.085" y="-37.370" width="70.170" height="74.740" rx="16.270" fill="#b7cfff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.32) rotate(0)" opacity="0.36">
+      <rect x="-33.885" y="-36.170" width="67.770" height="72.340" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-upvkrw)"/>
+      <rect x="-33.085" y="-35.370" width="66.170" height="70.740" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-upvkrw)"/>
+      <rect x="-31.085" y="-33.370" width="62.170" height="66.740" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-upvkrw)"/>
+    </g>
+    <g transform="translate(31.835 31.653) rotate(-0.077)"><rect x="-34.913" y="-32.546" width="69.827" height="65.091" rx="119.703" fill="url(#cream-oreo-upvkrw)" opacity="0.921" filter="url(#blur-5-oreo-upvkrw)"/></g>
+    <g transform="translate(39.163 41.788) rotate(0.171)"><rect x="-22.048" y="-21.977" width="44.097" height="43.954" rx="119.874" fill="url(#hot-oreo-upvkrw)" opacity="0.839" filter="url(#blur-8-oreo-upvkrw)"/></g></g>
+    </g>
+  </svg></svg><svg x="370" y="148" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Flare avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1749ml2" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1749ml2" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1749ml2" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1749ml2" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1749ml2" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1749ml2" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1749ml2" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1749ml2"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1749ml2" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1749ml2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1749ml2)"/>
+    </mask>
+      <linearGradient id="cream-oreo-1749ml2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f3ffd4"/><stop offset="100%" stop-color="#fff1c8"/>
+      </linearGradient>
+      <linearGradient id="hot-oreo-1749ml2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#fff1c8"/><stop offset="100%" stop-color="#3158b8"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1749ml2)">
+      <g clip-path="url(#clip-oreo-1749ml2)">
+    <g transform="translate(32.030 32.030) rotate(0.000)"><rect x="-32.030" y="-32.030" width="64.060" height="64.060" rx="16.270" fill="#17356f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.42">
+      <rect x="-30.830" y="-30.830" width="61.660" height="61.660" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1749ml2)"/>
+      <rect x="-30.030" y="-30.030" width="60.060" height="60.060" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1749ml2)"/>
+      <rect x="-28.030" y="-28.030" width="56.060" height="56.060" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1749ml2)"/>
+    </g>
+    <g transform="translate(32.030 34.320) rotate(0.000)"><rect x="-35.085" y="-37.370" width="70.170" height="74.740" rx="16.270" fill="#7fcfff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.32) rotate(0)" opacity="0.36">
+      <rect x="-33.885" y="-36.170" width="67.770" height="72.340" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1749ml2)"/>
+      <rect x="-33.085" y="-35.370" width="66.170" height="70.740" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1749ml2)"/>
+      <rect x="-31.085" y="-33.370" width="62.170" height="66.740" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1749ml2)"/>
+    </g>
+    <g transform="translate(31.835 31.653) rotate(-0.077)"><rect x="-34.913" y="-32.546" width="69.827" height="65.091" rx="119.703" fill="url(#cream-oreo-1749ml2)" opacity="0.921" filter="url(#blur-5-oreo-1749ml2)"/></g>
+    <g transform="translate(39.163 41.788) rotate(0.171)"><rect x="-22.048" y="-21.977" width="44.097" height="43.954" rx="119.874" fill="url(#hot-oreo-1749ml2)" opacity="0.839" filter="url(#blur-8-oreo-1749ml2)"/></g></g>
+    </g>
+  </svg></svg><svg x="444" y="148" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Flare avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1mluprn" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1mluprn" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1mluprn" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1mluprn" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1mluprn" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1mluprn" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1mluprn" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1mluprn"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1mluprn" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1mluprn" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1mluprn)"/>
+    </mask>
+      <linearGradient id="cream-oreo-1mluprn" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#fff2c8"/><stop offset="100%" stop-color="#fff8e8"/>
+      </linearGradient>
+      <linearGradient id="hot-oreo-1mluprn" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ff8f47"/><stop offset="100%" stop-color="#ffcf87"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1mluprn)">
+      <g clip-path="url(#clip-oreo-1mluprn)">
+    <g transform="translate(32.030 32.030) rotate(0.000)"><rect x="-32.030" y="-32.030" width="64.060" height="64.060" rx="16.270" fill="#70478f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.42">
+      <rect x="-30.830" y="-30.830" width="61.660" height="61.660" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1mluprn)"/>
+      <rect x="-30.030" y="-30.030" width="60.060" height="60.060" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1mluprn)"/>
+      <rect x="-28.030" y="-28.030" width="56.060" height="56.060" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1mluprn)"/>
+    </g>
+    <g transform="translate(32.030 34.320) rotate(0.000)"><rect x="-35.085" y="-37.370" width="70.170" height="74.740" rx="16.270" fill="#ffb75d" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.32) rotate(0)" opacity="0.36">
+      <rect x="-33.885" y="-36.170" width="67.770" height="72.340" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1mluprn)"/>
+      <rect x="-33.085" y="-35.370" width="66.170" height="70.740" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1mluprn)"/>
+      <rect x="-31.085" y="-33.370" width="62.170" height="66.740" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1mluprn)"/>
+    </g>
+    <g transform="translate(31.835 31.653) rotate(-0.077)"><rect x="-34.913" y="-32.546" width="69.827" height="65.091" rx="119.703" fill="url(#cream-oreo-1mluprn)" opacity="0.921" filter="url(#blur-5-oreo-1mluprn)"/></g>
+    <g transform="translate(39.163 41.788) rotate(0.171)"><rect x="-22.048" y="-21.977" width="44.097" height="43.954" rx="119.874" fill="url(#hot-oreo-1mluprn)" opacity="0.839" filter="url(#blur-8-oreo-1mluprn)"/></g></g>
+    </g>
+  </svg></svg><svg x="518" y="148" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Flare avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-167if89" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-167if89" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-167if89" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-167if89" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-167if89" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-167if89" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-167if89" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-167if89"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-167if89" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-167if89" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-167if89)"/>
+    </mask>
+      <linearGradient id="cream-oreo-167if89" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f3d7ff"/><stop offset="100%" stop-color="#fff5ff"/>
+      </linearGradient>
+      <linearGradient id="hot-oreo-167if89" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ff8ad6"/><stop offset="100%" stop-color="#ff43b8"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-167if89)">
+      <g clip-path="url(#clip-oreo-167if89)">
+    <g transform="translate(32.030 32.030) rotate(0.000)"><rect x="-32.030" y="-32.030" width="64.060" height="64.060" rx="16.270" fill="#16052f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(0)" opacity="0.42">
+      <rect x="-30.830" y="-30.830" width="61.660" height="61.660" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-167if89)"/>
+      <rect x="-30.030" y="-30.030" width="60.060" height="60.060" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-167if89)"/>
+      <rect x="-28.030" y="-28.030" width="56.060" height="56.060" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-167if89)"/>
+    </g>
+    <g transform="translate(32.030 34.320) rotate(0.000)"><rect x="-35.085" y="-37.370" width="70.170" height="74.740" rx="16.270" fill="#ff43b8" opacity="1.000"/></g>
+    
+    <g transform="translate(32 34.32) rotate(0)" opacity="0.36">
+      <rect x="-33.885" y="-36.170" width="67.770" height="72.340" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-167if89)"/>
+      <rect x="-33.085" y="-35.370" width="66.170" height="70.740" rx="14.270" fill="none" stroke="#ffdfda" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-167if89)"/>
+      <rect x="-31.085" y="-33.370" width="62.170" height="66.740" rx="12.270" fill="none" stroke="#ffbe74" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-167if89)"/>
+    </g>
+    <g transform="translate(31.835 31.653) rotate(-0.077)"><rect x="-34.913" y="-32.546" width="69.827" height="65.091" rx="119.703" fill="url(#cream-oreo-167if89)" opacity="0.921" filter="url(#blur-5-oreo-167if89)"/></g>
+    <g transform="translate(39.163 41.788) rotate(0.171)"><rect x="-22.048" y="-21.977" width="44.097" height="43.954" rx="119.874" fill="url(#hot-oreo-167if89)" opacity="0.839" filter="url(#blur-8-oreo-167if89)"/></g></g>
+    </g>
+  </svg></svg><svg x="0" y="222" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Nova avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-6h8hxu" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-6h8hxu" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-6h8hxu" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-6h8hxu" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-6h8hxu" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-6h8hxu" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-6h8hxu" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-6h8hxu"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-6h8hxu" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-6h8hxu" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-6h8hxu)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-6h8hxu)">
+      <g clip-path="url(#clip-oreo-6h8hxu)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#7cb2ff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.42">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-6h8hxu)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#88b9ff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-6h8hxu)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#7cb2ff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-6h8hxu)"/>
+    </g>
+    <g transform="translate(31.810 14.855) rotate(179.800)"><rect x="-35.651" y="-41.892" width="71.303" height="83.784" rx="33.681" fill="#f8f8f8" opacity="0.922" filter="url(#blur-6-oreo-6h8hxu)"/></g>
+    <g transform="translate(31.822 3.459) rotate(179.793)"><rect x="-29.231" y="-31.959" width="58.462" height="63.918" rx="25.228" fill="#fb4fbc" opacity="0.862" filter="url(#blur-8-oreo-6h8hxu)"/></g></g>
+    </g>
+  </svg></svg><svg x="74" y="222" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Nova avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-rkmg09" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-rkmg09" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-rkmg09" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-rkmg09" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-rkmg09" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-rkmg09" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-rkmg09" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-rkmg09"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-rkmg09" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-rkmg09" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-rkmg09)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-rkmg09)">
+      <g clip-path="url(#clip-oreo-rkmg09)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#aec6cf" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.42">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-rkmg09)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#88b9ff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-rkmg09)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#7cb2ff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-rkmg09)"/>
+    </g>
+    <g transform="translate(31.810 14.855) rotate(179.800)"><rect x="-35.651" y="-41.892" width="71.303" height="83.784" rx="33.681" fill="#fffad4" opacity="0.922" filter="url(#blur-6-oreo-rkmg09)"/></g>
+    <g transform="translate(31.822 3.459) rotate(179.793)"><rect x="-29.231" y="-31.959" width="58.462" height="63.918" rx="25.228" fill="#ff6044" opacity="0.862" filter="url(#blur-8-oreo-rkmg09)"/></g></g>
+    </g>
+  </svg></svg><svg x="148" y="222" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Nova avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-x7vws9" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-x7vws9" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-x7vws9" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-x7vws9" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-x7vws9" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-x7vws9" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-x7vws9" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-x7vws9"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-x7vws9" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-x7vws9" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-x7vws9)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-x7vws9)">
+      <g clip-path="url(#clip-oreo-x7vws9)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#42cba9" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.42">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-x7vws9)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#88b9ff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-x7vws9)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#7cb2ff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-x7vws9)"/>
+    </g>
+    <g transform="translate(31.810 14.855) rotate(179.800)"><rect x="-35.651" y="-41.892" width="71.303" height="83.784" rx="33.681" fill="#f8f8f8" opacity="0.922" filter="url(#blur-6-oreo-x7vws9)"/></g>
+    <g transform="translate(31.822 3.459) rotate(179.793)"><rect x="-29.231" y="-31.959" width="58.462" height="63.918" rx="25.228" fill="#49cda9" opacity="0.862" filter="url(#blur-8-oreo-x7vws9)"/></g></g>
+    </g>
+  </svg></svg><svg x="222" y="222" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Nova avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-h7ikd3" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-h7ikd3" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-h7ikd3" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-h7ikd3" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-h7ikd3" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-h7ikd3" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-h7ikd3" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-h7ikd3"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-h7ikd3" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-h7ikd3" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-h7ikd3)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-h7ikd3)">
+      <g clip-path="url(#clip-oreo-h7ikd3)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#7fb1ff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.42">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-h7ikd3)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#88b9ff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-h7ikd3)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#7cb2ff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-h7ikd3)"/>
+    </g>
+    <g transform="translate(31.810 14.855) rotate(179.800)"><rect x="-35.651" y="-41.892" width="71.303" height="83.784" rx="33.681" fill="#fff5ff" opacity="0.922" filter="url(#blur-6-oreo-h7ikd3)"/></g>
+    <g transform="translate(31.822 3.459) rotate(179.793)"><rect x="-29.231" y="-31.959" width="58.462" height="63.918" rx="25.228" fill="#ff0084" opacity="0.862" filter="url(#blur-8-oreo-h7ikd3)"/></g></g>
+    </g>
+  </svg></svg><svg x="296" y="222" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Nova avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1a4t331" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1a4t331" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1a4t331" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1a4t331" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1a4t331" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1a4t331" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1a4t331" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1a4t331"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1a4t331" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1a4t331" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1a4t331)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1a4t331)">
+      <g clip-path="url(#clip-oreo-1a4t331)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#8b72ff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.42">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1a4t331)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#88b9ff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1a4t331)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#7cb2ff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1a4t331)"/>
+    </g>
+    <g transform="translate(31.810 14.855) rotate(179.800)"><rect x="-35.651" y="-41.892" width="71.303" height="83.784" rx="33.681" fill="#fff5ff" opacity="0.922" filter="url(#blur-6-oreo-1a4t331)"/></g>
+    <g transform="translate(31.822 3.459) rotate(179.793)"><rect x="-29.231" y="-31.959" width="58.462" height="63.918" rx="25.228" fill="#7258ff" opacity="0.862" filter="url(#blur-8-oreo-1a4t331)"/></g></g>
+    </g>
+  </svg></svg><svg x="370" y="222" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Nova avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-3o6hx" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-3o6hx" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-3o6hx" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-3o6hx" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-3o6hx" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-3o6hx" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-3o6hx" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-3o6hx"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-3o6hx" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-3o6hx" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-3o6hx)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-3o6hx)">
+      <g clip-path="url(#clip-oreo-3o6hx)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#7fb1ff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.42">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-3o6hx)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#88b9ff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-3o6hx)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#7cb2ff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-3o6hx)"/>
+    </g>
+    <g transform="translate(31.810 14.855) rotate(179.800)"><rect x="-35.651" y="-41.892" width="71.303" height="83.784" rx="33.681" fill="#fff1c8" opacity="0.922" filter="url(#blur-6-oreo-3o6hx)"/></g>
+    <g transform="translate(31.822 3.459) rotate(179.793)"><rect x="-29.231" y="-31.959" width="58.462" height="63.918" rx="25.228" fill="#3158b8" opacity="0.862" filter="url(#blur-8-oreo-3o6hx)"/></g></g>
+    </g>
+  </svg></svg><svg x="444" y="222" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Nova avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-18kvc5g" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-18kvc5g" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-18kvc5g" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-18kvc5g" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-18kvc5g" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-18kvc5g" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-18kvc5g" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-18kvc5g"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-18kvc5g" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-18kvc5g" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-18kvc5g)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-18kvc5g)">
+      <g clip-path="url(#clip-oreo-18kvc5g)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#70478f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.42">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-18kvc5g)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#88b9ff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-18kvc5g)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#7cb2ff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-18kvc5g)"/>
+    </g>
+    <g transform="translate(31.810 14.855) rotate(179.800)"><rect x="-35.651" y="-41.892" width="71.303" height="83.784" rx="33.681" fill="#fff8e8" opacity="0.922" filter="url(#blur-6-oreo-18kvc5g)"/></g>
+    <g transform="translate(31.822 3.459) rotate(179.793)"><rect x="-29.231" y="-31.959" width="58.462" height="63.918" rx="25.228" fill="#ffcf87" opacity="0.862" filter="url(#blur-8-oreo-18kvc5g)"/></g></g>
+    </g>
+  </svg></svg><svg x="518" y="222" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Nova avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-k0u3iy" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-k0u3iy" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-k0u3iy" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-k0u3iy" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-k0u3iy" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-k0u3iy" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-k0u3iy" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-k0u3iy"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-k0u3iy" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-k0u3iy" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-k0u3iy)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-k0u3iy)">
+      <g clip-path="url(#clip-oreo-k0u3iy)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#5531d8" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.42">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-k0u3iy)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#88b9ff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-k0u3iy)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#7cb2ff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-k0u3iy)"/>
+    </g>
+    <g transform="translate(31.810 14.855) rotate(179.800)"><rect x="-35.651" y="-41.892" width="71.303" height="83.784" rx="33.681" fill="#fff5ff" opacity="0.922" filter="url(#blur-6-oreo-k0u3iy)"/></g>
+    <g transform="translate(31.822 3.459) rotate(179.793)"><rect x="-29.231" y="-31.959" width="58.462" height="63.918" rx="25.228" fill="#ff43b8" opacity="0.862" filter="url(#blur-8-oreo-k0u3iy)"/></g></g>
+    </g>
+  </svg></svg><svg x="0" y="296" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Void avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1x0vdyx" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1x0vdyx" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1x0vdyx" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1x0vdyx" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1x0vdyx" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1x0vdyx" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1x0vdyx" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1x0vdyx"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1x0vdyx" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1x0vdyx" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1x0vdyx)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1x0vdyx)">
+      <g clip-path="url(#clip-oreo-1x0vdyx)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.590" y="-37.590" width="75.180" height="75.180" rx="16.250" fill="#031a05" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.390" y="-36.390" width="72.780" height="72.780" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1x0vdyx)"/>
+      <rect x="-35.590" y="-35.590" width="71.180" height="71.180" rx="14.250" fill="none" stroke="#71abff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1x0vdyx)"/>
+      <rect x="-33.590" y="-33.590" width="67.180" height="67.180" rx="12.250" fill="none" stroke="#71abff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1x0vdyx)"/>
+    </g>
+    <g transform="translate(32.202 31.897) rotate(180.020)"><rect x="-31.923" y="-18.786" width="63.845" height="37.572" rx="10.135" fill="#7cb2ff" opacity="0.981" filter="url(#blur-14-oreo-1x0vdyx)"/></g>
+    <g transform="translate(31.775 31.755) rotate(180.217)"><rect x="-22.480" y="-9.132" width="44.959" height="18.264" rx="5.081" fill="#57b565" opacity="0.898" filter="url(#blur-5-oreo-1x0vdyx)" style="mix-blend-mode:plus-lighter"/></g></g>
+    </g>
+  </svg></svg><svg x="74" y="296" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Void avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1eaacky" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1eaacky" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1eaacky" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1eaacky" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1eaacky" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1eaacky" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1eaacky" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1eaacky"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1eaacky" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1eaacky" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1eaacky)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1eaacky)">
+      <g clip-path="url(#clip-oreo-1eaacky)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.590" y="-37.590" width="75.180" height="75.180" rx="16.250" fill="#cc4e00" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.390" y="-36.390" width="72.780" height="72.780" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1eaacky)"/>
+      <rect x="-35.590" y="-35.590" width="71.180" height="71.180" rx="14.250" fill="none" stroke="#71abff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1eaacky)"/>
+      <rect x="-33.590" y="-33.590" width="67.180" height="67.180" rx="12.250" fill="none" stroke="#71abff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1eaacky)"/>
+    </g>
+    <g transform="translate(32.202 31.897) rotate(180.020)"><rect x="-31.923" y="-18.786" width="63.845" height="37.572" rx="10.135" fill="#aec6cf" opacity="0.981" filter="url(#blur-14-oreo-1eaacky)"/></g>
+    <g transform="translate(31.775 31.755) rotate(180.217)"><rect x="-22.480" y="-9.132" width="44.959" height="18.264" rx="5.081" fill="#ffbe74" opacity="0.898" filter="url(#blur-5-oreo-1eaacky)" style="mix-blend-mode:plus-lighter"/></g></g>
+    </g>
+  </svg></svg><svg x="148" y="296" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Void avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1swd8ol" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1swd8ol" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1swd8ol" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1swd8ol" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1swd8ol" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1swd8ol" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1swd8ol" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1swd8ol"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1swd8ol" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1swd8ol" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1swd8ol)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1swd8ol)">
+      <g clip-path="url(#clip-oreo-1swd8ol)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.590" y="-37.590" width="75.180" height="75.180" rx="16.250" fill="#063a3b" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.390" y="-36.390" width="72.780" height="72.780" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1swd8ol)"/>
+      <rect x="-35.590" y="-35.590" width="71.180" height="71.180" rx="14.250" fill="none" stroke="#71abff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1swd8ol)"/>
+      <rect x="-33.590" y="-33.590" width="67.180" height="67.180" rx="12.250" fill="none" stroke="#71abff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1swd8ol)"/>
+    </g>
+    <g transform="translate(32.202 31.897) rotate(180.020)"><rect x="-31.923" y="-18.786" width="63.845" height="37.572" rx="10.135" fill="#42cba9" opacity="0.981" filter="url(#blur-14-oreo-1swd8ol)"/></g>
+    <g transform="translate(31.775 31.755) rotate(180.217)"><rect x="-22.480" y="-9.132" width="44.959" height="18.264" rx="5.081" fill="#93ffd2" opacity="0.898" filter="url(#blur-5-oreo-1swd8ol)" style="mix-blend-mode:plus-lighter"/></g></g>
+    </g>
+  </svg></svg><svg x="222" y="296" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Void avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-b76xs1" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-b76xs1" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-b76xs1" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-b76xs1" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-b76xs1" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-b76xs1" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-b76xs1" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-b76xs1"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-b76xs1" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-b76xs1" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-b76xs1)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-b76xs1)">
+      <g clip-path="url(#clip-oreo-b76xs1)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.590" y="-37.590" width="75.180" height="75.180" rx="16.250" fill="#16052f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.390" y="-36.390" width="72.780" height="72.780" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-b76xs1)"/>
+      <rect x="-35.590" y="-35.590" width="71.180" height="71.180" rx="14.250" fill="none" stroke="#71abff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-b76xs1)"/>
+      <rect x="-33.590" y="-33.590" width="67.180" height="67.180" rx="12.250" fill="none" stroke="#71abff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-b76xs1)"/>
+    </g>
+    <g transform="translate(32.202 31.897) rotate(180.020)"><rect x="-31.923" y="-18.786" width="63.845" height="37.572" rx="10.135" fill="#7fb1ff" opacity="0.981" filter="url(#blur-14-oreo-b76xs1)"/></g>
+    <g transform="translate(31.775 31.755) rotate(180.217)"><rect x="-22.480" y="-9.132" width="44.959" height="18.264" rx="5.081" fill="#71abff" opacity="0.898" filter="url(#blur-5-oreo-b76xs1)" style="mix-blend-mode:plus-lighter"/></g></g>
+    </g>
+  </svg></svg><svg x="296" y="296" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Void avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-a5493q" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-a5493q" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-a5493q" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-a5493q" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-a5493q" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-a5493q" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-a5493q" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-a5493q"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-a5493q" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-a5493q" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-a5493q)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-a5493q)">
+      <g clip-path="url(#clip-oreo-a5493q)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.590" y="-37.590" width="75.180" height="75.180" rx="16.250" fill="#6c55b8" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.390" y="-36.390" width="72.780" height="72.780" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-a5493q)"/>
+      <rect x="-35.590" y="-35.590" width="71.180" height="71.180" rx="14.250" fill="none" stroke="#71abff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-a5493q)"/>
+      <rect x="-33.590" y="-33.590" width="67.180" height="67.180" rx="12.250" fill="none" stroke="#71abff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-a5493q)"/>
+    </g>
+    <g transform="translate(32.202 31.897) rotate(180.020)"><rect x="-31.923" y="-18.786" width="63.845" height="37.572" rx="10.135" fill="#8b72ff" opacity="0.981" filter="url(#blur-14-oreo-a5493q)"/></g>
+    <g transform="translate(31.775 31.755) rotate(180.217)"><rect x="-22.480" y="-9.132" width="44.959" height="18.264" rx="5.081" fill="#b077ff" opacity="0.898" filter="url(#blur-5-oreo-a5493q)" style="mix-blend-mode:plus-lighter"/></g></g>
+    </g>
+  </svg></svg><svg x="370" y="296" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Void avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-skud2k" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-skud2k" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-skud2k" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-skud2k" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-skud2k" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-skud2k" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-skud2k" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-skud2k"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-skud2k" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-skud2k" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-skud2k)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-skud2k)">
+      <g clip-path="url(#clip-oreo-skud2k)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.590" y="-37.590" width="75.180" height="75.180" rx="16.250" fill="#17356f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.390" y="-36.390" width="72.780" height="72.780" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-skud2k)"/>
+      <rect x="-35.590" y="-35.590" width="71.180" height="71.180" rx="14.250" fill="none" stroke="#71abff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-skud2k)"/>
+      <rect x="-33.590" y="-33.590" width="67.180" height="67.180" rx="12.250" fill="none" stroke="#71abff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-skud2k)"/>
+    </g>
+    <g transform="translate(32.202 31.897) rotate(180.020)"><rect x="-31.923" y="-18.786" width="63.845" height="37.572" rx="10.135" fill="#7fb1ff" opacity="0.981" filter="url(#blur-14-oreo-skud2k)"/></g>
+    <g transform="translate(31.775 31.755) rotate(180.217)"><rect x="-22.480" y="-9.132" width="44.959" height="18.264" rx="5.081" fill="#72dff8" opacity="0.898" filter="url(#blur-5-oreo-skud2k)" style="mix-blend-mode:plus-lighter"/></g></g>
+    </g>
+  </svg></svg><svg x="444" y="296" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Void avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-qpjv32" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-qpjv32" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-qpjv32" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-qpjv32" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-qpjv32" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-qpjv32" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-qpjv32" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-qpjv32"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-qpjv32" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-qpjv32" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-qpjv32)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-qpjv32)">
+      <g clip-path="url(#clip-oreo-qpjv32)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.590" y="-37.590" width="75.180" height="75.180" rx="16.250" fill="#70478f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.390" y="-36.390" width="72.780" height="72.780" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-qpjv32)"/>
+      <rect x="-35.590" y="-35.590" width="71.180" height="71.180" rx="14.250" fill="none" stroke="#71abff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-qpjv32)"/>
+      <rect x="-33.590" y="-33.590" width="67.180" height="67.180" rx="12.250" fill="none" stroke="#71abff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-qpjv32)"/>
+    </g>
+    <g transform="translate(32.202 31.897) rotate(180.020)"><rect x="-31.923" y="-18.786" width="63.845" height="37.572" rx="10.135" fill="#70478f" opacity="0.981" filter="url(#blur-14-oreo-qpjv32)"/></g>
+    <g transform="translate(31.775 31.755) rotate(180.217)"><rect x="-22.480" y="-9.132" width="44.959" height="18.264" rx="5.081" fill="#ffd071" opacity="0.898" filter="url(#blur-5-oreo-qpjv32)" style="mix-blend-mode:plus-lighter"/></g></g>
+    </g>
+  </svg></svg><svg x="518" y="296" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Void avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-o4c5ey" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-o4c5ey" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-o4c5ey" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-o4c5ey" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-o4c5ey" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-o4c5ey" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-o4c5ey" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-o4c5ey"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-o4c5ey" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-o4c5ey" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-o4c5ey)"/>
+    </mask></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-o4c5ey)">
+      <g clip-path="url(#clip-oreo-o4c5ey)">
+    <g transform="translate(32.000 32.000) rotate(-90.000)"><rect x="-37.590" y="-37.590" width="75.180" height="75.180" rx="16.250" fill="#16052f" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.390" y="-36.390" width="72.780" height="72.780" rx="15.050" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-o4c5ey)"/>
+      <rect x="-35.590" y="-35.590" width="71.180" height="71.180" rx="14.250" fill="none" stroke="#71abff" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-o4c5ey)"/>
+      <rect x="-33.590" y="-33.590" width="67.180" height="67.180" rx="12.250" fill="none" stroke="#71abff" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-o4c5ey)"/>
+    </g>
+    <g transform="translate(32.202 31.897) rotate(180.020)"><rect x="-31.923" y="-18.786" width="63.845" height="37.572" rx="10.135" fill="#5531d8" opacity="0.981" filter="url(#blur-14-oreo-o4c5ey)"/></g>
+    <g transform="translate(31.775 31.755) rotate(180.217)"><rect x="-22.480" y="-9.132" width="44.959" height="18.264" rx="5.081" fill="#b077ff" opacity="0.898" filter="url(#blur-5-oreo-o4c5ey)" style="mix-blend-mode:plus-lighter"/></g></g>
+    </g>
+  </svg></svg><svg x="0" y="370" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Jade avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-17nmzz" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-17nmzz" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-17nmzz" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-17nmzz" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-17nmzz" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-17nmzz" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-17nmzz" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-17nmzz"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-17nmzz" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-17nmzz" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-17nmzz)"/>
+    </mask>
+      <linearGradient id="jade-oreo-17nmzz" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#f8f8f8"/><stop offset="100%" stop-color="#ffdedf"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-17nmzz)">
+      <g clip-path="url(#clip-oreo-17nmzz)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#ffaaaa" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-17nmzz)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#42cba9" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-17nmzz)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#42cba9" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-17nmzz)"/>
+    </g>
+    <g transform="translate(32.164 60.589) rotate(-89.892)"><rect x="-28.417" y="-27.480" width="56.834" height="54.959" rx="10.149" fill="#fee9f5" opacity="0.897" filter="url(#blur-14-oreo-17nmzz)"/></g>
+    <g transform="translate(33.127 58.139) rotate(-90.161)"><rect x="-26.023" y="-25.985" width="52.046" height="51.971" rx="119.932" fill="url(#jade-oreo-17nmzz)" opacity="0.918" filter="url(#blur-5-oreo-17nmzz)"/></g></g>
+    </g>
+  </svg></svg><svg x="74" y="370" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Jade avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-luc7t8" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-luc7t8" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-luc7t8" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-luc7t8" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-luc7t8" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-luc7t8" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-luc7t8" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-luc7t8"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-luc7t8" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-luc7t8" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-luc7t8)"/>
+    </mask>
+      <linearGradient id="jade-oreo-luc7t8" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#fffad4"/><stop offset="100%" stop-color="#ffe1bd"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-luc7t8)">
+      <g clip-path="url(#clip-oreo-luc7t8)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#ff9a44" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-luc7t8)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#42cba9" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-luc7t8)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#42cba9" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-luc7t8)"/>
+    </g>
+    <g transform="translate(32.164 60.589) rotate(-89.892)"><rect x="-28.417" y="-27.480" width="56.834" height="54.959" rx="10.149" fill="#fff2ce" opacity="0.897" filter="url(#blur-14-oreo-luc7t8)"/></g>
+    <g transform="translate(33.127 58.139) rotate(-90.161)"><rect x="-26.023" y="-25.985" width="52.046" height="51.971" rx="119.932" fill="url(#jade-oreo-luc7t8)" opacity="0.918" filter="url(#blur-5-oreo-luc7t8)"/></g></g>
+    </g>
+  </svg></svg><svg x="148" y="370" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Jade avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-pp99gt" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-pp99gt" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-pp99gt" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-pp99gt" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-pp99gt" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-pp99gt" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-pp99gt" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-pp99gt"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-pp99gt" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-pp99gt" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-pp99gt)"/>
+    </mask>
+      <linearGradient id="jade-oreo-pp99gt" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#f8f8f8"/><stop offset="100%" stop-color="#d7f5e9"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-pp99gt)">
+      <g clip-path="url(#clip-oreo-pp99gt)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#8be8cb" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-pp99gt)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#42cba9" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-pp99gt)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#42cba9" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-pp99gt)"/>
+    </g>
+    <g transform="translate(32.164 60.589) rotate(-89.892)"><rect x="-28.417" y="-27.480" width="56.834" height="54.959" rx="10.149" fill="#f0ffdd" opacity="0.897" filter="url(#blur-14-oreo-pp99gt)"/></g>
+    <g transform="translate(33.127 58.139) rotate(-90.161)"><rect x="-26.023" y="-25.985" width="52.046" height="51.971" rx="119.932" fill="url(#jade-oreo-pp99gt)" opacity="0.918" filter="url(#blur-5-oreo-pp99gt)"/></g></g>
+    </g>
+  </svg></svg><svg x="222" y="370" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Jade avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1wfhpcp" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1wfhpcp" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1wfhpcp" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1wfhpcp" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1wfhpcp" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1wfhpcp" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1wfhpcp" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1wfhpcp"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1wfhpcp" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1wfhpcp" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1wfhpcp)"/>
+    </mask>
+      <linearGradient id="jade-oreo-1wfhpcp" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#fff5ff"/><stop offset="100%" stop-color="#bdd5ff"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1wfhpcp)">
+      <g clip-path="url(#clip-oreo-1wfhpcp)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#ff7ac1" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1wfhpcp)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#42cba9" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1wfhpcp)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#42cba9" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1wfhpcp)"/>
+    </g>
+    <g transform="translate(32.164 60.589) rotate(-89.892)"><rect x="-28.417" y="-27.480" width="56.834" height="54.959" rx="10.149" fill="#75ecff" opacity="0.897" filter="url(#blur-14-oreo-1wfhpcp)"/></g>
+    <g transform="translate(33.127 58.139) rotate(-90.161)"><rect x="-26.023" y="-25.985" width="52.046" height="51.971" rx="119.932" fill="url(#jade-oreo-1wfhpcp)" opacity="0.918" filter="url(#blur-5-oreo-1wfhpcp)"/></g></g>
+    </g>
+  </svg></svg><svg x="296" y="370" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Jade avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-1hd00sp" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-1hd00sp" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-1hd00sp" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-1hd00sp" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-1hd00sp" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-1hd00sp" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-1hd00sp" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-1hd00sp"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-1hd00sp" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-1hd00sp" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-1hd00sp)"/>
+    </mask>
+      <linearGradient id="jade-oreo-1hd00sp" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#fff5ff"/><stop offset="100%" stop-color="#d8c8ff"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-1hd00sp)">
+      <g clip-path="url(#clip-oreo-1hd00sp)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#b7cfff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-1hd00sp)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#42cba9" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-1hd00sp)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#42cba9" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-1hd00sp)"/>
+    </g>
+    <g transform="translate(32.164 60.589) rotate(-89.892)"><rect x="-28.417" y="-27.480" width="56.834" height="54.959" rx="10.149" fill="#fffad4" opacity="0.897" filter="url(#blur-14-oreo-1hd00sp)"/></g>
+    <g transform="translate(33.127 58.139) rotate(-90.161)"><rect x="-26.023" y="-25.985" width="52.046" height="51.971" rx="119.932" fill="url(#jade-oreo-1hd00sp)" opacity="0.918" filter="url(#blur-5-oreo-1hd00sp)"/></g></g>
+    </g>
+  </svg></svg><svg x="370" y="370" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Jade avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-yw58n5" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-yw58n5" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-yw58n5" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-yw58n5" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-yw58n5" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-yw58n5" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-yw58n5" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-yw58n5"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-yw58n5" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-yw58n5" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-yw58n5)"/>
+    </mask>
+      <linearGradient id="jade-oreo-yw58n5" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#fff1c8"/><stop offset="100%" stop-color="#c5d9ff"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-yw58n5)">
+      <g clip-path="url(#clip-oreo-yw58n5)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#7fcfff" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-yw58n5)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#42cba9" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-yw58n5)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#42cba9" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-yw58n5)"/>
+    </g>
+    <g transform="translate(32.164 60.589) rotate(-89.892)"><rect x="-28.417" y="-27.480" width="56.834" height="54.959" rx="10.149" fill="#f3ffd4" opacity="0.897" filter="url(#blur-14-oreo-yw58n5)"/></g>
+    <g transform="translate(33.127 58.139) rotate(-90.161)"><rect x="-26.023" y="-25.985" width="52.046" height="51.971" rx="119.932" fill="url(#jade-oreo-yw58n5)" opacity="0.918" filter="url(#blur-5-oreo-yw58n5)"/></g></g>
+    </g>
+  </svg></svg><svg x="444" y="370" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Jade avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-15xboh3" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-15xboh3" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-15xboh3" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-15xboh3" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-15xboh3" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-15xboh3" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-15xboh3" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-15xboh3"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-15xboh3" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-15xboh3" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-15xboh3)"/>
+    </mask>
+      <linearGradient id="jade-oreo-15xboh3" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#fff8e8"/><stop offset="100%" stop-color="#ffd29d"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-15xboh3)">
+      <g clip-path="url(#clip-oreo-15xboh3)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#ffb75d" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-15xboh3)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#42cba9" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-15xboh3)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#42cba9" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-15xboh3)"/>
+    </g>
+    <g transform="translate(32.164 60.589) rotate(-89.892)"><rect x="-28.417" y="-27.480" width="56.834" height="54.959" rx="10.149" fill="#fff2c8" opacity="0.897" filter="url(#blur-14-oreo-15xboh3)"/></g>
+    <g transform="translate(33.127 58.139) rotate(-90.161)"><rect x="-26.023" y="-25.985" width="52.046" height="51.971" rx="119.932" fill="url(#jade-oreo-15xboh3)" opacity="0.918" filter="url(#blur-5-oreo-15xboh3)"/></g></g>
+    </g>
+  </svg></svg><svg x="518" y="370" width="64" height="64" viewBox="0 0 64 64"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img">
+    <title>Jade avatar</title>
+    <defs>
+    <filter id="blur-1-oreo-invrv9" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="blur-3-oreo-invrv9" x="-55%" y="-55%" width="210%" height="210%"><feGaussianBlur stdDeviation="3.2"/></filter>
+    <filter id="blur-5-oreo-invrv9" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5.1"/></filter>
+    <filter id="blur-6-oreo-invrv9" x="-75%" y="-75%" width="250%" height="250%"><feGaussianBlur stdDeviation="5.7"/></filter>
+    <filter id="blur-8-oreo-invrv9" x="-85%" y="-85%" width="270%" height="270%"><feGaussianBlur stdDeviation="8.4"/></filter>
+    <filter id="blur-10-oreo-invrv9" x="-95%" y="-95%" width="290%" height="290%"><feGaussianBlur stdDeviation="10.4"/></filter>
+    <filter id="blur-14-oreo-invrv9" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="13.8"/></filter><clipPath id="clip-oreo-invrv9"><rect width="64" height="64" rx="32" fill="#ffffff"/></clipPath>
+    <radialGradient id="edge-oreo-invrv9" gradientUnits="userSpaceOnUse" cx="32" cy="32" r="32">
+      <stop offset="98.4375%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="edge-mask-oreo-invrv9" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="64" height="64" style="mask-type:alpha">
+      <rect width="64" height="64" fill="url(#edge-oreo-invrv9)"/>
+    </mask>
+      <linearGradient id="jade-oreo-invrv9" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#fff5ff"/><stop offset="100%" stop-color="#5531d8"/>
+      </linearGradient></defs>
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <g mask="url(#edge-mask-oreo-invrv9)">
+      <g clip-path="url(#clip-oreo-invrv9)">
+    <g transform="translate(32.030 32.030) rotate(-90.000)"><rect x="-37.625" y="-37.625" width="75.250" height="75.250" rx="16.270" fill="#ff43b8" opacity="1.000"/></g>
+    
+    <g transform="translate(32 32) rotate(-90)" opacity="0.36">
+      <rect x="-36.425" y="-36.425" width="72.850" height="72.850" rx="15.070" fill="none" stroke="#ffffff" stroke-width="1.400" opacity="0.38" filter="url(#blur-1-oreo-invrv9)"/>
+      <rect x="-35.625" y="-35.625" width="71.250" height="71.250" rx="14.270" fill="none" stroke="#42cba9" stroke-width="2.400" opacity="0.24" filter="url(#blur-3-oreo-invrv9)"/>
+      <rect x="-33.625" y="-33.625" width="67.250" height="67.250" rx="12.270" fill="none" stroke="#42cba9" stroke-width="4.000" opacity="0.18" filter="url(#blur-5-oreo-invrv9)"/>
+    </g>
+    <g transform="translate(32.164 60.589) rotate(-89.892)"><rect x="-28.417" y="-27.480" width="56.834" height="54.959" rx="10.149" fill="#f3d7ff" opacity="0.897" filter="url(#blur-14-oreo-invrv9)"/></g>
+    <g transform="translate(33.127 58.139) rotate(-90.161)"><rect x="-26.023" y="-25.985" width="52.046" height="51.971" rx="119.932" fill="url(#jade-oreo-invrv9)" opacity="0.918" filter="url(#blur-5-oreo-invrv9)"/></g></g>
+    </g>
+  </svg></svg></svg>

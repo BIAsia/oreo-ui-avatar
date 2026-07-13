@@ -493,7 +493,7 @@ function renderSvg(study: Study, options: Required<Pick<AvatarOptions, "variantI
   const title = options.title ? `<title>${escapeHtml(options.title)}</title>` : "";
   const background = options.background === null ? "" : `<rect width="100%" height="100%" fill="${options.background ?? "#ffffff"}"/>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${displaySize}" height="${displaySize}" viewBox="0 0 ${coordinateSize} ${coordinateSize}" role="img">
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${displaySize}" height="${displaySize}" viewBox="0 0 ${coordinateSize} ${coordinateSize}" role="img">
     ${title}
     <defs>${sharedDefs()}${frame(id, cx, cy, coordinateSize)}${defsFor(id, study)}</defs>
     ${background}
@@ -501,6 +501,10 @@ function renderSvg(study: Study, options: Required<Pick<AvatarOptions, "variantI
       ${study.appearance === "dark" ? `<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>` : `<g clip-path="url(#clip-${id})">${body}</g>`}
     </g>
   </svg>`;
+
+  // The shared blur filters are the only defs left with bare ids; suffix them
+  // so several inline avatars in one document never resolve each other's ids.
+  return svg.replace(/(id="|url\(#)blur-(\d+)/g, `$1blur-$2-${id}`);
 }
 
 export function createAvatar(options: AvatarOptions = {}): AvatarResult {

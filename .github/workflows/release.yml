@@ -1,0 +1,34 @@
+# Publishes to npm when a version tag (v1.2.3) is pushed.
+#
+# One-time setup:
+#   1. Create the npm org for the @oreo-design scope (https://www.npmjs.com/org/create).
+#   2. Create a granular npm access token with publish rights for @oreo-design/avatar.
+#   3. Save it as the NPM_TOKEN repository secret (Settings → Secrets → Actions).
+#
+# Release flow: bump "version" in package.json, update CHANGELOG.md, commit,
+# then `git tag v<version> && git push origin v<version>`.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write # npm provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: "https://registry.npmjs.org"
+      - run: npm ci
+      - run: npm run verify
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

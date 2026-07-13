@@ -1,24 +1,57 @@
 {
-  "name": "@oreo-ui/avatar",
+  "name": "@oreo-design/avatar",
   "version": "0.1.0",
-  "description": "Figma-method soft gradient avatar generator with shape presets, palette presets, and OKLCH tone controls.",
+  "description": "Figma-method soft gradient avatar generator with shape presets, palette presets, light/dark appearances, and OKLCH tone controls.",
   "type": "module",
   "license": "MIT",
+  "author": "BIAsia",
+  "homepage": "https://oreo-design-avatar.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BIAsia/oreo-design-avatar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BIAsia/oreo-design-avatar/issues"
+  },
+  "keywords": [
+    "avatar",
+    "avatar-generator",
+    "svg",
+    "gradient",
+    "oklch",
+    "identicon",
+    "profile-picture",
+    "react",
+    "dark-mode",
+    "figma",
+    "oreo-design"
+  ],
   "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./react": {
-      "types": "./dist/react.d.ts",
-      "import": "./dist/react.js",
-      "require": "./dist/react.cjs"
-    }
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./package.json": "./package.json"
   },
   "bin": {
     "oreo-avatar": "./dist/cli.js"
@@ -28,13 +61,18 @@
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "tsup src/index.ts src/react.tsx src/cli.ts --format esm,cjs --dts --clean --splitting false",
+    "build": "tsup",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "dev": "vite --host 0.0.0.0",
-    "verify": "npm run typecheck && npm run test && npm run build",
-    "prepare": "npm run build"
+    "smoke": "node -e \"const m=require('./dist/index.cjs');if(typeof m.createAvatar!=='function')throw new Error('cjs entry broken')\" && node --input-type=module -e \"import('./dist/index.js').then(m=>{if(typeof m.createAvatar!=='function')throw new Error('esm entry broken')})\" && node dist/cli.js help > /dev/null",
+    "preview:assets": "node scripts/generate-preview.mjs",
+    "verify": "npm run typecheck && npm run test && npm run build && npm run smoke",
+    "prepublishOnly": "npm run verify"
   },
   "peerDependencies": {
     "react": ">=18"
