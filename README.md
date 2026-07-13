@@ -1,14 +1,14 @@
 # @oreo-design/avatar
 
 [![npm](https://img.shields.io/npm/v/%40oreo-design%2Favatar)](https://www.npmjs.com/package/@oreo-design/avatar)
-[![CI](https://github.com/BIAsia/oreo-ui-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/BIAsia/oreo-ui-avatar/actions/workflows/ci.yml)
+[![CI](https://github.com/BIAsia/oreo-design-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/BIAsia/oreo-design-avatar/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
 Figma-method soft gradient avatar generator.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/BIAsia/oreo-ui-avatar/main/assets/preview-dark.svg">
-  <img alt="Oreo Avatar previews: 6 shape families across 8 palette presets" src="https://raw.githubusercontent.com/BIAsia/oreo-ui-avatar/main/assets/preview-light.svg" width="620">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/BIAsia/oreo-design-avatar/main/assets/preview-dark.svg">
+  <img alt="Oreo Avatar previews: 6 shape families across 8 palette presets" src="https://raw.githubusercontent.com/BIAsia/oreo-design-avatar/main/assets/preview-light.svg" width="620">
 </picture>
 
 This package renders the 64x64 circular gradient avatars from a stable design grammar:

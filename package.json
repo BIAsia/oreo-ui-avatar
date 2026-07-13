@@ -5,13 +5,13 @@
   "type": "module",
   "license": "MIT",
   "author": "BIAsia",
-  "homepage": "https://github.com/BIAsia/oreo-ui-avatar#readme",
+  "homepage": "https://github.com/BIAsia/oreo-design-avatar#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BIAsia/oreo-ui-avatar.git"
+    "url": "git+https://github.com/BIAsia/oreo-design-avatar.git"
   },
   "bugs": {
-    "url": "https://github.com/BIAsia/oreo-ui-avatar/issues"
+    "url": "https://github.com/BIAsia/oreo-design-avatar/issues"
   },
   "keywords": [
     "avatar",
