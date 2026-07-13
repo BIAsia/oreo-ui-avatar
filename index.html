@@ -438,7 +438,7 @@
   </main>
 </div>
 
-<button class="dark-lab-toggle" id="dark-lab-toggle" type="button">Gradient editor</button>
+<button class="dark-lab-toggle" id="dark-lab-toggle" type="button" hidden>Gradient editor</button>
 <aside class="dark-lab" id="dark-lab" aria-label="Gradient color editor" hidden>
   <div class="dark-lab-head">
     <div>
@@ -770,9 +770,10 @@ const builtInGradientOverrides={
   "flare:amber-dusk:dark":{colors:{"layer.1":"#4e0074","layer.2":"#eb9700","layer.3":"#ffda5a","layer.4":"#ffe19c","layer.5":"#e26c00","layer.6":"#faae00","frame.wide":"#f59b00","frame.medium":"#ffbeb5","frame.narrow":"#ececec","inner.wide":"#f59b00","inner.medium":"#ffbeb5","inner.narrow":"#ececec"}},
   "flare:sky-melon:dark":{colors:{"layer.1":"#004456","layer.2":"#a9a8af","layer.3":"#9dccff","layer.4":"#c7c7c7","layer.5":"#00d37e","layer.6":"#ae7f00","frame.wide":"#00c46e","frame.medium":"#e6b200","frame.narrow":"#cdcdcd","inner.wide":"#00c46e","inner.medium":"#e6b200","inner.narrow":"#cdcdcd"}},
 };
+const gradientEditorEnabled=["localhost","127.0.0.1","::1"].includes(location.hostname);
 const GRADIENT_OVERRIDES_KEY="oreo-avatar-gradient-overrides-v1";
 let gradientOverrides={};
-try{gradientOverrides=JSON.parse(localStorage.getItem(GRADIENT_OVERRIDES_KEY)||"{}")||{};}catch{}
+if(gradientEditorEnabled)try{gradientOverrides=JSON.parse(localStorage.getItem(GRADIENT_OVERRIDES_KEY)||"{}")||{};}catch{}
 let gradientPreviewOverride=null;
 function gradientOverrideKey(shape,palette,appearance){return`${shape}:${palette}:${appearance}`;}
 function gradientOverrideColors(value){return value?.colors??value;}
@@ -828,6 +829,7 @@ function createAvatar(options){options=options||{};
 /* ===================== UI ===================== */
 const $=id=>document.getElementById(id);
 const root=document.documentElement;
+$("dark-lab-toggle").hidden=!gradientEditorEnabled;
 function currentAppearance(){return root.getAttribute("data-theme")==="dark"?"dark":"light";}
 function avatarDisplaySize(slot){if(slot==="preview")return compactLayout.matches?64:76;if(slot==="grid")return compactLayout.matches?56:60;if(slot==="shape")return 34;return 19;}
 let avatarRenderSerial=0;
@@ -1065,16 +1067,18 @@ function clampGradientEditorPosition(x,y){const lab=$("dark-lab"),rect=lab.getBo
 function setGradientEditorPosition(x,y,persist=true){if(compactLayout.matches)return;const lab=$("dark-lab"),next=clampGradientEditorPosition(x,y);lab.style.left=`${next.x}px`;lab.style.top=`${next.y}px`;lab.style.right="auto";lab.style.bottom="auto";if(persist)localStorage.setItem(GRADIENT_EDITOR_POSITION_KEY,JSON.stringify(next));}
 function restoreGradientEditorPosition(){const lab=$("dark-lab");if(compactLayout.matches){for(const property of ["left","top","right","bottom"])lab.style.removeProperty(property);return;}try{const saved=JSON.parse(localStorage.getItem(GRADIENT_EDITOR_POSITION_KEY)||"null");if(saved)setGradientEditorPosition(+saved.x,+saved.y,false);}catch{}}
 function setDarkLabOpen(open){$("dark-lab").hidden=!open;localStorage.setItem("oreo-avatar-dark-lab-open",open?"1":"0");if(open){restoreGradientEditorPosition();renderDarkLab();}else{gradientPreviewOverride=null;render();refreshShapeButtons();}}
-$("dark-lab-toggle").addEventListener("click",()=>setDarkLabOpen(true));
-$("dark-lab-close").addEventListener("click",()=>setDarkLabOpen(false));
-$("dark-lab-reset").addEventListener("click",()=>{gradientEditorParams={...gradientEditorDefaults};gradientEditorSlotOverrides={};renderDarkLab();});
-$("dark-lab-revert").addEventListener("click",()=>{const key=gradientOverrideKey(state.shape,state.palette,currentAppearance());delete gradientOverrides[key];localStorage.setItem(GRADIENT_OVERRIDES_KEY,JSON.stringify(gradientOverrides));gradientEditorParams={...gradientEditorDefaults};gradientEditorSlotOverrides={};gradientPreviewOverride=null;renderDarkLab();renderGrid();});
-$("dark-lab-apply").addEventListener("click",event=>{if(!gradientEditorResult)return;gradientOverrides[gradientEditorResult.key]={shape:state.shape,palette:state.palette,sourceAppearance:gradientEditorResult.sourceAppearance,targetAppearance:gradientEditorResult.targetAppearance,params:{...gradientEditorParams},slotOverrides:{...gradientEditorSlotOverrides},colors:{...gradientEditorResult.result}};localStorage.setItem(GRADIENT_OVERRIDES_KEY,JSON.stringify(gradientOverrides));gradientPreviewOverride=null;const button=event.currentTarget,old=button.textContent;button.textContent="Applied";setTimeout(()=>button.textContent=old,1000);renderDarkLab();renderGrid();});
-$("dark-lab-copy").addEventListener("click",async event=>{if(!gradientEditorResult)return;await navigator.clipboard.writeText(JSON.stringify({shape:state.shape,palette:state.palette,sourceAppearance:gradientEditorResult.sourceAppearance,targetAppearance:gradientEditorResult.targetAppearance,params:gradientEditorParams,slotOverrides:gradientEditorSlotOverrides,colors:gradientEditorResult.result},null,2));const button=event.currentTarget,old=button.textContent;button.textContent="Copied";setTimeout(()=>button.textContent=old,1200);});
-$("dark-lab-export").addEventListener("click",event=>{const records=Object.entries(gradientOverrides).map(([key,value])=>normalizedGradientOverrideRecord(key,value)),payload={version:1,exportedAt:new Date().toISOString(),count:records.length,overrides:records},json=JSON.stringify(payload,null,2),blob=new Blob([json],{type:"application/json"}),url=URL.createObjectURL(blob),link=document.createElement("a");navigator.clipboard.writeText(json).catch(()=>{});link.href=url;link.download="oreo-avatar-gradient-overrides.json";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);const button=event.currentTarget,old=button.textContent;button.textContent=`Exported ${records.length}`;setTimeout(()=>button.textContent=old,1200);});
-$("dark-lab").querySelector(".dark-lab-head").addEventListener("pointerdown",event=>{if(compactLayout.matches||event.target.closest("button"))return;const lab=$("dark-lab"),rect=lab.getBoundingClientRect(),startX=event.clientX,startY=event.clientY,originX=rect.left,originY=rect.top,head=event.currentTarget;head.setPointerCapture(event.pointerId);const move=moveEvent=>setGradientEditorPosition(originX+moveEvent.clientX-startX,originY+moveEvent.clientY-startY,false),up=upEvent=>{head.releasePointerCapture(upEvent.pointerId);head.removeEventListener("pointermove",move);head.removeEventListener("pointerup",up);head.removeEventListener("pointercancel",up);const finalRect=lab.getBoundingClientRect();setGradientEditorPosition(finalRect.left,finalRect.top,true);};head.addEventListener("pointermove",move);head.addEventListener("pointerup",up);head.addEventListener("pointercancel",up);});
-window.addEventListener("resize",()=>{if(!$("dark-lab").hidden&&!compactLayout.matches){const rect=$("dark-lab").getBoundingClientRect();setGradientEditorPosition(rect.left,rect.top,false);}});
-if(localStorage.getItem("oreo-avatar-dark-lab-open")==="1")setDarkLabOpen(true);
+if(gradientEditorEnabled){
+  $("dark-lab-toggle").addEventListener("click",()=>setDarkLabOpen(true));
+  $("dark-lab-close").addEventListener("click",()=>setDarkLabOpen(false));
+  $("dark-lab-reset").addEventListener("click",()=>{gradientEditorParams={...gradientEditorDefaults};gradientEditorSlotOverrides={};renderDarkLab();});
+  $("dark-lab-revert").addEventListener("click",()=>{const key=gradientOverrideKey(state.shape,state.palette,currentAppearance());delete gradientOverrides[key];localStorage.setItem(GRADIENT_OVERRIDES_KEY,JSON.stringify(gradientOverrides));gradientEditorParams={...gradientEditorDefaults};gradientEditorSlotOverrides={};gradientPreviewOverride=null;renderDarkLab();renderGrid();});
+  $("dark-lab-apply").addEventListener("click",event=>{if(!gradientEditorResult)return;gradientOverrides[gradientEditorResult.key]={shape:state.shape,palette:state.palette,sourceAppearance:gradientEditorResult.sourceAppearance,targetAppearance:gradientEditorResult.targetAppearance,params:{...gradientEditorParams},slotOverrides:{...gradientEditorSlotOverrides},colors:{...gradientEditorResult.result}};localStorage.setItem(GRADIENT_OVERRIDES_KEY,JSON.stringify(gradientOverrides));gradientPreviewOverride=null;const button=event.currentTarget,old=button.textContent;button.textContent="Applied";setTimeout(()=>button.textContent=old,1000);renderDarkLab();renderGrid();});
+  $("dark-lab-copy").addEventListener("click",async event=>{if(!gradientEditorResult)return;await navigator.clipboard.writeText(JSON.stringify({shape:state.shape,palette:state.palette,sourceAppearance:gradientEditorResult.sourceAppearance,targetAppearance:gradientEditorResult.targetAppearance,params:gradientEditorParams,slotOverrides:gradientEditorSlotOverrides,colors:gradientEditorResult.result},null,2));const button=event.currentTarget,old=button.textContent;button.textContent="Copied";setTimeout(()=>button.textContent=old,1200);});
+  $("dark-lab-export").addEventListener("click",event=>{const records=Object.entries(gradientOverrides).map(([key,value])=>normalizedGradientOverrideRecord(key,value)),payload={version:1,exportedAt:new Date().toISOString(),count:records.length,overrides:records},json=JSON.stringify(payload,null,2),blob=new Blob([json],{type:"application/json"}),url=URL.createObjectURL(blob),link=document.createElement("a");navigator.clipboard.writeText(json).catch(()=>{});link.href=url;link.download="oreo-avatar-gradient-overrides.json";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);const button=event.currentTarget,old=button.textContent;button.textContent=`Exported ${records.length}`;setTimeout(()=>button.textContent=old,1200);});
+  $("dark-lab").querySelector(".dark-lab-head").addEventListener("pointerdown",event=>{if(compactLayout.matches||event.target.closest("button"))return;const lab=$("dark-lab"),rect=lab.getBoundingClientRect(),startX=event.clientX,startY=event.clientY,originX=rect.left,originY=rect.top,head=event.currentTarget;head.setPointerCapture(event.pointerId);const move=moveEvent=>setGradientEditorPosition(originX+moveEvent.clientX-startX,originY+moveEvent.clientY-startY,false),up=upEvent=>{head.releasePointerCapture(upEvent.pointerId);head.removeEventListener("pointermove",move);head.removeEventListener("pointerup",up);head.removeEventListener("pointercancel",up);const finalRect=lab.getBoundingClientRect();setGradientEditorPosition(finalRect.left,finalRect.top,true);};head.addEventListener("pointermove",move);head.addEventListener("pointerup",up);head.addEventListener("pointercancel",up);});
+  window.addEventListener("resize",()=>{if(!$("dark-lab").hidden&&!compactLayout.matches){const rect=$("dark-lab").getBoundingClientRect();setGradientEditorPosition(rect.left,rect.top,false);}});
+  if(localStorage.getItem("oreo-avatar-dark-lab-open")==="1")setDarkLabOpen(true);
+}
 
 /* ---- copy / download ---- */
 function flash(btn,html){const o=btn.innerHTML;btn.classList.add("copied");btn.innerHTML=html;setTimeout(()=>{btn.classList.remove("copied");btn.innerHTML=o;},1300);}
