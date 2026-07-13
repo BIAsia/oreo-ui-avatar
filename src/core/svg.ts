@@ -6,7 +6,7 @@ import { appearanceColorOverrides } from "../data/appearance-overrides";
 import type { AvatarAppearance, AvatarOptions, AvatarResult, PaletteColors, ShapeId, ToneOptions } from "../types";
 import { derivePalette, getPaletteMainHue } from "../color/tone";
 import { deriveAppearancePalette, deriveDarkAnchorColor, deriveDarkFlareLayerColor, deriveDarkGlow } from "../color/appearance";
-import { clamp } from "../color/oklch";
+import { clamp, hexToOklch, maxSrgbChroma, normalizeHue, oklchToHexInGamut, relativeSrgbChroma } from "../color/oklch";
 import { hashString, randomFromString } from "./random";
 
 type LayerPalette =
@@ -279,12 +279,42 @@ function applyBuiltInAppearanceOverride(study: Study, colors: Record<string, str
     study.p.bg = colors["layer.1"] ?? study.p.bg;
     study.p.blob = colors["layer.2"] ?? study.p.blob;
     study.p.hot = colors["layer.3"] ?? study.p.hot;
+  } else if (study.type === "flare" && "hot1" in study.p) {
+    study.p.dark = colors["layer.1"] ?? study.p.dark;
+    study.p.base = colors["layer.2"] ?? study.p.base;
+    study.p.cream1 = colors["layer.3"] ?? study.p.cream1;
+    study.p.cream2 = colors["layer.4"] ?? study.p.cream2;
+    study.p.hot1 = colors["layer.5"] ?? study.p.hot1;
+    study.p.hot2 = colors["layer.6"] ?? study.p.hot2;
   }
   study.glow = {
     glow2: colors["frame.wide"] ?? study.glow.glow2,
     glow1: colors["frame.medium"] ?? study.glow.glow1,
     white: colors["frame.narrow"] ?? study.glow.white,
   };
+  if (study.innerGlow) {
+    study.innerGlow = {
+      glow2: colors["inner.wide"] ?? study.innerGlow.glow2,
+      glow1: colors["inner.medium"] ?? study.innerGlow.glow1,
+      white: colors["inner.narrow"] ?? study.innerGlow.white,
+    };
+  }
+}
+
+function toneAppearanceOverride(colors: Record<string, string> | undefined, tone: ToneOptions | undefined, baseHue: number): Record<string, string> | undefined {
+  if (!colors || !tone) return colors;
+  const targetHue = tone.hue == null ? baseHue : normalizeHue(tone.hue);
+  const hueShift = normalizeHue(targetHue - baseHue);
+  const chromaScale = clamp(tone.chroma ?? 1, 0, 1);
+  const lightShift = tone.lightness ?? 0;
+  if (hueShift === 0 && chromaScale === 1 && lightShift === 0) return colors;
+  return Object.fromEntries(Object.entries(colors).map(([key, hex]) => {
+    const color = hexToOklch(hex);
+    const hue = color.c < 0.006 ? targetHue : normalizeHue(color.h + hueShift);
+    const lightness = clamp(color.l + lightShift, 0.04, 0.98);
+    const relativeChroma = color.c < 0.006 ? 0 : relativeSrgbChroma(color) * chromaScale;
+    return [key, oklchToHexInGamut({ l: lightness, c: relativeChroma * maxSrgbChroma(lightness, hue), h: hue })];
+  }));
 }
 
 function frame(id: string, cx: number, cy: number, size: number): string {
@@ -509,7 +539,8 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     glow: glowForAppearance(shape.id, appearance, sourceColors, darkReference.colors, chromaFloorScale),
     innerGlow: innerGlowForAppearance(shape.id, appearance, sourceColors, darkReference.colors, chromaFloorScale),
   };
-  applyBuiltInAppearanceOverride(study, appearanceColorOverrides[`${shape.id}:${palette.id}:${appearance}`]?.colors);
+  const appearanceOverride = appearanceColorOverrides[`${shape.id}:${palette.id}:${appearance}`]?.colors;
+  applyBuiltInAppearanceOverride(study, toneAppearanceOverride(appearanceOverride, options.tone, getPaletteMainHue(palette)));
   const svg = renderSvg(study, {
     variantId: options.variantId ?? "default",
     drift: options.drift ?? 0,

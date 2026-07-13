@@ -93,7 +93,7 @@ describe("@oreo-ui/avatar", () => {
     const expected: Record<string, string[]> = {
       bloom: ["#ffeaeb", "#ffa0a0", "#eb00a9", "#e22775", "#ff25a1", "#ffb58e"],
       silk: ["#0047c3", "#b4a3ff", "#9086ff", "#1400ae", "#6d56ff", "#4430ff"],
-      flare: ["#000000", "#ff7700", "#ff9d47", "#ffa200", "#f12809", "#170312", "#ff8c79"],
+      flare: ["#9d3a00", "#e87d00", "#ffdc78", "#ffe842", "#e9af00", "#e92b00", "#fa9e00", "#ffc2b9", "#ededed"],
       nova: ["#6550b9", "#ffffff", "#ff0084", "#6aa7ff"],
       void: ["#031a05", "#4229ff", "#57b565", "#000000"],
       jade: ["#031a05", "#08b98d", "#0f9a73", "#5fec83", "#ffffff"],
@@ -112,10 +112,10 @@ describe("@oreo-ui/avatar", () => {
     expect(vivid).toBeGreaterThan(muted);
 
     const reference = createAvatar({ shape: "flare", palette: "peach-cream", appearance: "dark", background: null }).svg;
-    expect(reference).toContain("#ff7700");
-    expect(reference).toContain("#ff9d47");
-    expect(reference).toContain("#ffa200");
-    expect(reference).toContain("#f12809");
+    expect(reference).toContain("#e87d00");
+    expect(reference).toContain("#ffdc78");
+    expect(reference).toContain("#ffe842");
+    expect(reference).toContain("#e9af00");
   });
 
   it("preserves every shape layer geometry between light and dark appearances", () => {
@@ -143,9 +143,9 @@ describe("@oreo-ui/avatar", () => {
     expect(bloom).toContain('mask="url(#edge-mask-');
     expect(bloom).toContain('stop-opacity="0"');
     expect(bloom).not.toContain('shape-rendering="geometricPrecision"');
-    expect(flare).toContain('flood-color="#ff8c79" flood-opacity="0.72"');
-    expect(flare).toContain('flood-color="#c4321c" flood-opacity="0.58"');
-    expect(flare).toContain('flood-color="#ffffff" flood-opacity="0.32"');
+    expect(flare).toContain('flood-color="#fa9e00" flood-opacity="0.72"');
+    expect(flare).toContain('flood-color="#ffc2b9" flood-opacity="0.58"');
+    expect(flare).toContain('flood-color="#ededed" flood-opacity="0.32"');
     expect(flare).toContain('stdDeviation="5.614035"');
     expect(flare).toContain('stdDeviation="2.245614"');
     expect(flare).toContain('stdDeviation="1.122807"');
@@ -179,6 +179,7 @@ describe("@oreo-ui/avatar", () => {
 
   it("derives every visible dark Flare layer from its matching light layer", () => {
     for (const palette of palettes) {
+      if (appearanceColorOverrides[`flare:${palette.id}:dark`]) continue;
       const light = createAvatar({ shape: "flare", palette, appearance: "light", background: null, drift: 0 });
       const dark = createAvatar({ shape: "flare", palette, appearance: "dark", background: null, drift: 0 });
 
@@ -198,28 +199,29 @@ describe("@oreo-ui/avatar", () => {
     expect(Object.keys(darkFlarePaletteOverrides).sort()).toEqual(palettes.map(palette => palette.id).sort());
     for (const [palette, colors] of Object.entries(darkFlarePaletteOverrides)) {
       const flare = createAvatar({ shape: "flare", palette, appearance: "dark", background: null, drift: 0 });
-      expect(flare.usedColors.slice(0, 6)).toEqual([
-        colors!.dark,
-        colors!.lobe,
-        colors!.pale,
-        colors!.light,
-        colors!.warm,
-        colors!.accent,
-      ]);
+      const override = appearanceColorOverrides[`flare:${palette}:dark`]?.colors;
+      expect(flare.usedColors.slice(0, 6)).toEqual(override
+        ? [1, 2, 3, 4, 5, 6].map(index => override[`layer.${index}`])
+        : [colors!.dark, colors!.lobe, colors!.pale, colors!.light, colors!.warm, colors!.accent]);
     }
   });
 
   it("applies promoted appearance overrides to their exact painted slots", () => {
-    expect(Object.keys(appearanceColorOverrides)).toHaveLength(14);
+    expect(Object.keys(appearanceColorOverrides)).toHaveLength(25);
     for (const [key, override] of Object.entries(appearanceColorOverrides)) {
       const [shape, palette, appearance] = key.split(":");
-      const avatar = createAvatar({ shape: shape as "bloom", palette, appearance: appearance as "dark", background: null, drift: 0 });
+      const avatar = createAvatar({ shape: shape as "bloom" | "flare", palette, appearance: appearance as "dark", background: null, drift: 0 });
       const colors = override.colors;
+      const expectedLayers = shape === "bloom"
+        ? [colors["layer.1"], colors["layer.2"], colors["layer.3"], colors["layer.1"], colors["layer.2"], colors["layer.3"]]
+        : [1, 2, 3, 4, 5, 6].map(index => colors[`layer.${index}`]);
       expect(avatar.usedColors).toEqual([
-        colors["layer.1"], colors["layer.2"], colors["layer.3"],
-        colors["layer.1"], colors["layer.2"], colors["layer.3"],
+        ...expectedLayers,
         colors["frame.wide"], colors["frame.medium"], colors["frame.narrow"],
       ]);
+      for (const key of ["inner.wide", "inner.medium", "inner.narrow"]) {
+        if (colors[key]) expect(avatar.svg).toContain(colors[key]);
+      }
     }
   });
 
