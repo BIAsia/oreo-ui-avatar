@@ -24,7 +24,7 @@ function hueDistance(a: number, b: number): number {
   return Math.min(distance, 360 - distance);
 }
 
-describe("@oreo-ui/avatar", () => {
+describe("@oreo-design/avatar", () => {
   it("ships six shape families and forty palette presets", () => {
     expect(shapes).toHaveLength(6);
     expect(palettes).toHaveLength(40);

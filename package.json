@@ -1,5 +1,5 @@
 {
-  "name": "@oreo-ui/avatar",
+  "name": "@oreo-design/avatar",
   "version": "0.1.0",
   "description": "Figma-method soft gradient avatar generator with shape presets, palette presets, light/dark appearances, and OKLCH tone controls.",
   "type": "module",
@@ -24,7 +24,7 @@
     "react",
     "dark-mode",
     "figma",
-    "oreo-ui"
+    "oreo-design"
   ],
   "sideEffects": false,
   "main": "./dist/index.cjs",

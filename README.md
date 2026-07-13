@@ -1,6 +1,6 @@
-# @oreo-ui/avatar
+# @oreo-design/avatar
 
-[![npm](https://img.shields.io/npm/v/%40oreo-ui%2Favatar)](https://www.npmjs.com/package/@oreo-ui/avatar)
+[![npm](https://img.shields.io/npm/v/%40oreo-design%2Favatar)](https://www.npmjs.com/package/@oreo-design/avatar)
 [![CI](https://github.com/BIAsia/oreo-ui-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/BIAsia/oreo-ui-avatar/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
@@ -25,13 +25,13 @@ This package renders the 64x64 circular gradient avatars from a stable design gr
 ## Install
 
 ```bash
-npm install @oreo-ui/avatar
+npm install @oreo-design/avatar
 ```
 
 ## Core Usage
 
 ```ts
-import { createAvatar } from "@oreo-ui/avatar";
+import { createAvatar } from "@oreo-design/avatar";
 
 const avatar = createAvatar({
   shape: "bloom",
@@ -53,7 +53,7 @@ document.body.innerHTML = avatar.svg;
 ## React
 
 ```tsx
-import { Avatar } from "@oreo-ui/avatar/react";
+import { Avatar } from "@oreo-design/avatar/react";
 
 export function UserAvatar() {
   return (
@@ -78,7 +78,7 @@ Palette presets are not edited color-by-color. Pick a preset first, then shift t
 - `lightness`: OKLCH lightness delta, where `0` keeps the preset
 
 ```ts
-import { derivePalette, palettes } from "@oreo-ui/avatar";
+import { derivePalette, palettes } from "@oreo-design/avatar";
 
 const colors = derivePalette(palettes[0], {
   hue: 180,

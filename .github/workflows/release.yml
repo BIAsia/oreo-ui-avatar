@@ -1,8 +1,8 @@
 # Publishes to npm when a version tag (v1.2.3) is pushed.
 #
 # One-time setup:
-#   1. Create the npm org for the @oreo-ui scope (https://www.npmjs.com/org/create).
-#   2. Create a granular npm access token with publish rights for @oreo-ui/avatar.
+#   1. Create the npm org for the @oreo-design scope (https://www.npmjs.com/org/create).
+#   2. Create a granular npm access token with publish rights for @oreo-design/avatar.
 #   3. Save it as the NPM_TOKEN repository secret (Settings → Secrets → Actions).
 #
 # Release flow: bump "version" in package.json, update CHANGELOG.md, commit,
