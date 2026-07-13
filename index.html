@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>@oreo-ui/avatar — avatar studio</title>
+<title>@oreo-design/avatar — avatar studio</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://rsms.me/" />
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
@@ -332,7 +332,7 @@
   <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar">
     <div class="sb-head">
-      <span class="mark"><span class="dot" id="mark-dot"></span>oreo-ui<span class="slash">/</span>avatar</span>
+      <span class="mark"><span class="dot" id="mark-dot"></span>oreo-design<span class="slash">/</span>avatar</span>
       <span class="grow"></span>
       <a class="icon-btn" href="https://github.com/BIAsia/oreo-ui-avatar" target="_blank" rel="noopener" aria-label="GitHub">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.34c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.52.56.83 1.28.83 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg>
@@ -345,9 +345,9 @@
 
     <div class="sb-body">
       <div class="intro">
-        <div class="name">@oreo-ui/avatar</div>
+        <div class="name">@oreo-design/avatar</div>
         <p class="desc">Figma-method soft gradient avatars. 6 shape families, 40 palettes, OKLCH tone controls, deterministic variants, and zero-dependency SVG output.</p>
-        <button class="cmd" id="cmd"><span class="sel">$</span><span class="pkg">npm i @oreo-ui/avatar</span><span class="ico" id="cmd-ico"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M3.5 10.5h-1a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v1"/></svg></span></button>
+        <button class="cmd" id="cmd"><span class="sel">$</span><span class="pkg">npm i @oreo-design/avatar</span><span class="ico" id="cmd-ico"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M3.5 10.5h-1a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v1"/></svg></span></button>
       </div>
 
       <div class="preview">
@@ -422,7 +422,7 @@
     </div>
 
     <div class="sb-foot">
-      <span>@oreo-ui/avatar · MIT</span>
+      <span>@oreo-design/avatar · MIT</span>
       <a href="https://github.com/BIAsia/oreo-ui-avatar" target="_blank" rel="noopener">Source</a>
     </div>
   </aside>
@@ -1032,8 +1032,8 @@ function codeFor(t){
   const drift=state.drift>0?` variantId="${state.variantId}" drift={${state.drift}}`:"";
   const driftH=state.drift>0?` <span class="tok-punc">variantId</span>=<span class="tok-str">"${state.variantId}"</span> <span class="tok-punc">drift</span>={<span class="tok-str">${state.drift}</span>}`:"";
   if(t==="react")return{
-    plain:`import { Avatar } from "@oreo-ui/avatar/react";\n\n<Avatar shape="${shape}" palette="${pal}"${toneStr}${appearanceStr}${drift} size={64} />`,
-    html:`<span class="tok-kw">import</span> { Avatar } <span class="tok-kw">from</span> <span class="tok-str">"@oreo-ui/avatar/react"</span>;\n\n<span class="tok-punc">&lt;</span>Avatar <span class="tok-punc">shape</span>=<span class="tok-str">"${shape}"</span> <span class="tok-punc">palette</span>=<span class="tok-str">"${pal}"</span>${toneStrH}${appearanceStrH}${driftH} <span class="tok-punc">size</span>={<span class="tok-str">64</span>} <span class="tok-punc">/&gt;</span>`};
+    plain:`import { Avatar } from "@oreo-design/avatar/react";\n\n<Avatar shape="${shape}" palette="${pal}"${toneStr}${appearanceStr}${drift} size={64} />`,
+    html:`<span class="tok-kw">import</span> { Avatar } <span class="tok-kw">from</span> <span class="tok-str">"@oreo-design/avatar/react"</span>;\n\n<span class="tok-punc">&lt;</span>Avatar <span class="tok-punc">shape</span>=<span class="tok-str">"${shape}"</span> <span class="tok-punc">palette</span>=<span class="tok-str">"${pal}"</span>${toneStrH}${appearanceStrH}${driftH} <span class="tok-punc">size</span>={<span class="tok-str">64</span>} <span class="tok-punc">/&gt;</span>`};
   const toneCore=hasTone?`\n  tone: { ${Object.entries(tone).map(([k,v])=>`${k}: ${k==="hue"?Math.round(v):v}`).join(", ")} },`:"";
   const toneCoreH=hasTone?`\n  <span class="tok-punc">tone</span>: { ${Object.entries(tone).map(([k,v])=>`${k}: <span class="tok-str">${k==="hue"?Math.round(v):v}</span>`).join(", ")} },`:"";
   const driftCore=state.drift>0?`\n  variantId: "${state.variantId}",\n  drift: ${state.drift},`:"";
@@ -1041,8 +1041,8 @@ function codeFor(t){
   const appearanceCore=appearance==="dark"?'\n  appearance: "dark",':"";
   const appearanceCoreH=appearance==="dark"?'\n  <span class="tok-punc">appearance</span>: <span class="tok-str">"dark"</span>,':"";
   return{
-    plain:`import { createAvatar } from "@oreo-ui/avatar";\n\nconst { svg } = createAvatar({\n  shape: "${shape}",\n  palette: "${pal}",${toneCore}${appearanceCore}${driftCore}\n  size: 64,\n});`,
-    html:`<span class="tok-kw">import</span> { createAvatar } <span class="tok-kw">from</span> <span class="tok-str">"@oreo-ui/avatar"</span>;\n\n<span class="tok-kw">const</span> { svg } <span class="tok-punc">=</span> <span class="tok-kw">createAvatar</span>({\n  <span class="tok-punc">shape</span>: <span class="tok-str">"${shape}"</span>,\n  <span class="tok-punc">palette</span>: <span class="tok-str">"${pal}"</span>,${toneCoreH}${appearanceCoreH}${driftCoreH}\n  <span class="tok-punc">size</span>: <span class="tok-str">64</span>,\n});`};
+    plain:`import { createAvatar } from "@oreo-design/avatar";\n\nconst { svg } = createAvatar({\n  shape: "${shape}",\n  palette: "${pal}",${toneCore}${appearanceCore}${driftCore}\n  size: 64,\n});`,
+    html:`<span class="tok-kw">import</span> { createAvatar } <span class="tok-kw">from</span> <span class="tok-str">"@oreo-design/avatar"</span>;\n\n<span class="tok-kw">const</span> { svg } <span class="tok-punc">=</span> <span class="tok-kw">createAvatar</span>({\n  <span class="tok-punc">shape</span>: <span class="tok-str">"${shape}"</span>,\n  <span class="tok-punc">palette</span>: <span class="tok-str">"${pal}"</span>,${toneCoreH}${appearanceCoreH}${driftCoreH}\n  <span class="tok-punc">size</span>: <span class="tok-str">64</span>,\n});`};
 }
 
 /* ---- render ---- */
@@ -1135,7 +1135,7 @@ if(gradientEditorEnabled){
 function flash(btn,html){const o=btn.innerHTML;btn.classList.add("copied");btn.innerHTML=html;setTimeout(()=>{btn.classList.remove("copied");btn.innerHTML=o;},1300);}
 const CHECK='<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5 6.5 12 13 4.5"/></svg>';
 $("code-copy").addEventListener("click",()=>{navigator.clipboard.writeText($("code-out").dataset.plain);flash($("code-copy"),CHECK+"Copied");});
-$("cmd").addEventListener("click",()=>{navigator.clipboard.writeText("npm i @oreo-ui/avatar");$("cmd").classList.add("copied");setTimeout(()=>$("cmd").classList.remove("copied"),1300);});
+$("cmd").addEventListener("click",()=>{navigator.clipboard.writeText("npm i @oreo-design/avatar");$("cmd").classList.add("copied");setTimeout(()=>$("cmd").classList.remove("copied"),1300);});
 $("download").addEventListener("click",()=>{
   const svg=createAvatar({shape:state.shape,palette:state.palette,tone:activeTone(),appearance:currentAppearance(),variantId:state.variantId,drift:state.drift,size:64,background:null}).svg;
   const blob=new Blob([svg],{type:"image/svg+xml"});const url=URL.createObjectURL(blob);
