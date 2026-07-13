@@ -96,7 +96,7 @@ describe("@oreo-ui/avatar", () => {
       flare: ["#9d3a00", "#e87d00", "#ffdc78", "#ffe842", "#e9af00", "#e92b00", "#fa9e00", "#ffc2b9", "#ededed"],
       nova: ["#6550b9", "#ffffff", "#ff0084", "#6aa7ff"],
       void: ["#031a05", "#4229ff", "#57b565", "#000000"],
-      jade: ["#031a05", "#08b98d", "#0f9a73", "#5fec83", "#ffffff"],
+      jade: ["#00a181", "#ceff71", "#fcf500", "#26ca9d", "#004536", "#fefefe"],
     };
     for (const shape of shapes) {
       const svg = createAvatar({ shape: shape.id, palette: references[shape.id]!, appearance: "dark", background: null }).svg;
@@ -207,7 +207,7 @@ describe("@oreo-ui/avatar", () => {
   });
 
   it("applies promoted appearance overrides to their exact painted slots", () => {
-    expect(Object.keys(appearanceColorOverrides)).toHaveLength(38);
+    expect(Object.keys(appearanceColorOverrides)).toHaveLength(56);
     for (const [key, override] of Object.entries(appearanceColorOverrides)) {
       const [shape, palette, appearance] = key.split(":");
       const avatar = createAvatar({ shape: shape as "bloom" | "flare", palette, appearance: appearance as "dark", background: null, drift: 0 });

@@ -286,6 +286,13 @@ function applyBuiltInAppearanceOverride(study: Study, colors: Record<string, str
     study.p.cream2 = colors["layer.4"] ?? study.p.cream2;
     study.p.hot1 = colors["layer.5"] ?? study.p.hot1;
     study.p.hot2 = colors["layer.6"] ?? study.p.hot2;
+  } else if (study.type === "jade" && "grad1" in study.p) {
+    study.p.base1 = colors["layer.1"] ?? study.p.base1;
+    study.p.base2 = colors["layer.2"] ?? study.p.base2;
+    study.p.milk = colors["layer.3"] ?? study.p.milk;
+    study.p.grad1 = colors["layer.4"] ?? study.p.grad1;
+    study.p.grad2 = colors["layer.5"] ?? study.p.grad2;
+    study.p.glow = colors["layer.6"] ?? study.p.glow;
   }
   study.glow = {
     glow2: colors["frame.wide"] ?? study.glow.glow2,
