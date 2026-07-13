@@ -6,6 +6,8 @@
 
 Figma-method soft gradient avatar generator.
 
+**[Try the live playground →](https://oreo-design-avatar.vercel.app)**
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/BIAsia/oreo-design-avatar/main/assets/preview-dark.svg">
   <img alt="Oreo Avatar previews: 6 shape families across 8 palette presets" src="https://raw.githubusercontent.com/BIAsia/oreo-design-avatar/main/assets/preview-light.svg" width="620">
