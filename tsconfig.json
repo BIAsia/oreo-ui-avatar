@@ -15,5 +15,5 @@
     "forceConsistentCasingInFileNames": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["src", "tests", "playground/src"]
+  "include": ["src", "tests"]
 }
