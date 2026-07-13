@@ -54,7 +54,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "oreo-avatar": "./dist/cli.js"
+    "oreo-design-avatar": "dist/cli.js"
   },
   "files": [
     "dist",

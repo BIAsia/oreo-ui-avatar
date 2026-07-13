@@ -44,7 +44,7 @@ async function writeOutput(path: string, content: string): Promise<void> {
 }
 
 function usage(): string {
-  return `oreo-avatar
+  return `oreo-design-avatar
 
 Commands:
   svg   --shape bloom --palette rose-milk --out avatar.svg

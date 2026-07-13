@@ -130,9 +130,9 @@ The transform is deterministic. Shape geometry and layer placement stay fixed; S
 ## CLI
 
 ```bash
-npx oreo-avatar svg --shape bloom --palette rose-milk --out avatar.svg
-npx oreo-avatar svg --shape bloom --palette rose-milk --appearance dark --out avatar-dark.svg
-npx oreo-avatar grid --out presets.html
+npx @oreo-design/avatar svg --shape bloom --palette rose-milk --out avatar.svg
+npx @oreo-design/avatar svg --shape bloom --palette rose-milk --appearance dark --out avatar-dark.svg
+npx @oreo-design/avatar grid --out presets.html
 ```
 
 ## Design Constraints
