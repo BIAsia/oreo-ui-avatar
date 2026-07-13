@@ -1,6 +1,15 @@
 # @oreo-ui/avatar
 
+[![npm](https://img.shields.io/npm/v/%40oreo-ui%2Favatar)](https://www.npmjs.com/package/@oreo-ui/avatar)
+[![CI](https://github.com/BIAsia/oreo-ui-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/BIAsia/oreo-ui-avatar/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
+
 Figma-method soft gradient avatar generator.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/BIAsia/oreo-ui-avatar/main/assets/preview-dark.svg">
+  <img alt="Oreo Avatar previews: 6 shape families across 8 palette presets" src="https://raw.githubusercontent.com/BIAsia/oreo-ui-avatar/main/assets/preview-light.svg" width="620">
+</picture>
 
 This package renders the 64x64 circular gradient avatars from a stable design grammar:
 
@@ -136,6 +145,13 @@ npx oreo-avatar grid --out presets.html
 
 ```bash
 npm install
-npm run verify
-npm run dev
+npm run verify          # typecheck + tests + build + entry smoke checks
+npm run dev             # local playground
+npm run preview:assets  # regenerate the README preview SVGs (build first)
 ```
+
+Releases are automated: bump `version`, update `CHANGELOG.md`, then push a `v*` tag — see `.github/workflows/release.yml`.
+
+## License
+
+[MIT](./LICENSE) — part of the [Oreo UI](https://github.com/BIAsia/oreo-ui) family.
