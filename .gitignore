@@ -4,3 +4,4 @@ dist
 *.log
 playground/dist
 .vercel
+.claude/settings.local.json
