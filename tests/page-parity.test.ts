@@ -66,4 +66,11 @@ describe("index.html ported core parity", () => {
     }
     expect(mismatches).toEqual([]);
   });
+
+  it("renders initials identically in both appearances", () => {
+    for (const appearance of ["light", "dark"] as const) {
+      const options = { shape: "bloom" as const, palette: "rose-milk", appearance, initials: "ZL", background: null };
+      expect(normalize(ported.createAvatar(options).svg)).toBe(normalize(createAvatar(options).svg));
+    }
+  });
 });

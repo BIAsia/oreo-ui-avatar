@@ -56,6 +56,10 @@ export interface AvatarOptions {
   size?: number;
   background?: string | null;
   title?: string;
+  /** Up to two grapheme clusters rendered over the gradient. */
+  initials?: string;
+  /** Overrides the appearance-aware initials color. */
+  initialsColor?: string;
 }
 
 export interface AvatarResult {

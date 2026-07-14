@@ -146,6 +146,16 @@ function escapeHtml(value: string): string {
   return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
+function normalizeInitials(value: string | undefined): string {
+  const trimmed = value?.trim();
+  if (!trimmed) return "";
+  const segmenter = new Intl.Segmenter(undefined, { granularity: "grapheme" });
+  return [...segmenter.segment(trimmed.toLocaleUpperCase())]
+    .slice(0, 2)
+    .map(segment => segment.segment)
+    .join("");
+}
+
 function paletteForType(type: ShapeId, palette: PaletteColors, appearance: AvatarAppearance, referencePalette: PaletteColors, chromaFloorScale: number, manualFlarePalette?: PaletteColors): LayerPalette {
   if (appearance === "dark") {
     const anchors = darkShapeAnchors[type].layers;
@@ -480,7 +490,11 @@ function renderBody(study: Study, id: string, cx: number, cy: number, scale: num
   return renderJade(id, study.p as Extract<LayerPalette, { milk: string }>, study.glow, dark, cx, cy, scale, tweak);
 }
 
-function renderSvg(study: Study, options: Required<Pick<AvatarOptions, "variantId" | "drift" | "size">> & Pick<AvatarOptions, "background" | "title">): string {
+function renderSvg(
+  study: Study,
+  options: Required<Pick<AvatarOptions, "variantId" | "drift" | "size">>
+    & Pick<AvatarOptions, "background" | "title" | "initials" | "initialsColor">,
+): string {
   const displaySize = options.size;
   const coordinateSize = 64;
   const cx = coordinateSize / 2;
@@ -492,13 +506,17 @@ function renderSvg(study: Study, options: Required<Pick<AvatarOptions, "variantI
   const body = renderBody(study, id, cx, cy, scale, tweak);
   const title = options.title ? `<title>${escapeHtml(options.title)}</title>` : "";
   const background = options.background === null ? "" : `<rect width="100%" height="100%" fill="${options.background ?? "#ffffff"}"/>`;
+  const initials = normalizeInitials(options.initials);
+  const initialsMarkup = initials
+    ? `<text x="32" y="32" text-anchor="middle" dominant-baseline="central" fill="${escapeHtml(options.initialsColor ?? (study.appearance === "dark" ? "#ffffff" : "#1c1c1c"))}" fill-opacity="${study.appearance === "dark" ? "0.92" : "0.78"}" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="${[...initials].length === 1 ? 23 : 19}" font-weight="600" letter-spacing="-0.6">${escapeHtml(initials)}</text>`
+    : "";
 
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${displaySize}" height="${displaySize}" viewBox="0 0 ${coordinateSize} ${coordinateSize}" role="img">
     ${title}
     <defs>${sharedDefs()}${frame(id, cx, cy, coordinateSize)}${defsFor(id, study)}</defs>
     ${background}
     <g mask="url(#edge-mask-${id})">
-      ${study.appearance === "dark" ? `<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>` : `<g clip-path="url(#clip-${id})">${body}</g>`}
+      ${study.appearance === "dark" ? `<g filter="url(#dark-frame-${id})"><g clip-path="url(#clip-${id})">${body}</g></g>` : `<g clip-path="url(#clip-${id})">${body}</g>`}${initialsMarkup ? `\n      ${initialsMarkup}` : ""}
     </g>
   </svg>`;
 
@@ -558,6 +576,8 @@ export function createAvatar(options: AvatarOptions = {}): AvatarResult {
     size,
     background: options.background === undefined && appearance === "dark" ? "#0b0b0d" : options.background,
     title: options.title ?? `${shape.name} avatar`,
+    initials: options.initials,
+    initialsColor: options.initialsColor,
   });
 
   return {

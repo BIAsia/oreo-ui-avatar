@@ -121,9 +121,12 @@ const avatar = createAvatar({
   shape: "flare",
   palette: "sunset-punch",
   appearance: "dark",
+  initials: "ZL",
   background: null,
 });
 ```
+
+Initials are limited to two grapheme clusters. They default to dark text in light appearance and stay light in dark appearance; pass `initialsColor` to override the default.
 
 The transform is deterministic. Shape geometry and layer placement stay fixed; Silk, Flare, and Jade use the gradient fill modes defined by the Figma dark masters.
 

@@ -38,6 +38,31 @@ describe("@oreo-design/avatar", () => {
     expect(avatar.svg).not.toContain("drop-shadow");
   });
 
+  it("renders escaped initials above the filtered artwork", () => {
+    const avatar = createAvatar({
+      shape: "flare",
+      appearance: "dark",
+      background: null,
+      initials: "<&Z",
+    });
+    const textIndex = avatar.svg.indexOf("<text");
+    const filteredArtworkEnd = avatar.svg.indexOf("</g></g>");
+
+    expect(avatar.svg).toContain(">&lt;&amp;</text>");
+    expect(avatar.svg).toContain('fill="#ffffff" fill-opacity="0.92"');
+    expect(textIndex).toBeGreaterThan(filteredArtworkEnd);
+  });
+
+  it("keeps initials defaults appearance-aware and supports a color override", () => {
+    const light = createAvatar({ initials: "zl", background: null }).svg;
+    const custom = createAvatar({ initials: "🫶🏽a", initialsColor: "#abcdef", background: null }).svg;
+
+    expect(light).toContain(">ZL</text>");
+    expect(light).toContain('fill="#1c1c1c" fill-opacity="0.78"');
+    expect(custom).toContain('fill="#abcdef"');
+    expect(custom).toContain(">🫶🏽A</text>");
+  });
+
   it("uses size as display scale without recalculating internal geometry", () => {
     const options = { shape: "flare" as const, palette: "rose-milk", appearance: "dark" as const, variantId: "scale", drift: 8, background: null };
     const small = createAvatar({ ...options, size: 64 }).svg;
